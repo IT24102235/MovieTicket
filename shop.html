@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineApp - Food & Beverages</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/home.css">
+    <style>
+        /* Shop page specific styles */
+        .shop-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://source.unsplash.com/random/1920x1080/?popcorn,cinema,food') no-repeat center center;
+            background-size: cover;
+            padding: 120px 0 80px;
+            margin-bottom: 50px;
+        }
+        
+        .product-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            height: 100%;
+            background: white;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 20px rgba(0,0,0,0.12);
+        }
+        
+        .product-img-container {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 2;
+        }
+        
+        .product-content {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .product-desc {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            min-height: 40px;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .product-price {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+        
+        .category-tabs {
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-tab {
+            flex: 0 0 auto;
+            padding: 10px 25px;
+            border-radius: 50px;
+            margin-right: 10px;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .category-tab.active {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #e5e7eb;
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .quantity-input {
+            width: 40px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+            margin: 0 5px;
+            border-radius: 4px;
+        }
+        
+        .combo-badge {
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            color: #222;
+        }
+        
+        .new-badge {
+            background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .bestseller-badge {
+            background: linear-gradient(45deg, #ffc3a0 0%, #ffafbd 100%);
+            color: #222;
+        }
+        
+        .add-to-cart-btn {
+            transition: all 0.3s;
+        }
+        
+        .add-to-cart-btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .product-options select {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            background-color: #f8f9fa;
+            font-size: 0.9rem;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .special-offers {
+            background-color: #f8f9fa;
+            padding: 50px 0;
+            margin: 50px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-ticket-alt me-2 text-primary"></i>
+                    <span class="fw-bold">CineApp</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="allmovies.html">Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="shop.html">Food & Beverages</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a href="cart.html" class="btn btn-sm rounded-circle bg-light me-3 position-relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">
+                            0
+                        </span>
+                    </a>
+                    <!-- Login/Signup buttons (shown when logged out) -->
+                    <a href="login.html" class="btn btn-sm btn-outline-primary me-2 login-btn">Login</a>
+                    <a href="signup.html" class="btn btn-sm btn-primary signup-btn">Sign Up</a>
+                    
+                    <!-- Profile dropdown (shown when logged in) -->
+                    <div class="dropdown profile-menu" style="display: none;">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="rounded-circle overflow-hidden" style="width: 35px; height: 35px;">
+                                <img src="https://ui-avatars.com/api/?name=John+Doe&background=0065ff&color=fff" class="img-fluid" alt="Profile">
+                            </div>
+                            <span class="ms-2 d-none d-sm-inline user-name">John</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-ticket-alt me-2"></i> My Tickets</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i> Watchlist</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item logout-btn" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Shop Hero Section -->
+    <section class="shop-hero text-white text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">Cinema Food & Beverages</h1>
+            <p class="lead mb-4">Enhance your movie experience with our delicious treats and refreshing drinks</p>
+            <p>Pre-order to skip the lines and have everything ready when you arrive</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <section class="container">
+            <!-- Category Tabs -->
+            <div class="category-tabs">
+                <div class="category-tab active" data-category="all">All Items</div>
+                <div class="category-tab" data-category="popcorn">Popcorn</div>
+                <div class="category-tab" data-category="drinks">Drinks</div>
+                <div class="category-tab" data-category="snacks">Snacks</div>
+                <div class="category-tab" data-category="combos">Combos & Deals</div>
+                <div class="category-tab" data-category="nachos">Nachos</div>
+                <div class="category-tab" data-category="hotfood">Hot Food</div>
+                <div class="category-tab" data-category="sweet">Candy & Chocolate</div>
+            </div>
+
+            <!-- Product Filter -->
+            <div class="row mb-4">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0"><i class="fas fa-search"></i></span>
+                        <input type="text" class="form-control border-start-0" id="searchProducts" placeholder="Search for food & drinks...">
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3 mb-md-0">
+                    <select class="form-select" id="sortProducts">
+                        <option value="default">Sort By</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="popular">Most Popular</option>
+                        <option value="new">New Arrivals</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select" id="filterDietary">
+                        <option value="all">All Dietary Options</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="vegan">Vegan</option>
+                        <option value="gluten-free">Gluten Free</option>
+                        <option value="halal">Halal</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="row g-4" id="productsGrid">
+                <!-- Popcorn Items -->
+                <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="popcorn">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="https://source.unsplash.com/random/600x400/?popcorn" alt="Buttery Popcorn" class="product-img">
+                            <div class="product-badge">
+                                <span class="badge bestseller-badge">Best Seller</span>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h5 class="product-title">Buttery Popcorn</h5>
+                            <p class="product-desc">Freshly popped corn with rich buttery flavor</p>
+                            <div class="product-options">
+                                <select class="size-options">
+                                    <option value="regular">Regular - $5.99</option>
+                                    <option value="large">Large - $7.99</option>
+                                    <option value="jumbo">Jumbo - $9.99</option>
+                                </select>
+                            </div>
+                            <div class="product-footer">
+                                <span class="product-price">$5.99</span>
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="fas fa-plus me-1"></i> Add to Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="popcorn">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="https://source.unsplash.com/random/600x400/?caramel,popcorn" alt="Caramel Popcorn" class="product-img">
+                        </div>
+                        <div class="product-content">
+                            <h5 class="product-title">Caramel Popcorn</h5>
+                            <p class="product-desc">Sweet caramel coated popcorn for a delicious treat</p>
+                            <div class="product-options">
+                                <select class="size-options">
+                                    <option value="regular">Regular - $6.99</option>
+                                    <option value="large">Large - $8.99</option>
+                                    <option value="jumbo">Jumbo - $10.99</option>
+                                </select>
+                            </div>
+                            <div class="product-footer">
+                                <span class="product-price">$6.99</span>
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="fas fa-plus me-1"></i> Add to Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="popcorn">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="https://source.unsplash.com/random/600x400/?cheese,popcorn" alt="Cheese Popcorn" class="product-img">
+                            <div class="product-badge">
+                                <span class="badge new-badge">New Item</span>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h5 class="product-title">Cheese Popcorn</h5>
+                            <p class="product-desc">Cheesy goodness in every bite of freshly popped corn</p>
+                            <div class="product-options">
+                                <select class="size-options">
+                                    <option value="regular">Regular - $6.49</option>
+                                    <option value="large">Large - $8.49</option>
+                                    <option value="jumbo">Jumbo - $10.49</option>
+                                </select>
+                            </div>
+                            <div class="product-footer">
+                                <span class="product-price">$6.49</span>
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="fas fa-plus me-1"></i> Add to Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Drinks Items -->
+                <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="drinks">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="https://source.unsplash.com/random/600x400/?soda,drink" alt="Fountain Soda" class="product-img">
+                        </div>
+                        <div class="product-content">
+                            <h5 class="product-title">Fountain Soda</h5>
+                            <p class="product-desc">Refreshing carbonated beverages with free refills</p>
+                            <div class="product-options">
+                                <select class="size-options">
+                                    <option value="regular">Regular - $3.99</option>
+                                    <option value="large">Large - $4.99</option>
+                                    <option value="jumbo">Jumbo - $5.99</option>
+                                </select>
+                            </div>
+                            <div class="product-footer">
+                                <span class="product-price">$3.99</span>
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="fas fa-plus me-1"></i> Add to Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="drinks">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="https://source.unsplash.com/random/600x400/?icee,slushie" alt="Frozen ICEE" class="product-img">
+                        </div>
+                        <div class="product-content">
+                            <h5 class="product-title">Frozen ICEE</h5>
+                            <p class="product-desc">Icy cold flavored slush in various flavors</p>
+                            <div class="product-options">
+                                <select class="size-options">
+                                    <option value="regular">Regular - $4.99</option>
+                                    <option value="large">Large - $5.99</option>
+                                </select>
+                            </div>
+                            <div class="product-footer">
+                                <span class="product-price">$4.99</span>
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="fas fa-plus me-1"></i> Add to Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="drinks">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="https://source.unsplash.com/random/600x400/?lemonade" alt="Fresh Lemonade" class="product-img">
+                            <div class="product-badge">
+                                <span class="badge new-badge">New</span>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h5 class="product-title">Fresh Lemonade</h5>
+                            <p class="product-desc">Refreshing lemonade made with real lemons</p>
+                            <div class="product-options">
+                                <select class="size-options">
+                                    <option value="regular">Regular - $4.49</option>
+                                    <option value="large">Large - $5.49</option>
+                                </select>
+                            </div>
+                            <div class="product-footer">
+                                <span class="product-price">$4.49</span>
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="fas fa-plus me-1"></i> Add to Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Combos Items -->
+                <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="combos">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="https://source.unsplash.com/random/600x400/?cinema,popcorn" alt="Movie Lovers Combo" class="product-img">
+                            <div class="product-badge">
+                                <span class="badge combo-badge">Value Deal</span>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h5 class="product-title">Movie Lovers Combo</h5>
+                            <p class="product-desc">Large popcorn, 2 large drinks, and a candy of your choice</p>
+                            <div class="product-footer">
+                                <span class="product-price">$18.99</span>
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="fas fa-plus me-1"></i> Add to Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="combos">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="https://source.unsplash.com/random/600x400/?nachos,drink" alt="Nacho Combo" class="product-img">
+                            <div class="product-badge">
+                                <span class="badge combo-badge">Value Deal</span>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h5 class="product-title">Nacho Combo</h5>
+                            <p class="product-desc">Large nachos with cheese, jalapeños and a large drink</p>
+                            <div class="product-footer">
+                                <span class="product-price">$14.99</span>
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="fas fa-plus me-1"></i> Add to Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Snacks Items -->
+                <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="snacks">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="https://source.unsplash.com/random/600x400/?pretzel" alt="Soft Pretzel" class="product-img">
+                        </div>
+                        <div class="product-content">
+                            <h5 class="product-title">Soft Pretzel</h5>
+                            <p class="product-desc">Warm, soft pretzel with salt and choice of dipping sauce</p>
+                            <div class="product-footer">
+                                <span class="product-price">$5.49</span>
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="fas fa-plus me-1"></i> Add to Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="sweet">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="https://source.unsplash.com/random/600x400/?chocolate,candy" alt="Movie Candy" class="product-img">
+                        </div>
+                        <div class="product-content">
+                            <h5 class="product-title">Movie Candy</h5>
+                            <p class="product-desc">Classic boxed candies perfect for movie watching</p>
+                            <div class="product-options">
+                                <select class="size-options">
+                                    <option value="m&ms">M&Ms - $4.49</option>
+                                    <option value="reeses">Reese's Pieces - $4.49</option>
+                                    <option value="sour-patch">Sour Patch Kids - $4.49</option>
+                                    <option value="skittles">Skittles - $4.49</option>
+                                </select>
+                            </div>
+                            <div class="product-footer">
+                                <span class="product-price">$4.49</span>
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="fas fa-plus me-1"></i> Add to Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Nachos Items -->
+                <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="nachos">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="https://source.unsplash.com/random/600x400/?nachos" alt="Loaded Nachos" class="product-img">
+                            <div class="product-badge">
+                                <span class="badge bestseller-badge">Best Seller</span>
+                            </div>
+                        </div>
+                        <div class="product-content">
+                            <h5 class="product-title">Loaded Nachos</h5>
+                            <p class="product-desc">Tortilla chips topped with cheese, jalapeños, salsa and sour cream</p>
+                            <div class="product-options">
+                                <select class="size-options">
+                                    <option value="regular">Regular - $7.99</option>
+                                    <option value="large">Large - $9.99</option>
+                                </select>
+                            </div>
+                            <div class="product-footer">
+                                <span class="product-price">$7.99</span>
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="fas fa-plus me-1"></i> Add to Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hot Food Items -->
+                <div class="col-lg-3 col-md-4 col-sm-6 product-item" data-category="hotfood">
+                    <div class="product-card">
+                        <div class="product-img-container">
+                            <img src="https://source.unsplash.com/random/600x400/?hotdog" alt="Hot Dog" class="product-img">
+                        </div>
+                        <div class="product-content">
+                            <h5 class="product-title">Classic Hot Dog</h5>
+                            <p class="product-desc">All-beef hot dog served in a warm bun with condiments</p>
+                            <div class="product-footer">
+                                <span class="product-price">$6.49</span>
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="fas fa-plus me-1"></i> Add to Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Special Offers Section -->
+        <section class="special-offers">
+            <div class="container">
+                <h2 class="text-center mb-5">Special Offers</h2>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <img src="https://source.unsplash.com/random/300x200/?popcorn,drinks" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="Family Combo">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">Family Combo</h5>
+                                        <p class="card-text">2 large popcorns, 4 large drinks, and 2 candies of your choice.</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p class="text-decoration-line-through text-muted mb-0">$39.99</p>
+                                                <p class="fw-bold text-primary fs-4">$32.99</p>
+                                            </div>
+                                            <button class="btn btn-primary">Add to Order</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <img src="https://source.unsplash.com/random/300x200/?nachos,drinks" class="img-fluid rounded-start h-100" style="object-fit: cover;" alt="Date Night Special">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold">Date Night Special</h5>
+                                        <p class="card-text">1 large popcorn to share, 2 large drinks, and a candy to share.</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p class="text-decoration-line-through text-muted mb-0">$25.99</p>
+                                                <p class="fw-bold text-primary fs-4">$19.99</p>
+                                            </div>
+                                            <button class="btn btn-primary">Add to Order</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Information Section -->
+        <section class="container py-5">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-utensils text-primary" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h4>Fresh Preparation</h4>
+                        <p class="text-muted">All our food items are freshly prepared throughout the day to ensure the best quality experience.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-clock text-primary" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h4>Order Ahead</h4>
+                        <p class="text-muted">Skip the concession stand line by ordering ahead. Your items will be ready for pickup when you arrive.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-leaf text-primary" style="font-size: 2.5rem;"></i>
+                        </div>
+                        <h4>Dietary Options</h4>
+                        <p class="text-muted">We offer vegetarian, vegan, and gluten-free options. Ask our staff for detailed allergen information.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <div class="mb-4">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none">
+                            <i class="fas fa-ticket-alt me-2 text-primary"></i>
+                            <span class="fs-4 fw-bold">CineApp</span>
+                        </a>
+                    </div>
+                    <p class="text-white-50 mb-4">The easiest way to book movie tickets. Browse showtimes, select your seats, and experience the magic of cinema - all in one place.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Movies</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Cinemas</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Offers & Promos</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Gift Cards</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Coming Soon</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Movie News</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="footer-title">Support</h5>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> My Account</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Refund Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="footer-title">Features</h5>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Rewards Program</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Partner Program</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Corporate Bookings</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Premium Access</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Student Discounts</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Movie Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-title">Download Our App</h5>
+                    <p class="text-white-50 mb-3">Scan the QR code to download the mobile app</p>
+                    <div class="bg-white p-3 rounded-3 mb-3 d-inline-block">
+                        <img src="https://via.placeholder.com/120x120?text=QR+Code" alt="QR Code" class="img-fluid" style="width: 120px;">
+                    </div>
+                    <div class="d-flex flex-column flex-sm-row">
+                        <a href="#" class="btn btn-sm btn-outline-light d-flex align-items-center me-sm-2 mb-2 mb-sm-0">
+                            <i class="fab fa-google-play me-2 fs-5"></i> Google Play
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline-light d-flex align-items-center">
+                            <i class="fab fa-apple me-2 fs-5"></i> App Store
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; 2025 CineApp. All Rights Reserved.
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="d-inline-flex">
+                            <img src="https://via.placeholder.com/40x25?text=Visa" alt="Payment Method" class="me-2">
+                            <img src="https://via.placeholder.com/40x25?text=MC" alt="Payment Method" class="me-2">
+                            <img src="https://via.placeholder.com/40x25?text=Amex" alt="Payment Method" class="me-2">
+                            <img src="https://via.placeholder.com/40x25?text=PayPal" alt="Payment Method">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification container -->
+    <div class="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+
+    <!-- JavaScript libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('preloader').style.opacity = '0';
+                setTimeout(function() {
+                    document.getElementById('preloader').style.display = 'none';
+                }, 500);
+            }, 500);
+        });
+        
+        // Category tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            const productItems = document.querySelectorAll('.product-item');
+            
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Update active tab
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    // Filter products
+                    productItems.forEach(item => {
+                        if (category === 'all' || item.getAttribute('data-category') === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Size options change
+            const sizeOptions = document.querySelectorAll('.size-options');
+            sizeOptions.forEach(select => {
+                select.addEventListener('change', function() {
+                    const selectedOption = this.options[this.selectedIndex];
+                    const price = selectedOption.text.split('-')[1].trim();
+                    const priceElement = this.closest('.product-content').querySelector('.product-price');
+                    priceElement.textContent = price;
+                });
+            });
+            
+            // Add to cart functionality
+            const addButtons = document.querySelectorAll('.add-to-cart-btn');
+            addButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productCard = this.closest('.product-card');
+                    const title = productCard.querySelector('.product-title').textContent;
+                    const price = productCard.querySelector('.product-price').textContent;
+                    const image = productCard.querySelector('.product-img').src;
+                    
+                    // Get size/option if available
+                    let option = '';
+                    const sizeSelect = productCard.querySelector('.size-options');
+                    if (sizeSelect) {
+                        option = sizeSelect.options[sizeSelect.selectedIndex].text.split('-')[0].trim();
+                    }
+                    
+                    // Create product object
+                    const product = {
+                        id: Math.floor(Math.random() * 1000), // Random ID for demo
+                        title: title,
+                        option: option,
+                        price: price,
+                        image: image,
+                        quantity: 1,
+                        type: 'concession' // To differentiate from movie tickets
+                    };
+                    
+                    // Add to cart (assuming cart.js has addToCart function)
+                    if (typeof window.addToCart === 'function') {
+                        window.addToCart(product);
+                        showNotification(`Added "${title}" to cart!`, 'success');
+                    } else {
+                        console.log('Added to cart:', product);
+                        showNotification(`Added "${title}" to cart!`, 'success');
+                        
+                        // Update cart count for demo
+                        const cartCount = document.querySelector('.cart-count');
+                        const currentCount = parseInt(cartCount.textContent);
+                        cartCount.textContent = currentCount + 1;
+                    }
+                });
+            });
+            
+            // Search functionality
+            const searchInput = document.getElementById('searchProducts');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                productItems.forEach(item => {
+                    const title = item.querySelector('.product-title').textContent.toLowerCase();
+                    const desc = item.querySelector('.product-desc').textContent.toLowerCase();
+                    
+                    if (title.includes(searchTerm) || desc.includes(searchTerm)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Show notification helper function
+        function showNotification(message, type) {
+            const notificationContainer = document.querySelector('.notification-container');
+            
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'success' ? 'success' : 'danger'} notification`;
+            notification.style.cssText = `
+                margin-bottom: 10px;
+                min-width: 300px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                animation: slide-in 0.3s forwards;
+            `;
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            notificationContainer.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slide-out 0.3s forwards';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+        
+        // Animation for notifications
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slide-in {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes slide-out {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
