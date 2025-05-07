@@ -10,16 +10,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
     <style>
         :root {
-            --primary-color: #ff3366;
-            --secondary-color: #1a1a2e;
-            --accent-color: #4361ee;
-            --light-bg: #f8f9fa;
-            --dark-bg: #16213e;
-            --card-bg: rgba(255, 255, 255, 0.95);
+            --primary-color: #0065ff;
+            --primary-dark: #0048b3;
+            --primary-light: #4d94ff;
+            --secondary-color: #0a1124;
+            --accent-color: #00c3ff;
+            --light-bg: #f8faff;
+            --dark-bg: #050914;
+            --card-bg: rgba(255, 255, 255, 0.98);
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.18);
-            --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+            --shadow-blue: 0 8px 20px rgba(0, 101, 255, 0.2);
             --transition: all 0.3s ease;
         }
         
@@ -162,7 +165,7 @@
         .filter-select:focus {
             border-color: var(--primary-color);
             outline: none;
-            box-shadow: 0 0 0 2px rgba(255, 51, 102, 0.25);
+            box-shadow: 0 0 0 2px rgba(0, 101, 255, 0.25);
         }
         
         .filter-tags {
@@ -318,7 +321,7 @@
             transform: translate(-50%, -50%) scale(0);
             width: 60px;
             height: 60px;
-            background-color: rgba(255, 51, 102, 0.8);
+            background-color: rgba(0, 101, 255, 0.8);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -364,7 +367,7 @@
         }
         
         .movie-badge.new {
-            background-color: rgba(255, 51, 102, 0.8);
+            background-color: rgba(0, 101, 255, 0.8);
         }
         
         .bookmark-btn {
@@ -476,9 +479,9 @@
         }
         
         .btn-book:hover {
-            background-color: #e6275a;
+            background-color: #0048b3;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 101, 255, 0.3);
         }
         
         .btn-trailer {
@@ -495,14 +498,14 @@
         }
         
         .btn-trailer:hover {
-            background-color: #141428;
+            background-color: #050914;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(26, 26, 46, 0.3);
+            box-shadow: 0 5px 15px rgba(10, 17, 36, 0.3);
         }
 
         /* Featured Movie */
         .featured-movie {
-            background-color: #1a1a2e;
+            background-color: var(--secondary-color);
             border-radius: 20px;
             overflow: hidden;
             position: relative;
@@ -590,9 +593,9 @@
         }
         
         .btn-featured:hover {
-            background-color: #e6275a;
+            background-color: var(--primary-dark);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 101, 255, 0.3);
         }
         
         .btn-featured i {
@@ -827,7 +830,7 @@
         .social-links a:hover {
             background-color: var(--primary-color);
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 101, 255, 0.3);
         }
         
         .app-badge {
@@ -918,29 +921,22 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: rgba(136, 136, 136, 0.5);
+            background: var(--primary-color);
             border-radius: 10px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: rgba(85, 85, 85, 0.7);
+            background: var(--primary-dark);
         }
     </style>
 </head>
 <body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-ticket-alt me-2 text-danger"></i>
+                    <i class="fas fa-ticket-alt me-2 text-primary"></i>
                     <span class="fw-bold">CineApp</span>
                 </div>
             </a>
@@ -1078,7 +1074,7 @@
                 <p class="featured-text">
                     The saga continues as Paul Atreides joins forces with the Fremen to take revenge against the conspirators who destroyed his family, all while trying to prevent a terrible future that only he can foresee.
                 </p>
-                <button class="btn-featured">Book Tickets <i class="fas fa-arrow-right"></i></button>
+                <button class="btn-featured" onclick="location.href='movie.html';">Book Tickets <i class="fas fa-arrow-right"></i></button>
             </div>
         </section>
 
@@ -1127,7 +1123,7 @@
                             <div class="movie-genres">Action, Sci-Fi, Adventure</div>
                             <div class="movie-actions">
                                 <div class="age-rating">13</div>
-                                <button class="btn-book">Book Now</button>
+                                <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
                                 <button class="btn-trailer">
                                     <i class="fas fa-film"></i>
                                 </button>
@@ -1171,7 +1167,7 @@
                             <div class="movie-genres">Sci-Fi, Adventure, Drama</div>
                             <div class="movie-actions">
                                 <div class="age-rating">13</div>
-                                <button class="btn-book">Book Now</button>
+                                <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
                                 <button class="btn-trailer">
                                     <i class="fas fa-film"></i>
                                 </button>
@@ -1214,7 +1210,7 @@
                             <div class="movie-genres">Action, Adventure, Fantasy</div>
                             <div class="movie-actions">
                                 <div class="age-rating">13</div>
-                                <button class="btn-book">Book Now</button>
+                                <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
                                 <button class="btn-trailer">
                                     <i class="fas fa-film"></i>
                                 </button>
@@ -1258,7 +1254,7 @@
                             <div class="movie-genres">Action, Adventure, Thriller</div>
                             <div class="movie-actions">
                                 <div class="age-rating">13</div>
-                                <button class="btn-book">Book Now</button>
+                                <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
                                 <button class="btn-trailer">
                                     <i class="fas fa-film"></i>
                                 </button>
@@ -1305,7 +1301,7 @@
                             <div class="movie-genres">Action, Adventure, Fantasy</div>
                             <div class="movie-actions">
                                 <div class="age-rating">13</div>
-                                <button class="btn-book">Book Now</button>
+                                <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
                                 <button class="btn-trailer">
                                     <i class="fas fa-film"></i>
                                 </button>
@@ -1350,7 +1346,7 @@
                             <div class="movie-genres">Action, Crime, Drama</div>
                             <div class="movie-actions">
                                 <div class="age-rating">16</div>
-                                <button class="btn-book">Book Now</button>
+                                <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
                                 <button class="btn-trailer">
                                     <i class="fas fa-film"></i>
                                 </button>
@@ -1393,7 +1389,7 @@
                             <div class="movie-genres">Animation, Comedy, Family</div>
                             <div class="movie-actions">
                                 <div class="age-rating">7</div>
-                                <button class="btn-book">Book Now</button>
+                                <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
                                 <button class="btn-trailer">
                                     <i class="fas fa-film"></i>
                                 </button>
@@ -1436,7 +1432,7 @@
                             <div class="movie-genres">Action, Sci-Fi, Thriller</div>
                             <div class="movie-actions">
                                 <div class="age-rating">13</div>
-                                <button class="btn-book">Book Now</button>
+                                <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
                                 <button class="btn-trailer">
                                     <i class="fas fa-film"></i>
                                 </button>
@@ -1720,6 +1716,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         AOS.init();
+        
+        // Make sure all buttons with class btn-book navigate to movie.html when clicked
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookButtons = document.querySelectorAll('.btn-book');
+            bookButtons.forEach(button => {
+                if (!button.hasAttribute('onclick')) {
+                    button.setAttribute('onclick', "location.href='movie.html';");
+                }
+            });
+        });
     </script>
 </body>
 </html>

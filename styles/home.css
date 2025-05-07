@@ -1,12 +1,18 @@
-        :root {
-            --primary-color: #ff3366;
-            --secondary-color: #1a1a2e;
-            --accent-color: #4361ee;
-            --light-bg: #f8f9fa;
-            --dark-bg: #16213e;
-            --card-bg: rgba(255, 255, 255, 0.95);
+:root {
+            --primary-color: #0065ff;
+            --primary-dark: #0048b3;
+            --primary-light: #4d94ff;
+            --secondary-color: #0a1124;
+            --accent-color: #00c3ff;
+            --light-bg: #f8faff;
+            --dark-bg: #050914;
+            --card-bg: rgba(255, 255, 255, 0.98);
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.18);
+            --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+            --shadow-blue: 0 8px 20px rgba(0, 101, 255, 0.2);
+            --transition: all 0.3s ease;
         }
 
         body {
@@ -61,14 +67,14 @@
             padding: 8px 20px;
             font-weight: 500;
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 101, 255, 0.2);
         }
 
         .btn-primary:hover {
-            background-color: #e62e5c;
-            border-color: #e62e5c;
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 51, 102, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 101, 255, 0.3);
         }
 
         .btn-outline-primary {
@@ -84,7 +90,7 @@
             background-color: var(--primary-color);
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 51, 102, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 101, 255, 0.2);
         }
 
         /* Hero Section */
@@ -105,7 +111,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(22, 33, 62, 0.7);
+            background: rgba(5, 9, 20, 0.7);
             z-index: 1;
         }
 
@@ -192,7 +198,7 @@
         }
 
         .search-btn:hover {
-            background-color: #e62e5c;
+            background-color: var(--primary-dark);
             transform: translateY(-2px);
         }
 
@@ -257,7 +263,7 @@
 
         .rating-stars {
             margin-bottom: 10px;
-            color: #ffc107;
+            color: var(--primary-color);
         }
 
         .movie-title {
@@ -282,7 +288,7 @@
         }
 
         .badge-warning {
-            background-color: #ffc107;
+            background-color: var(--accent-color);
             color: #333;
         }
 
@@ -302,7 +308,7 @@
         }
 
         .badge-dark {
-            background-color: #343a40;
+            background-color: var(--secondary-color);
             color: white;
         }
 
@@ -398,7 +404,7 @@
 
         /* Featured Section */
         .featured-section {
-            background: linear-gradient(135deg, #2c3e50 0%, #1a1a2e 100%);
+            background: linear-gradient(135deg, #0a1124 0%, #050914 100%);
             padding: 80px 0;
             color: white;
             margin: 80px 0;
@@ -459,7 +465,7 @@
             font-weight: 700;
             margin-bottom: 15px;
             font-size: 1.8rem;
-            background: linear-gradient(to right, var(--primary-color), #7c4dff);
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -504,7 +510,7 @@
             background: var(--primary-color);
             color: white;
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 101, 255, 0.2);
         }
 
         /* Cinema Locations */
@@ -578,7 +584,7 @@
         }
 
         .cinema-rating .stars {
-            color: #ffc107;
+            color: var(--primary-color);
             margin-right: 8px;
         }
 
@@ -689,7 +695,7 @@
         /* Testimonials */
         .testimonials-section {
             padding: 80px 0;
-            background-color: #f8f9fa;
+            background-color: var(--light-bg);
         }
 
         .testimonial-card {
@@ -750,7 +756,7 @@
         /* App Download */
         .app-section {
             padding: 80px 0;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: linear-gradient(135deg, var(--light-bg) 0%, #e9ecef 100%);
             position: relative;
             overflow: hidden;
         }
@@ -810,7 +816,7 @@
         }
 
         .app-btn {
-            background-color: black;
+            background-color: var(--secondary-color);
             color: white;
             border-radius: 12px;
             padding: 12px 20px;
@@ -930,7 +936,7 @@
         .social-links a:hover {
             background-color: var(--primary-color);
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 101, 255, 0.3);
         }
 
         .copyright {
@@ -975,56 +981,24 @@
             transform: translateX(0);
         }
 
-        .slide-left {
-            opacity: 0;
-            transform: translateX(50px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        /* Custom scroll bar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
 
-        .slide-left.active {
-            opacity: 1;
-            transform: translateX(0);
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
         }
 
-        .zoom-in {
-            opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
         }
 
-        .zoom-in.active {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Preloader */
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 5px solid rgba(255, 51, 102, 0.2);
-            border-radius: 50%;
-            border-top-color: var(--primary-color);
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: all 0.5s;
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
         }
 
         /* Responsive Adjustments */
