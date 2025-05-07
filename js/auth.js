@@ -6,12 +6,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Common elements and functionality for both login and signup pages
     const togglePasswordButtons = document.querySelectorAll('.toggle-password');
-    const passwordInputs = document.querySelectorAll('input[type="password"]');
     
     // Toggle password visibility
     togglePasswordButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const passwordField = this.previousElementSibling;
+            const passwordField = this.closest('.form-floating').querySelector('input');
             const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordField.setAttribute('type', type);
             this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
@@ -53,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const originalText = loginButton.innerHTML;
                 
                 loginButton.disabled = true;
-                loginButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...';
+                loginButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Signing in...';
                 
                 setTimeout(() => {
                     // In a real app, you would validate credentials against a backend
@@ -68,10 +67,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     };
                     
                     // Login user
-                    window.UserSession.login(userData);
+                    if (window.UserSession) {
+                        window.UserSession.login(userData);
+                    }
                     
                     // Show success notification
-                    window.showNotification('Login successful! Welcome back.', 'success');
+                    if (window.showNotification) {
+                        window.showNotification('Login successful! Welcome back.', 'success');
+                    }
                     
                     // Redirect to home page or previous page
                     const returnUrl = new URLSearchParams(window.location.search).get('returnUrl');
@@ -194,10 +197,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     signupAlert.textContent = 'Account created successfully! Redirecting to login...';
                     
                     // Automatically log in the user
-                    window.UserSession.login(userData);
+                    if (window.UserSession) {
+                        window.UserSession.login(userData);
+                    }
                     
                     // Show success notification
-                    window.showNotification('Account created successfully!', 'success');
+                    if (window.showNotification) {
+                        window.showNotification('Account created successfully!', 'success');
+                    }
                     
                     // Redirect to home page
                     setTimeout(() => {
@@ -220,7 +227,18 @@ document.addEventListener('DOMContentLoaded', function() {
     function setInvalid(element, message) {
         element.classList.add('is-invalid');
         element.classList.remove('is-valid');
-        const feedbackElement = element.nextElementSibling;
+        
+        // Find the feedback element (different structure between regular inputs and floating labels)
+        let feedbackElement;
+        if (element.closest('.form-floating')) {
+            feedbackElement = element.closest('.form-floating').nextElementSibling;
+            if (!feedbackElement || !feedbackElement.classList.contains('invalid-feedback')) {
+                feedbackElement = element.closest('.form-floating').querySelector('.invalid-feedback');
+            }
+        } else {
+            feedbackElement = element.nextElementSibling;
+        }
+        
         if (feedbackElement && feedbackElement.classList.contains('invalid-feedback')) {
             feedbackElement.textContent = message;
         }

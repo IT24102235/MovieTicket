@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineApp - Checkout</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/checkout.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-ticket-alt me-2 text-primary"></i>
+                    <span class="fw-bold">CineApp</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="allmovies.html">Movies</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a href="cart.html" class="btn btn-sm rounded-circle bg-light me-3 position-relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">
+                            3
+                        </span>
+                    </a>
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="rounded-circle overflow-hidden" style="width: 35px; height: 35px;">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="img-fluid" alt="Profile">
+                            </div>
+                            <span class="ms-2 d-none d-sm-inline">John</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-ticket-alt me-2"></i> My Tickets</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i> Watchlist</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="page-container">
+        <div class="container">
+            <div class="checkout-header">
+                <h1 class="checkout-title text-center">Secure Checkout</h1>
+                
+                <!-- Checkout Steps -->
+                <div class="checkout-steps">
+                    <div class="step completed">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Cart</div>
+                    </div>
+                    <div class="step active">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Payment</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Confirmation</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-8">
+                    <form id="secureCheckoutForm">
+                        <!-- Payment Options Section -->
+                        <div class="checkout-section">
+                            <div class="section-header">
+                                <h2 class="section-title">
+                                    <i class="fas fa-credit-card me-2"></i> Payment Method
+                                </h2>
+                            </div>
+                            
+                            <div class="payment-options">
+                                <div class="payment-option-tabs">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="card-tab" data-bs-toggle="tab" data-bs-target="#card-pane" type="button" role="tab">
+                                                <i class="fas fa-credit-card"></i> Credit/Debit Card
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="banking-tab" data-bs-toggle="tab" data-bs-target="#banking-pane" type="button" role="tab">
+                                                <i class="fas fa-university"></i> Internet Banking
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="mobile-tab" data-bs-toggle="tab" data-bs-target="#mobile-pane" type="button" role="tab">
+                                                <i class="fas fa-mobile-alt"></i> Mobile Payment
+                                            </button>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <!-- Credit Card Option -->
+                                        <div class="tab-pane fade show active" id="card-pane" role="tabpanel">
+                                            <div class="saved-cards">
+                                                <h5 class="mb-3">Saved Cards</h5>
+                                                
+                                                <div class="saved-card-option">
+                                                    <input type="radio" name="savedCard" id="card1" class="saved-card-radio">
+                                                    <label for="card1" class="saved-card-label">
+                                                        <i class="fab fa-cc-visa saved-card-icon"></i>
+                                                        <div class="saved-card-details">
+                                                            <div class="saved-card-name">Visa ending in 4242</div>
+                                                            <div class="saved-card-exp">Expires 12/25</div>
+                                                        </div>
+                                                        <span class="saved-card-badge">Default</span>
+                                                    </label>
+                                                </div>
+                                                
+                                                <div class="saved-card-option">
+                                                    <input type="radio" name="savedCard" id="card2" class="saved-card-radio">
+                                                    <label for="card2" class="saved-card-label">
+                                                        <i class="fab fa-cc-mastercard saved-card-icon"></i>
+                                                        <div class="saved-card-details">
+                                                            <div class="saved-card-name">Mastercard ending in 5678</div>
+                                                            <div class="saved-card-exp">Expires 08/24</div>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="divider">
+                                                <span>OR PAY WITH A NEW CARD</span>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-12 mb-3">
+                                                    <label for="cardNumber" class="form-label">Card Number</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="cardNumber" placeholder="0000 0000 0000 0000">
+                                                        <span class="input-group-text card-types">
+                                                            <i class="fab fa-cc-visa me-1"></i>
+                                                            <i class="fab fa-cc-mastercard me-1"></i>
+                                                            <i class="fab fa-cc-amex me-1"></i>
+                                                            <i class="fab fa-cc-discover"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="cardName" class="form-label">Cardholder Name</label>
+                                                    <input type="text" class="form-control" id="cardName" placeholder="Name on card">
+                                                </div>
+                                                
+                                                <div class="col-md-3 mb-3">
+                                                    <label for="expDate" class="form-label">Expiry Date</label>
+                                                    <input type="text" class="form-control" id="expDate" placeholder="MM/YY">
+                                                </div>
+                                                
+                                                <div class="col-md-3 mb-3">
+                                                    <label for="cvv" class="form-label">CVV</label>
+                                                    <input type="text" class="form-control" id="cvv" placeholder="CVV">
+                                                </div>
+                                                
+                                                <div class="col-md-12 mb-3">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" id="saveCard">
+                                                        <label class="form-check-label" for="saveCard">
+                                                            Save card for future payments
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Internet Banking Option -->
+                                        <div class="tab-pane fade" id="banking-pane" role="tabpanel">
+                                            <h5 class="mb-4">Select Your Bank</h5>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-3 col-6 mb-4">
+                                                    <div class="bank-option">
+                                                        <input type="radio" name="bankOption" id="bank1" class="bank-radio">
+                                                        <label for="bank1" class="bank-label">
+                                                            <div class="bank-logo">
+                                                                <img src="https://via.placeholder.com/80x50?text=BOC" alt="Bank of Ceylon" class="img-fluid">
+                                                            </div>
+                                                            <div class="bank-name">Bank of Ceylon</div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-3 col-6 mb-4">
+                                                    <div class="bank-option">
+                                                        <input type="radio" name="bankOption" id="bank2" class="bank-radio">
+                                                        <label for="bank2" class="bank-label">
+                                                            <div class="bank-logo">
+                                                                <img src="https://via.placeholder.com/80x50?text=NSB" alt="NSB" class="img-fluid">
+                                                            </div>
+                                                            <div class="bank-name">NSB</div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-3 col-6 mb-4">
+                                                    <div class="bank-option">
+                                                        <input type="radio" name="bankOption" id="bank3" class="bank-radio">
+                                                        <label for="bank3" class="bank-label">
+                                                            <div class="bank-logo">
+                                                                <img src="https://via.placeholder.com/80x50?text=HNB" alt="HNB" class="img-fluid">
+                                                            </div>
+                                                            <div class="bank-name">HNB</div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-3 col-6 mb-4">
+                                                    <div class="bank-option">
+                                                        <input type="radio" name="bankOption" id="bank4" class="bank-radio">
+                                                        <label for="bank4" class="bank-label">
+                                                            <div class="bank-logo">
+                                                                <img src="https://via.placeholder.com/80x50?text=Peoples+Bank" alt="Peoples Bank" class="img-fluid">
+                                                            </div>
+                                                            <div class="bank-name">Peoples Bank</div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="alert alert-info bank-note">
+                                                <i class="fas fa-info-circle me-2"></i> You will be redirected to your bank's secure website to complete the payment.
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Mobile Payment Option -->
+                                        <div class="tab-pane fade" id="mobile-pane" role="tabpanel">
+                                            <h5 class="mb-4">Select Mobile Payment Method</h5>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-4 col-6 mb-4">
+                                                    <div class="mobile-option">
+                                                        <input type="radio" name="mobileOption" id="mobile1" class="mobile-radio">
+                                                        <label for="mobile1" class="mobile-label">
+                                                            <div class="mobile-logo">
+                                                                <img src="https://via.placeholder.com/80x50?text=FriMi" alt="FriMi" class="img-fluid">
+                                                            </div>
+                                                            <div class="mobile-name">FriMi</div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-4 col-6 mb-4">
+                                                    <div class="mobile-option">
+                                                        <input type="radio" name="mobileOption" id="mobile2" class="mobile-radio">
+                                                        <label for="mobile2" class="mobile-label">
+                                                            <div class="mobile-logo">
+                                                                <img src="https://via.placeholder.com/80x50?text=SDB+iMobile" alt="SDB iMobile" class="img-fluid">
+                                                            </div>
+                                                            <div class="mobile-name">SDB iMobile</div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-md-4 col-6 mb-4">
+                                                    <div class="mobile-option">
+                                                        <input type="radio" name="mobileOption" id="mobile3" class="mobile-radio">
+                                                        <label for="mobile3" class="mobile-label">
+                                                            <div class="mobile-logo">
+                                                                <img src="https://via.placeholder.com/80x50?text=mCash" alt="mCash" class="img-fluid">
+                                                            </div>
+                                                            <div class="mobile-name">mCash</div>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mobile-form">
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="mobileNumber" class="form-label">Mobile Number</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text">+94</span>
+                                                            <input type="text" class="form-control" id="mobileNumber" placeholder="7X XXX XXXX">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="alert alert-info mobile-note">
+                                                <i class="fas fa-info-circle me-2"></i> You will receive an OTP or payment request on your mobile to complete the transaction.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Billing & Review Section -->
+                        <div class="checkout-section">
+                            <div class="section-header">
+                                <h2 class="section-title">
+                                    <i class="fas fa-receipt me-2"></i> Order Review
+                                </h2>
+                            </div>
+                            
+                            <div class="review-items">
+                                <!-- Items will be populated by JavaScript -->
+                                <div class="text-center py-4">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="billing-options mb-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="sameAsProfile" checked>
+                                    <label class="form-check-label" for="sameAsProfile">
+                                        Use profile information for billing
+                                    </label>
+                                </div>
+                                
+                                <div id="billingDetails" class="d-none">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="firstName" class="form-label">First Name</label>
+                                            <input type="text" class="form-control" id="firstName">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="lastName" class="form-label">Last Name</label>
+                                            <input type="text" class="form-control" id="lastName">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="phone" class="form-label">Phone</label>
+                                            <input type="tel" class="form-control" id="phone">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-check mb-4">
+                                <input class="form-check-input" type="checkbox" id="termsConditions">
+                                <label class="form-check-label" for="termsConditions">
+                                    I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms & Conditions</a> and <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a>
+                                </label>
+                                <div class="invalid-feedback" style="display: none;">
+                                    You must agree to the terms and conditions before proceeding.
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="order-summary-container">
+                        <h2 class="summary-title">Order Summary</h2>
+                        
+                        <div class="summary-items">
+                            <div class="summary-item">
+                                <span>Subtotal</span>
+                                <span>Rs 0.00</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Booking Fee <i class="fas fa-info-circle" data-bs-toggle="tooltip" title="A small fee to maintain our platform"></i></span>
+                                <span>Rs 300.00</span>
+                            </div>
+                            <div class="summary-item">
+                                <span>Discount</span>
+                                <span class="text-success">- Rs 0.00</span>
+                            </div>
+                        </div>
+                        
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <span>Rs 0.00</span>
+                        </div>
+                        
+                        <a href="confirmation.html">
+                        <button type="submit" form="secureCheckoutForm" class="checkout-btn" id="payNowBtn">
+                            <span>Pay Now</span>
+                            <i class="fas fa-lock ms-2"></i>
+                        </button></a>
+                        
+                        <a href="cart.html" class="btn btn-outline-secondary back-to-cart-btn">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            <span>Back to Cart</span>
+                        </a>
+                        
+                        <div class="security-icons">
+                            <i class="fas fa-lock"></i>
+                            <i class="fas fa-shield-alt"></i>
+                            <i class="fab fa-cc-visa"></i>
+                            <i class="fab fa-cc-mastercard"></i>
+                            <i class="fab fa-cc-amex"></i>
+                        </div>
+                        
+                        <div class="security-text">
+                            <i class="fas fa-lock-alt me-1"></i> Your payment information is secure. We use industry-standard encryption to protect your data.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms & Conditions Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Terms & Conditions</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>1. Ticket Purchases</h6>
+                    <p>All ticket sales are final. No refunds will be issued unless the screening is canceled by the cinema.</p>
+                    
+                    <h6>2. Cancellation Policy</h6>
+                    <p>Tickets can be refunded up to 4 hours before the showtime. A 15% refund processing fee will apply to all refunds.</p>
+                    
+                    <h6>3. Booking Fee</h6>
+                    <p>A non-refundable booking fee is applied to all online ticket purchases.</p>
+                    
+                    <h6>4. Late Arrival</h6>
+                    <p>Please arrive at least 15 minutes before the showtime. Late arrivals may not be guaranteed entry or original seating.</p>
+                    
+                    <h6>5. Prohibited Items</h6>
+                    <p>Outside food and beverages, recording devices, and other items may be prohibited. Please check the cinema's policies before your visit.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">I Understand</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal fade" id="privacyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Privacy Policy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>1. Information We Collect</h6>
+                    <p>We collect information you provide directly to us, such as when you create an account, make a purchase, or contact us.</p>
+                    
+                    <h6>2. Use of Information</h6>
+                    <p>We use your information to process transactions, maintain your account, and improve our services.</p>
+                    
+                    <h6>3. Payment Information</h6>
+                    <p>Payment information is securely processed through our payment processors and is not stored on our servers.</p>
+                    
+                    <h6>4. Cookies</h6>
+                    <p>We use cookies to enhance your experience and analyze website traffic.</p>
+                    
+                    <h6>5. Data Security</h6>
+                    <p>We implement appropriate security measures to protect your personal information.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">I Understand</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification container -->
+    <div class="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+
+    <!-- JavaScript libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/checkout.js"></script>
+    <script>
+        // Initialize tooltips
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // Update cart badge
+            const cartCount = document.querySelector('.cart-count');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = itemCount;
+        });
+        
+        // Show notification function (fallback if not included in cart.js)
+        if (typeof window.showNotification !== 'function') {
+            window.showNotification = function(message, type) {
+                const notificationContainer = document.querySelector('.notification-container');
+                
+                const notification = document.createElement('div');
+                notification.className = `alert alert-${type} notification`;
+                notification.style.cssText = `
+                    margin-bottom: 10px;
+                    min-width: 300px;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                    animation: slide-in 0.3s forwards;
+                `;
+                notification.innerHTML = `
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                        <span>${message}</span>
+                    </div>
+                `;
+                
+                notificationContainer.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.animation = 'slide-out 0.3s forwards';
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+            };
+            
+            // Add animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slide-in {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                
+                @keyframes slide-out {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    </script>
+</body>
+</html>
