@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineApp - Contact Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/home.css">
+    <style>
+        /* Contact page specific styles */
+        .contact-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://source.unsplash.com/random/1920x1080/?cinema,contact') no-repeat center center;
+            background-size: cover;
+            padding: 120px 0 80px;
+            color: white;
+            margin-bottom: 60px;
+        }
+        
+        .contact-hero h1 {
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .contact-hero p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .contact-section {
+            padding: 60px 0;
+        }
+        
+        .contact-section:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .section-title {
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .contact-card {
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            height: 100%;
+            transition: all 0.3s;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .contact-icon {
+            font-size: 32px;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+            color: white;
+        }
+        
+        .contact-info {
+            text-align: center;
+        }
+        
+        .contact-info h4 {
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .contact-info p {
+            color: #6c757d;
+            margin-bottom: 0;
+        }
+        
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .contact-info a:hover {
+            color: var(--primary-dark);
+        }
+        
+        .contact-form {
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .form-control {
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            box-shadow: 0 0 0 4px rgba(0, 101, 255, 0.1);
+            border-color: var(--primary-color);
+        }
+        
+        .form-select {
+            padding: 12px 15px;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        .submit-btn {
+            padding: 12px 25px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 101, 255, 0.2);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 101, 255, 0.3);
+        }
+        
+        .map-container {
+            height: 450px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .location-card {
+            border: 1px solid #eee;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .location-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .location-img {
+            height: 200px;
+            position: relative;
+        }
+        
+        .location-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .location-label {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .location-info {
+            padding: 20px;
+        }
+        
+        .location-name {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .location-address {
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        
+        .location-contact {
+            margin-bottom: 15px;
+        }
+        
+        .location-hours {
+            font-size: 0.9rem;
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        
+        .hours-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .hours-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .hours-list li {
+            width: 50%;
+            margin-bottom: 5px;
+        }
+        
+        .hours-day {
+            font-weight: 500;
+            color: #495057;
+        }
+        
+        .social-channels {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .social-title {
+            margin-bottom: 30px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+            font-size: 22px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 101, 255, 0.2);
+        }
+        
+        /* Fade-up animation */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Add staggered delay to children */
+        .stagger-children > *:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-children > *:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-children > *:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-children > *:nth-child(4) { transition-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-ticket-alt me-2 text-primary"></i>
+                    <span class="fw-bold">CineApp</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="allmovies.html">Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">Food & Beverages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="contact.html">Contact Us</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a href="cart.html" class="btn btn-sm rounded-circle bg-light me-3 position-relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">
+                            0
+                        </span>
+                    </a>
+                    <!-- Login/Signup buttons (shown when logged out) -->
+                    <a href="login.html" class="btn btn-sm btn-outline-primary me-2 login-btn">Login</a>
+                    <a href="signup.html" class="btn btn-sm btn-primary signup-btn">Sign Up</a>
+                    
+                    <!-- Profile dropdown (shown when logged in) -->
+                    <div class="dropdown profile-menu" style="display: none;">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="rounded-circle overflow-hidden" style="width: 35px; height: 35px;">
+                                <img src="https://ui-avatars.com/api/?name=John+Doe&background=0065ff&color=fff" class="img-fluid" alt="Profile">
+                            </div>
+                            <span class="ms-2 d-none d-sm-inline user-name">John</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-ticket-alt me-2"></i> My Tickets</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i> Watchlist</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item logout-btn" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Hero Section -->
+    <section class="contact-hero text-center">
+        <div class="container">
+            <h1 class="display-4">Get in Touch</h1>
+            <p class="lead">We'd love to hear from you! Whether you have a question about our services, need help with a booking, or want to partner with us.</p>
+        </div>
+    </section>
+
+    <!-- Contact Info Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="row stagger-children">
+                <div class="col-lg-4 mb-4 mb-lg-0 fade-up">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h4>Visit Us</h4>
+                            <p>123 Cinema Boulevard<br>Hollywood, CA 90210<br>United States</p>
+                            <a href="https://goo.gl/maps/1234" target="_blank" class="mt-3 d-inline-block">
+                                <i class="fas fa-directions me-1"></i> Get Directions
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4 mb-lg-0 fade-up">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h4>Email Us</h4>
+                            <p>For general inquiries:<br><a href="mailto:info@cineapp.com">info@cineapp.com</a></p>
+                            <p>For support:<br><a href="mailto:support@cineapp.com">support@cineapp.com</a></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 fade-up">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h4>Call Us</h4>
+                            <p>Customer Support:<br><a href="tel:+18001234567">+1 (800) 123-4567</a></p>
+                            <p>Business Hours:<br>Monday - Friday: 9AM - 6PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-section bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h2 class="section-title">Send Us a Message</h2>
+                    <p class="mb-4">Fill out the form below and we'll get back to you as soon as possible.</p>
+                    
+                    <div class="contact-form fade-up">
+                        <form id="contactForm">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Your Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <select class="form-select" id="subject" required>
+                                    <option value="" selected disabled>Select a subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="support">Customer Support</option>
+                                    <option value="booking">Booking Issue</option>
+                                    <option value="feedback">Feedback</option>
+                                    <option value="business">Business Partnership</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="message" class="form-label">Your Message</label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="Type your message here..." required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary submit-btn">
+                                <i class="fas fa-paper-plane me-2"></i> Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <h2 class="section-title">Our Location</h2>
+                    <p class="mb-4">Find us at our headquarters in the heart of Hollywood.</p>
+                    
+                    <div class="map-container fade-up">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26430.393624092198!2d-118.34933358202922!3d34.09292310399382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bf07045279bf%3A0xf67a9a6797bdfae4!2sHollywood%2C%20Los%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2suk!4v1685471234567!5m2!1sen!2suk" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Office Locations Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Our Offices</h2>
+                <p class="text-muted">Visit us at one of our offices around the country</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 fade-up">
+                    <div class="location-card">
+                        <div class="location-img">
+                            <img src="https://source.unsplash.com/random/600x400/?los-angeles,hollywood" alt="Los Angeles Office">
+                            <div class="location-label">Headquarters</div>
+                        </div>
+                        <div class="location-info">
+                            <h4 class="location-name">Los Angeles</h4>
+                            <p class="location-address">123 Cinema Boulevard, Hollywood, CA 90210</p>
+                            <p class="location-contact">
+                                <i class="fas fa-phone-alt me-2"></i> (800) 123-4567<br>
+                                <i class="fas fa-envelope me-2"></i> la@cineapp.com
+                            </p>
+                        </div>
+                        <div class="location-hours">
+                            <p class="hours-title">Office Hours:</p>
+                            <ul class="hours-list">
+                                <li><span class="hours-day">Mon-Fri:</span> 9:00 AM - 6:00 PM</li>
+                                <li><span class="hours-day">Saturday:</span> 10:00 AM - 2:00 PM</li>
+                                <li><span class="hours-day">Sunday:</span> Closed</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4 fade-up">
+                    <div class="location-card">
+                        <div class="location-img">
+                            <img src="https://source.unsplash.com/random/600x400/?new-york,manhattan" alt="New York Office">
+                            <div class="location-label">Regional</div>
+                        </div>
+                        <div class="location-info">
+                            <h4 class="location-name">New York</h4>
+                            <p class="location-address">456 Broadway Avenue, New York, NY 10013</p>
+                            <p class="location-contact">
+                                <i class="fas fa-phone-alt me-2"></i> (212) 555-6789<br>
+                                <i class="fas fa-envelope me-2"></i> nyc@cineapp.com
+                            </p>
+                        </div>
+                        <div class="location-hours">
+                            <p class="hours-title">Office Hours:</p>
+                            <ul class="hours-list">
+                                <li><span class="hours-day">Mon-Fri:</span> 9:00 AM - 6:00 PM</li>
+                                <li><span class="hours-day">Saturday:</span> By appointment</li>
+                                <li><span class="hours-day">Sunday:</span> Closed</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4 mx-auto fade-up">
+                    <div class="location-card">
+                        <div class="location-img">
+                            <img src="https://source.unsplash.com/random/600x400/?chicago,downtown" alt="Chicago Office">
+                            <div class="location-label">Regional</div>
+                        </div>
+                        <div class="location-info">
+                            <h4 class="location-name">Chicago</h4>
+                            <p class="location-address">789 Michigan Avenue, Chicago, IL 60611</p>
+                            <p class="location-contact">
+                                <i class="fas fa-phone-alt me-2"></i> (312) 555-9012<br>
+                                <i class="fas fa-envelope me-2"></i> chicago@cineapp.com
+                            </p>
+                        </div>
+                        <div class="location-hours">
+                            <p class="hours-title">Office Hours:</p>
+                            <ul class="hours-list">
+                                <li><span class="hours-day">Mon-Fri:</span> 9:00 AM - 5:00 PM</li>
+                                <li><span class="hours-day">Saturday:</span> Closed</li>
+                                <li><span class="hours-day">Sunday:</span> Closed</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="social-channels fade-up">
+                <h3 class="social-title">Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="contact-section bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="text-muted">Find quick answers to common questions</p>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="accordion" id="contactFAQ">
+                        <div class="accordion-item mb-3 border rounded-4 overflow-hidden fade-up">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    How can I get a refund for my movie ticket?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#contactFAQ">
+                                <div class="accordion-body">
+                                    Refund policies vary by theater. In general, you can request a refund up to 2 hours before the movie starts. To request a refund, log into your account, go to "My Tickets," select the ticket and click the "Request Refund" button. Alternatively, you can contact our customer support team.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item mb-3 border rounded-4 overflow-hidden fade-up">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    How long does it take to get a response to my inquiry?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#contactFAQ">
+                                <div class="accordion-body">
+                                    We typically respond to all inquiries within 24 hours during business days. For urgent matters related to same-day bookings, we recommend calling our customer support line directly for immediate assistance.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item mb-3 border rounded-4 overflow-hidden fade-up">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    How can theaters partner with CineApp?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#contactFAQ">
+                                <div class="accordion-body">
+                                    Theater owners can partner with us by filling out the contact form and selecting "Business Partnership" as the subject. Our business development team will reach out with more information about our partnership program, integration options, and revenue-sharing models.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item border rounded-4 overflow-hidden fade-up">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    Is there a phone number for immediate customer support?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#contactFAQ">
+                                <div class="accordion-body">
+                                    Yes, our customer support team is available at (800) 123-4567 from Monday to Friday, 9 AM to 6 PM. For weekend support (during limited hours), you can reach us at (800) 123-9876 or use the live chat feature in our mobile app.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="contact-section bg-primary text-white text-center">
+        <div class="container">
+            <h2 class="mb-4">Join Our Newsletter</h2>
+            <p class="lead mb-4">Subscribe to get updates on new releases, exclusive offers, and cinema news.</p>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form class="d-flex gap-2">
+                        <input type="email" class="form-control" placeholder="Your email address" required>
+                        <button type="submit" class="btn btn-light">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <div class="mb-4">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none">
+                            <i class="fas fa-ticket-alt me-2 text-primary"></i>
+                            <span class="fs-4 fw-bold">CineApp</span>
+                        </a>
+                    </div>
+                    <p class="text-white-50 mb-4">The easiest way to book movie tickets. Browse showtimes, select your seats, and experience the magic of cinema - all in one place.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="allmovies.html"><i class="fas fa-chevron-right"></i> Movies</a></li>
+                        <li><a href="shop.html"><i class="fas fa-chevron-right"></i> Food & Beverages</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="footer-title">Support</h5>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> My Account</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Refund Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="footer-title">Features</h5>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Rewards Program</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Partner Program</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Corporate Bookings</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Premium Access</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Student Discounts</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-title">Download Our App</h5>
+                    <p class="text-white-50 mb-3">Scan the QR code to download the mobile app</p>
+                    <div class="bg-white p-3 rounded-3 mb-3 d-inline-block">
+                        <img src="https://via.placeholder.com/120x120?text=QR+Code" alt="QR Code" class="img-fluid" style="width: 120px;">
+                    </div>
+                    <div class="d-flex flex-column flex-sm-row">
+                        <a href="#" class="btn btn-sm btn-outline-light d-flex align-items-center me-sm-2 mb-2 mb-sm-0">
+                            <i class="fab fa-google-play me-2 fs-5"></i> Google Play
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline-light d-flex align-items-center">
+                            <i class="fab fa-apple me-2 fs-5"></i> App Store
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; 2024 CineApp. All Rights Reserved.
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="d-inline-flex">
+                            <img src="https://via.placeholder.com/40x25?text=Visa" alt="Payment Method" class="me-2">
+                            <img src="https://via.placeholder.com/40x25?text=MC" alt="Payment Method" class="me-2">
+                            <img src="https://via.placeholder.com/40x25?text=Amex" alt="Payment Method" class="me-2">
+                            <img src="https://via.placeholder.com/40x25?text=PayPal" alt="Payment Method">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <a href="#" class="back-to-top btn btn-primary rounded-circle" style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; z-index: 999; opacity: 0; pointer-events: none;">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                    </div>
+                    <h3>Message Sent Successfully!</h3>
+                    <p class="text-muted">Thank you for contacting us. We'll get back to you as soon as possible.</p>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Intersection Observer for fade-up animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-up');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Back to top button
+            const backToTopButton = document.querySelector('.back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.style.opacity = '1';
+                    backToTopButton.style.pointerEvents = 'auto';
+                } else {
+                    backToTopButton.style.opacity = '0';
+                    backToTopButton.style.pointerEvents = 'none';
+                }
+            });
+            
+            backToTopButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Contact form submission
+            const contactForm = document.getElementById('contactForm');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form values
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const phone = document.getElementById('phone').value;
+                    const subject = document.getElementById('subject').value;
+                    const message = document.getElementById('message').value;
+                    
+                    // Simulate form submission with loading button
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const originalText = submitButton.innerHTML;
+                    
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
+                    
+                    // Simulate API call delay
+                    setTimeout(() => {
+                        // In a real application, you would send this data to the server
+                        console.log('Form submitted:', {
+                            name,
+                            email,
+                            phone,
+                            subject,
+                            message
+                        });
+                        
+                        // Reset form
+                        contactForm.reset();
+                        
+                        // Restore button
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = originalText;
+                        
+                        // Show success modal
+                        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                        successModal.show();
+                    }, 1500);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

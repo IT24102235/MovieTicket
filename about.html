@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineApp - About Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/home.css">
+    <style>
+        /* About page specific styles */
+        .about-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://source.unsplash.com/random/1920x1080/?cinema,theater') no-repeat center center;
+            background-size: cover;
+            padding: 120px 0 80px;
+            color: white;
+            margin-bottom: 60px;
+        }
+        
+        .about-hero h1 {
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .about-hero p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .about-section {
+            padding: 60px 0;
+        }
+        
+        .about-section:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .section-title {
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .mission-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            height: 100%;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .mission-card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .mission-card-body {
+            padding: 30px 20px;
+        }
+        
+        .counter-box {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .counter-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .counter-icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .counter-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .team-member {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .team-img-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .team-member:hover .team-img {
+            transform: scale(1.1);
+        }
+        
+        .team-social {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            right: 0;
+            background-color: var(--primary-color);
+            padding: 10px 0;
+            transition: all 0.3s;
+            opacity: 0;
+        }
+        
+        .team-member:hover .team-social {
+            bottom: 0;
+            opacity: 1;
+        }
+        
+        .team-social a {
+            color: white;
+            margin: 0 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .team-social a:hover {
+            transform: scale(1.2);
+        }
+        
+        .team-name {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        .team-role {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        
+        .testimonial {
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            background-color: white;
+            margin-bottom: 30px;
+            height: 100%;
+            transition: all 0.3s;
+        }
+        
+        .testimonial:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 5px solid #f8f9fa;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-stars {
+            color: #f59e0b;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 0;
+            list-style: none;
+            margin-bottom: 0;
+        }
+        
+        .timeline:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            margin-left: -1px;
+            background-color: #e9ecef;
+        }
+        
+        .timeline > li {
+            position: relative;
+            margin-bottom: 50px;
+        }
+        
+        .timeline > li:after, .timeline > li:before {
+            content: " ";
+            display: table;
+        }
+        
+        .timeline > li:after {
+            clear: both;
+        }
+        
+        .timeline > li .timeline-panel {
+            float: left;
+            position: relative;
+            width: 46%;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        
+        .timeline > li .timeline-panel:before {
+            position: absolute;
+            top: 26px;
+            right: -15px;
+            display: inline-block;
+            border-top: 15px solid transparent;
+            border-left: 15px solid white;
+            border-right: 0 solid white;
+            border-bottom: 15px solid transparent;
+            content: " ";
+        }
+        
+        .timeline > li .timeline-badge {
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            margin-left: -25px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 1.4em;
+            line-height: 50px;
+            color: white;
+            background-color: var(--primary-color);
+            z-index: 2;
+        }
+        
+        .timeline > li.timeline-inverted > .timeline-panel {
+            float: right;
+        }
+        
+        .timeline > li.timeline-inverted > .timeline-panel:before {
+            right: auto;
+            left: -15px;
+            border-right-width: 15px;
+            border-left-width: 0;
+        }
+        
+        .timeline-heading h4 {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .timeline-body > p {
+            margin-bottom: 0;
+        }
+        
+        /* Animation classes */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Add staggered delay to children */
+        .stagger-children > *:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-children > *:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-children > *:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-children > *:nth-child(4) { transition-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-ticket-alt me-2 text-primary"></i>
+                    <span class="fw-bold">CineApp</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="allmovies.html">Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop.html">Food & Beverages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="about.html">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact Us</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a href="cart.html" class="btn btn-sm rounded-circle bg-light me-3 position-relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">
+                            0
+                        </span>
+                    </a>
+                    <!-- Login/Signup buttons (shown when logged out) -->
+                    <a href="login.html" class="btn btn-sm btn-outline-primary me-2 login-btn">Login</a>
+                    <a href="signup.html" class="btn btn-sm btn-primary signup-btn">Sign Up</a>
+                    
+                    <!-- Profile dropdown (shown when logged in) -->
+                    <div class="dropdown profile-menu" style="display: none;">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="rounded-circle overflow-hidden" style="width: 35px; height: 35px;">
+                                <img src="https://ui-avatars.com/api/?name=John+Doe&background=0065ff&color=fff" class="img-fluid" alt="Profile">
+                            </div>
+                            <span class="ms-2 d-none d-sm-inline user-name">John</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-ticket-alt me-2"></i> My Tickets</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i> Watchlist</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item logout-btn" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero text-center">
+        <div class="container">
+            <h1 class="display-4">About CineApp</h1>
+            <p class="lead">We're transforming the movie-going experience with innovative technology and passion for cinema</p>
+        </div>
+    </section>
+
+    <!-- Our Story Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h2 class="section-title">Our Story</h2>
+                    <p>Founded in 2019, CineApp was born out of frustration with the traditional movie ticket booking process. Our founders, avid movie enthusiasts, believed there had to be a better way to connect audiences with the magic of cinema.</p>
+                    <p>What started as a small startup with a handful of partner theaters has now grown into a nationwide platform serving millions of movie lovers. Our journey has been defined by innovation, perseverance, and an unwavering commitment to enhancing the cinema experience.</p>
+                    <p>Today, CineApp is the preferred movie ticketing platform for over 500 theaters nationwide, offering not just tickets but a complete cinema experience—from trailers and reviews to food ordering and exclusive deals.</p>
+                    <a href="#" class="btn btn-primary mt-3">Learn More About Our Journey</a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://source.unsplash.com/random/600x400/?cinema,team" alt="Our Team" class="img-fluid rounded-4 shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Mission & Vision</h2>
+                <p class="text-muted">Guided by our core values and passion for cinema</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="mission-card fade-up">
+                        <div class="mission-card-header">
+                            <i class="fas fa-bullseye fa-3x mb-3"></i>
+                            <h3>Our Mission</h3>
+                        </div>
+                        <div class="mission-card-body">
+                            <p>To connect movie lovers with exceptional cinema experiences through innovative technology and seamless service, making every movie outing memorable.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="mission-card fade-up">
+                        <div class="mission-card-header">
+                            <i class="fas fa-eye fa-3x mb-3"></i>
+                            <h3>Our Vision</h3>
+                        </div>
+                        <div class="mission-card-body">
+                            <p>To be the world's leading platform for movie entertainment, where technology enhances the timeless magic of cinema for audiences everywhere.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="mission-card fade-up">
+                        <div class="mission-card-header">
+                            <i class="fas fa-heart fa-3x mb-3"></i>
+                            <h3>Our Values</h3>
+                        </div>
+                        <div class="mission-card-body">
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Innovation in Cinema Experience</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Customer Satisfaction</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Transparency & Trust</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Passion for Movies</li>
+                                <li><i class="fas fa-check-circle text-primary me-2"></i> Community Engagement</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Counter Section -->
+    <section class="about-section bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <div class="counter-box fade-up">
+                        <div class="counter-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="counter-number" data-count="500">0+</div>
+                        <h5>Partner Theaters</h5>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <div class="counter-box fade-up">
+                        <div class="counter-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="counter-number" data-count="2.5">0M+</div>
+                        <h5>Active Users</h5>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <div class="counter-box fade-up">
+                        <div class="counter-icon">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="counter-number" data-count="10">0M+</div>
+                        <h5>Tickets Sold</h5>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="counter-box fade-up">
+                        <div class="counter-icon">
+                            <i class="fas fa-city"></i>
+                        </div>
+                        <div class="counter-number" data-count="75">0+</div>
+                        <h5>Cities Covered</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet the Team Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Meet Our Team</h2>
+                <p class="text-muted">The passionate people behind CineApp</p>
+            </div>
+            
+            <div class="row stagger-children">
+                <div class="col-lg-3 col-md-6 fade-up">
+                    <div class="team-member">
+                        <div class="team-img-container">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member" class="team-img">
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <h4 class="team-name">David Mitchell</h4>
+                        <p class="team-role">Founder & CEO</p>
+                        <p class="text-muted">Film enthusiast with a vision to revolutionize movie ticketing.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 fade-up">
+                    <div class="team-member">
+                        <div class="team-img-container">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member" class="team-img">
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <h4 class="team-name">Sarah Johnson</h4>
+                        <p class="team-role">Chief Technology Officer</p>
+                        <p class="text-muted">Technology innovator with expertise in seamless user experiences.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 fade-up">
+                    <div class="team-member">
+                        <div class="team-img-container">
+                            <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Team Member" class="team-img">
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <h4 class="team-name">Michael Rodriguez</h4>
+                        <p class="team-role">Head of Partnerships</p>
+                        <p class="text-muted">Building relationships with cinemas across the country.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 fade-up">
+                    <div class="team-member">
+                        <div class="team-img-container">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Team Member" class="team-img">
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <h4 class="team-name">Emily Chen</h4>
+                        <p class="team-role">Marketing Director</p>
+                        <p class="text-muted">Creative marketer who connects audiences with cinema experiences.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Journey Timeline -->
+    <section class="about-section bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Our Journey</h2>
+                <p class="text-muted">From startup to becoming the nation's leading movie ticketing platform</p>
+            </div>
+            
+            <ul class="timeline">
+                <li class="fade-up">
+                    <div class="timeline-badge">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>2019 - The Beginning</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p>CineApp was founded with a mission to simplify movie ticket booking. We started with just 5 partner theaters in one city.</p>
+                        </div>
+                    </div>
+                </li>
+                
+                <li class="timeline-inverted fade-up">
+                    <div class="timeline-badge">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>2020 - Expansion Begins</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Despite pandemic challenges, we expanded to 20 cities and introduced our mobile app, which quickly gained 100,000+ downloads.</p>
+                        </div>
+                    </div>
+                </li>
+                
+                <li class="fade-up">
+                    <div class="timeline-badge">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>2021 - Growth & Recognition</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p>CineApp won "Best Entertainment Tech Startup" and reached 1 million users. Partnerships grew to over 200 theaters nationwide.</p>
+                        </div>
+                    </div>
+                </li>
+                
+                <li class="timeline-inverted fade-up">
+                    <div class="timeline-badge">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>2022 - New Features & Integration</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Launched food & beverage ordering, seat selection with VR preview, and integrated with major theater loyalty programs.</p>
+                        </div>
+                    </div>
+                </li>
+                
+                <li class="fade-up">
+                    <div class="timeline-badge">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>2023 - Nationwide Coverage</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Reached 500+ theater partnerships across 75 cities. Monthly active users surpassed 2.5 million with 10M+ tickets sold.</p>
+                        </div>
+                    </div>
+                </li>
+                
+                <li class="timeline-inverted fade-up">
+                    <div class="timeline-badge">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h4>2024 - Today & Beyond</h4>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Continuing our mission to innovate the cinema experience with new technology, more features, and expanding internationally.</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">What People Say About Us</h2>
+                <p class="text-muted">Testimonials from our users and partners</p>
+            </div>
+            
+            <div class="row stagger-children">
+                <div class="col-lg-4 col-md-6 fade-up">
+                    <div class="testimonial">
+                        <img src="https://randomuser.me/api/portraits/men/88.jpg" alt="User" class="testimonial-img">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"CineApp has completely transformed how I book movie tickets. The interface is intuitive, and I love the seat selection feature that gives a 3D view of the theater."</p>
+                        <h5 class="testimonial-name">Mark Wilson</h5>
+                        <p class="text-muted">Regular User</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 fade-up">
+                    <div class="testimonial">
+                        <img src="https://randomuser.me/api/portraits/women/54.jpg" alt="User" class="testimonial-img">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="testimonial-text">"As a theater owner, partnering with CineApp has significantly increased our online ticket sales. Their platform is reliable, and their customer support team is always responsive."</p>
+                        <h5 class="testimonial-name">Jennifer Lopez</h5>
+                        <p class="text-muted">Silver Screen Theaters</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mx-auto fade-up">
+                    <div class="testimonial">
+                        <img src="https://randomuser.me/api/portraits/men/36.jpg" alt="User" class="testimonial-img">
+                        <div class="testimonial-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">"The ability to order food and drinks in advance has been a game-changer. No more waiting in long concession lines! CineApp has made going to the movies even more enjoyable."</p>
+                        <h5 class="testimonial-name">Robert Chen</h5>
+                        <p class="text-muted">Premium Member</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="about-section bg-primary text-white text-center">
+        <div class="container">
+            <h2 class="mb-4">Ready to Experience the Best of Cinema?</h2>
+            <p class="lead mb-4">Join millions of movie lovers who are using CineApp for the ultimate cinema experience.</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="allmovies.html" class="btn btn-light btn-lg"><i class="fas fa-ticket-alt me-2"></i> Book a Movie</a>
+                <a href="contact.html" class="btn btn-outline-light btn-lg"><i class="fas fa-envelope me-2"></i> Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <div class="mb-4">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none">
+                            <i class="fas fa-ticket-alt me-2 text-primary"></i>
+                            <span class="fs-4 fw-bold">CineApp</span>
+                        </a>
+                    </div>
+                    <p class="text-white-50 mb-4">The easiest way to book movie tickets. Browse showtimes, select your seats, and experience the magic of cinema - all in one place.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="footer-title">Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="allmovies.html"><i class="fas fa-chevron-right"></i> Movies</a></li>
+                        <li><a href="shop.html"><i class="fas fa-chevron-right"></i> Food & Beverages</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="footer-title">Support</h5>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> My Account</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Refund Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="footer-title">Features</h5>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Rewards Program</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Partner Program</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Corporate Bookings</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Premium Access</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Student Discounts</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="footer-title">Download Our App</h5>
+                    <p class="text-white-50 mb-3">Scan the QR code to download the mobile app</p>
+                    <div class="bg-white p-3 rounded-3 mb-3 d-inline-block">
+                        <img src="https://via.placeholder.com/120x120?text=QR+Code" alt="QR Code" class="img-fluid" style="width: 120px;">
+                    </div>
+                    <div class="d-flex flex-column flex-sm-row">
+                        <a href="#" class="btn btn-sm btn-outline-light d-flex align-items-center me-sm-2 mb-2 mb-sm-0">
+                            <i class="fab fa-google-play me-2 fs-5"></i> Google Play
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline-light d-flex align-items-center">
+                            <i class="fab fa-apple me-2 fs-5"></i> App Store
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; 2024 CineApp. All Rights Reserved.
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="d-inline-flex">
+                            <img src="https://via.placeholder.com/40x25?text=Visa" alt="Payment Method" class="me-2">
+                            <img src="https://via.placeholder.com/40x25?text=MC" alt="Payment Method" class="me-2">
+                            <img src="https://via.placeholder.com/40x25?text=Amex" alt="Payment Method" class="me-2">
+                            <img src="https://via.placeholder.com/40x25?text=PayPal" alt="Payment Method">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <a href="#" class="back-to-top btn btn-primary rounded-circle" style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; z-index: 999; opacity: 0; pointer-events: none;">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- JavaScript libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Intersection Observer for fade-up animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-up');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+            
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Counter animation
+            const counterElements = document.querySelectorAll('.counter-number');
+            
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const countTo = parseFloat(target.getAttribute('data-count'));
+                        let count = 0;
+                        
+                        const updateCount = () => {
+                            if (countTo >= 100) {
+                                // For large numbers
+                                count += Math.ceil(countTo / 100);
+                                if (count >= countTo) {
+                                    target.textContent = countTo + '+';
+                                    clearInterval(timer);
+                                } else {
+                                    target.textContent = count + '+';
+                                }
+                            } else if (countTo >= 10) {
+                                // For medium numbers
+                                count += 1;
+                                if (count >= countTo) {
+                                    target.textContent = countTo + '+';
+                                    clearInterval(timer);
+                                } else {
+                                    target.textContent = count + '+';
+                                }
+                            } else {
+                                // For decimal numbers
+                                count += 0.1;
+                                if (count >= countTo) {
+                                    target.textContent = countTo + 'M+';
+                                    clearInterval(timer);
+                                } else {
+                                    target.textContent = count.toFixed(1) + 'M+';
+                                }
+                            }
+                        };
+                        
+                        const timer = setInterval(updateCount, 30);
+                        counterObserver.unobserve(target);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+            
+            counterElements.forEach(element => {
+                counterObserver.observe(element);
+            });
+            
+            // Back to top button
+            const backToTopButton = document.querySelector('.back-to-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.style.opacity = '1';
+                    backToTopButton.style.pointerEvents = 'auto';
+                } else {
+                    backToTopButton.style.opacity = '0';
+                    backToTopButton.style.pointerEvents = 'none';
+                }
+            });
+            
+            backToTopButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
