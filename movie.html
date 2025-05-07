@@ -15,17 +15,18 @@
             --primary-dark: #0048b3;
             --secondary: #00c3ff;
             --accent: #0077ff;
-            --text: #fff;
-            --text-muted: rgba(255, 255, 255, 0.7);
-            --text-light: rgba(255, 255, 255, 0.5);
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
-            --card-bg: rgba(16, 24, 48, 0.8);
-            --gradient-1: linear-gradient(135deg, #0a1124 0%, #050914 100%);
-            --gradient-2: linear-gradient(135deg, #0065ff 0%, #00c3ff 100%);
-            --shadow-sm: 0 2px 15px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.2);
-            --shadow-blue: 0 8px 25px rgba(0, 101, 255, 0.3);
+            --text-dark: #212529;
+            --text-muted: #6c757d;
+            --text-light: #939ba2;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --card-bg: #ffffff;
+            --border-color: #e5e5e5;
+            --gradient-primary: linear-gradient(135deg, #0065ff 0%, #00c3ff 100%);
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --shadow-blue: 0 8px 25px rgba(0, 101, 255, 0.25);
             --border-radius-sm: 8px;
             --border-radius-md: 12px;
             --border-radius-lg: 20px;
@@ -42,15 +43,11 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #050914;
-            color: var(--text);
+            background-color: var(--light-bg);
+            color: var(--text-dark);
             min-height: 100vh;
             line-height: 1.6;
             overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(16, 24, 48, 0.8) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(10, 17, 36, 0.8) 0%, transparent 50%);
-            background-attachment: fixed;
         }
 
         /* Custom Scrollbar */
@@ -59,7 +56,7 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: var(--dark-bg);
+            background: var(--light-bg);
         }
 
         ::-webkit-scrollbar-thumb {
@@ -73,10 +70,9 @@
 
         /* Navbar Styles */
         .navbar {
-            background: rgba(5, 9, 20, 0.9);
-            backdrop-filter: blur(10px);
+            background: var(--white);
             padding: 15px 0;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-sm);
             position: fixed;
             width: 100%;
             top: 0;
@@ -86,7 +82,7 @@
 
         .navbar.scrolled {
             padding: 8px 0;
-            background: rgba(5, 9, 20, 0.95);
+            box-shadow: var(--shadow-md);
         }
 
         .navbar-brand {
@@ -98,9 +94,7 @@
             font-weight: 700;
             font-size: 1.5rem;
             margin-left: 10px;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
             letter-spacing: 0.5px;
         }
 
@@ -126,94 +120,12 @@
 
         .nav-link:hover,
         .nav-link.active {
-            color: var(--text);
+            color: var(--primary);
         }
 
         .nav-link:hover:before,
         .nav-link.active:before {
             width: 60%;
-        }
-
-        .navbar-toggler {
-            border: none;
-            outline: none;
-            box-shadow: none;
-            color: var(--text);
-        }
-
-        .navbar-toggler:focus {
-            box-shadow: none;
-        }
-
-        .profile-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            color: var(--text);
-            font-weight: 600;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .profile-circle:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 100%);
-        }
-
-        .profile-circle:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .notification-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            background-color: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            margin-right: 15px;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            position: relative;
-        }
-
-        .notification-btn:hover {
-            color: var(--text);
-            transform: translateY(-2px);
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 16px;
-            height: 16px;
-            background-color: var(--secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: white;
-            border: 2px solid var(--primary);
         }
 
         /* Main Content Styles */
@@ -230,9 +142,7 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 10px;
-            background: linear-gradient(to right, var(--text), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary-dark);
             display: inline-block;
         }
 
@@ -247,19 +157,10 @@
             display: flex;
             flex-wrap: wrap;
             margin-bottom: 30px;
-        }
-
-        .movie-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-position: center;
-            background-size: cover;
-            opacity: 0.1;
-            z-index: -1;
-            transition: all var(--transition-medium);
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-md);
         }
 
         .movie-poster-container {
@@ -281,24 +182,13 @@
         }
 
         .movie-poster-container:hover .movie-poster {
-            transform: rotateY(10deg) rotateX(5deg);
+            transform: rotateY(5deg) rotateX(3deg);
         }
 
         .movie-poster img {
             width: 100%;
             height: auto;
-            border-radius: var(--border-radius-lg);
-        }
-
-        .movie-poster::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
-            pointer-events: none;
+            border-radius: var(--border-radius-md);
         }
 
         .movie-info-container {
@@ -311,6 +201,7 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 15px;
+            color: var(--text-dark);
         }
 
         .movie-badges {
@@ -321,14 +212,12 @@
 
         .movie-badge {
             padding: 6px 12px;
-            background-color: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            background-color: var(--light-bg);
             border-radius: 30px;
             margin-right: 10px;
             margin-bottom: 10px;
             font-size: 0.85rem;
             color: var(--text-muted);
-            backdrop-filter: blur(5px);
         }
 
         .imdb-badge {
@@ -353,11 +242,10 @@
             display: flex;
             flex-wrap: wrap;
             margin-bottom: 25px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
+            background: var(--light-bg);
             border-radius: var(--border-radius-md);
             overflow: hidden;
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--border-color);
         }
 
         .movie-meta-item {
@@ -365,7 +253,7 @@
             min-width: 150px;
             padding: 15px;
             text-align: center;
-            border-right: 1px solid var(--glass-border);
+            border-right: 1px solid var(--border-color);
         }
 
         .movie-meta-item:last-child {
@@ -384,6 +272,7 @@
         .meta-value {
             font-weight: 600;
             font-size: 1.1rem;
+            color: var(--text-dark);
         }
 
         .movie-actions {
@@ -398,19 +287,19 @@
             align-items: center;
             justify-content: center;
             padding: 12px 25px;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--text);
+            background-color: var(--light-bg);
+            color: var(--text-dark);
             border-radius: 30px;
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--border-color);
             font-weight: 500;
             cursor: pointer;
             transition: all var(--transition-fast);
         }
 
         .btn-trailer:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: var(--white);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-md);
         }
 
         .btn-trailer i {
@@ -423,7 +312,7 @@
             align-items: center;
             justify-content: center;
             padding: 12px 25px;
-            background: var(--primary);
+            background: var(--gradient-primary);
             color: white;
             border-radius: 30px;
             border: none;
@@ -434,7 +323,6 @@
         }
 
         .btn-ticket:hover {
-            background: var(--primary-dark);
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0, 101, 255, 0.4);
         }
@@ -447,13 +335,17 @@
         /* Date Selector */
         .date-section {
             margin: 40px 0;
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 25px;
+            box-shadow: var(--shadow-md);
         }
 
         .section-title {
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 25px;
-            color: var(--text);
+            color: var(--text-dark);
         }
 
         .date-slider {
@@ -480,39 +372,25 @@
             padding: 15px 5px;
             margin: 0 8px;
             text-align: center;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            background: var(--light-bg);
+            border: 1px solid var(--border-color);
             border-radius: var(--border-radius-md);
             cursor: pointer;
             transition: all var(--transition-fast);
             transform-origin: center bottom;
-            backdrop-filter: blur(10px);
-            position: relative;
-        }
-
-        .date-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), transparent);
-            z-index: -1;
-            border-radius: inherit;
         }
 
         .date-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: var(--shadow-md);
         }
 
         .date-item.active {
-            background: var(--gradient-2);
+            background: var(--gradient-primary);
             transform: translateY(-5px) scale(1.05);
             box-shadow: var(--shadow-blue);
             border-color: transparent;
+            color: white;
         }
 
         .date-day {
@@ -527,68 +405,35 @@
             font-weight: 700;
             line-height: 1;
             margin-bottom: 5px;
+            color: var(--text-dark);
         }
 
         .date-month {
             font-size: 0.8rem;
             font-weight: 500;
+            color: var(--text-muted);
         }
 
         .date-item.active .date-day,
-        .date-item.active .date-month {
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .date-controls {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .date-arrow {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all var(--transition-fast);
-            color: var(--text);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            pointer-events: auto;
-        }
-
-        .date-arrow:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
-
-        .date-arrow.prev {
-            left: 10px;
-        }
-
-        .date-arrow.next {
-            right: 10px;
+        .date-item.active .date-month,
+        .date-item.active .date-num {
+            color: white;
         }
 
         /* Theatre Types Section */
         .theatre-section {
             margin-bottom: 40px;
+            background-color: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 25px;
+            box-shadow: var(--shadow-md);
         }
 
         .theatre-types-tabs {
             display: flex;
             margin-bottom: 20px;
             position: relative;
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .theatre-tab {
@@ -609,11 +454,11 @@
         }
 
         .theatre-tab:hover {
-            color: var(--text);
+            color: var(--primary);
         }
 
         .theatre-tab.active {
-            color: var(--text);
+            color: var(--primary);
         }
 
         .theatre-tab-indicator {
@@ -622,44 +467,6 @@
             height: 2px;
             background-color: var(--primary);
             transition: all var(--transition-medium);
-        }
-
-        .theatre-content {
-            display: none;
-            animation: fadeIn 0.5s forwards;
-        }
-
-        .theatre-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .theatre-type-name {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .type-name {
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .price-range {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-        }
-
-        .price-range i {
-            margin-right: 5px;
-            color: var(--secondary);
         }
 
         .time-slots {
@@ -671,52 +478,32 @@
 
         .time-slot {
             padding: 12px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            background: var(--light-bg);
+            border: 1px solid var(--border-color);
             border-radius: var(--border-radius-sm);
             text-align: center;
             cursor: pointer;
             transition: all var(--transition-fast);
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(5px);
-        }
-
-        .time-slot::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
-            opacity: 0;
-            transform: scale(0.5);
-            transition: all 0.3s ease;
         }
 
         .time-slot:hover {
             transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .time-slot:hover::after {
-            opacity: 1;
-            transform: scale(1);
+            box-shadow: var(--shadow-md);
         }
 
         .time-slot.active {
-            background: var(--gradient-2);
+            background: var(--gradient-primary);
             border-color: transparent;
             box-shadow: var(--shadow-blue);
             transform: translateY(-5px);
+            color: white;
         }
 
         .time-value {
             font-weight: 600;
             font-size: 1.1rem;
             margin-bottom: 5px;
+            color: var(--text-dark);
         }
 
         .availability {
@@ -724,26 +511,26 @@
             color: var(--text-light);
         }
 
+        .time-slot.active .time-value,
         .time-slot.active .availability {
-            color: rgba(255, 255, 255, 0.7);
+            color: white;
         }
 
         /* Booking Summary */
         .booking-summary {
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px);
+            background: var(--white);
             border-radius: var(--border-radius-lg);
             padding: 30px;
             position: sticky;
             top: 100px;
-            border: 1px solid var(--glass-border);
+            border: 1px solid var(--border-color);
             margin-bottom: 30px;
             transition: all var(--transition-fast);
+            box-shadow: var(--shadow-md);
         }
 
         .booking-summary:hover {
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: var(--shadow-lg);
         }
 
         .summary-title {
@@ -752,6 +539,7 @@
             margin-bottom: 20px;
             position: relative;
             display: inline-block;
+            color: var(--text-dark);
         }
 
         .summary-title::after {
@@ -765,17 +553,17 @@
         }
 
         .summary-card {
-            background: rgba(0, 0, 0, 0.2);
+            background: var(--light-bg);
             border-radius: var(--border-radius-md);
             padding: 20px;
             margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
         }
 
         .theatre-name {
             font-weight: 600;
             margin-bottom: 10px;
-            color: var(--text);
+            color: var(--text-dark);
             font-size: 1.1rem;
             display: flex;
             align-items: center;
@@ -783,19 +571,7 @@
 
         .theatre-name i {
             margin-right: 10px;
-            color: var(--secondary);
-        }
-
-        .summary-info {
-            display: flex;
-            flex-wrap: wrap;
-            margin: 0 -10px;
-        }
-
-        .summary-info-item {
-            flex: 1;
-            min-width: 100px;
-            padding: 10px;
+            color: var(--primary);
         }
 
         .info-label {
@@ -806,26 +582,26 @@
 
         .info-value {
             font-weight: 600;
-            color: var(--text);
+            color: var(--text-dark);
         }
 
         .info-value i {
             margin-right: 5px;
-            color: var(--accent);
+            color: var(--primary);
         }
 
         .seat-preview {
-            background: rgba(0, 0, 0, 0.2);
+            background: var(--light-bg);
             border-radius: var(--border-radius-md);
             padding: 20px;
             text-align: center;
             margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
         }
 
         .screen {
             height: 8px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             width: 80%;
             margin: 0 auto 30px;
@@ -843,37 +619,19 @@
             letter-spacing: 1px;
         }
 
-        .seat-types {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-
-        .seat-type {
-            display: flex;
-            align-items: center;
-            font-size: 0.8rem;
-            color: var(--text-light);
-        }
-
-        .seat-color {
-            width: 16px;
-            height: 16px;
-            border-radius: 4px;
-            margin-right: 8px;
-        }
-
         .seat-color.available {
-            background-color: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background-color: var(--light-bg);
+            border: 1px solid var(--border-color);
         }
 
         .seat-color.selected {
             background-color: var(--primary);
+            border: 1px solid var(--primary);
         }
 
         .seat-color.occupied {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--text-light);
+            border: 1px solid var(--text-light);
         }
 
         .note {
@@ -886,24 +644,25 @@
 
         .note i {
             margin-right: 8px;
-            color: var(--secondary);
+            color: var(--primary);
         }
 
         .summary-total {
             margin-bottom: 20px;
             font-size: 1.2rem;
             font-weight: 600;
+            color: var(--text-dark);
         }
 
         .summary-total .summary-value {
-            color: var(--primary-light);
+            color: var(--primary);
         }
 
         .btn-checkout {
             display: block;
             width: 100%;
             padding: 15px;
-            background: var(--gradient-2);
+            background: var(--gradient-primary);
             color: white;
             border: none;
             border-radius: var(--border-radius-md);
@@ -919,89 +678,30 @@
             box-shadow: var(--shadow-blue);
         }
 
-        .btn-checkout::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 70%);
-            transform: scale(0.5);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
         .btn-checkout:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0, 101, 255, 0.4);
         }
 
-        .btn-checkout:hover::after {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .btn-checkout i {
-            margin-right: 8px;
-        }
-
         /* Footer Styles */
         footer {
-            background: rgba(5, 9, 20, 0.95);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--white);
+            border-top: 1px solid var(--border-color);
             padding: 60px 0 30px;
             position: relative;
             overflow: hidden;
         }
 
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(0, 101, 255, 0.5), transparent);
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .footer-logo img {
-            height: 30px;
-            margin-right: 10px;
-        }
-
-        .footer-logo-text {
-            font-weight: 700;
-            font-size: 1.5rem;
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .footer-about {
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            font-size: 0.95rem;
-            max-width: 300px;
-            line-height: 1.7;
-        }
-
-        .footer-heading {
+        .footer-title {
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 20px;
-            color: var(--text);
+            color: var(--text-dark);
             position: relative;
             display: inline-block;
         }
 
-        .footer-heading::after {
+        .footer-title::after {
             content: '';
             position: absolute;
             bottom: -8px;
@@ -1011,10 +711,36 @@
             background: var(--primary);
         }
 
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            margin-right: 15px;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+            color: white;
+            box-shadow: var(--shadow-blue);
+        }
+
         .footer-links {
             list-style: none;
             padding: 0;
-            margin-bottom: 30px;
+            margin: 0;
         }
 
         .footer-links li {
@@ -1032,190 +758,53 @@
         .footer-links a i {
             margin-right: 10px;
             font-size: 0.75rem;
+            color: var(--primary);
         }
 
         .footer-links a:hover {
-            color: var(--text);
+            color: var(--primary);
             transform: translateX(5px);
-        }
-
-        .social-links {
-            display: flex;
-            margin-top: 20px;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text);
-            margin-right: 15px;
-            transition: all var(--transition-fast);
-        }
-
-        .social-link:hover {
-            background: var(--primary);
-            transform: translateY(-5px);
-            color: white;
-            box-shadow: var(--shadow-blue);
-        }
-
-        .download-app {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
         }
 
         .app-btn {
             display: flex;
             align-items: center;
             padding: 10px 15px;
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--light-bg);
             border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
             transition: all var(--transition-fast);
             text-decoration: none;
-            color: var(--text);
+            color: var(--text-dark);
+            margin-bottom: 10px;
         }
 
         .app-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--white);
             transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-md);
         }
 
         .app-btn i {
             font-size: 2rem;
             margin-right: 10px;
-        }
-
-        .app-btn-text {
-            font-size: 0.7rem;
-            opacity: 0.8;
-            display: block;
-            margin-bottom: 2px;
-        }
-
-        .app-btn-name {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .footer-bottom {
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--primary);
         }
 
         .copyright {
-            color: var(--text-light);
+            color: var(--text-muted);
             font-size: 0.9rem;
-            text-align: center;
         }
 
-        /* Trailer Modal */
-        .modal-backdrop {
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .trailer-modal .modal-content {
-            background-color: transparent;
-            border: none;
-            border-radius: 0;
-        }
-
-        .trailer-modal .modal-body {
-            padding: 0;
-        }
-
-        .trailer-modal .close-btn {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            color: white;
-            background: transparent;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            z-index: 1100;
-        }
-
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 */
-            height: 0;
-            border-radius: var(--border-radius-md);
-            overflow: hidden;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .animate-fadeInUp {
-            animation: fadeInUp 0.6s forwards;
+        /* Back to top button */
+        .back-to-top {
             opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
         }
 
-        .animate-pulse {
-            animation: pulse 2s infinite;
-        }
-
-        /* Seat Map Animation */
-        .seats {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 5px;
-            max-width: 250px;
-            margin: 0 auto;
-        }
-
-        .seat {
-            width: 12px;
-            height: 12px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        .seat.selected {
-            background: var(--primary);
-            border-color: var(--primary);
-        }
-
-        .seat.occupied {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.1);
-            cursor: not-allowed;
+        .back-to-top:hover {
+            transform: translateY(-5px);
         }
 
         /* Responsive adjustments */
@@ -1279,56 +868,76 @@
                 font-size: 0.95rem;
             }
         }
+
+        /* Animation styles */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s forwards;
+        }
     </style>
 </head>
 <body>
-    <!-- Preloader -->
-    <div id="preloader" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background-color: #050914; z-index: 9999;">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
-
     <!-- Movie Backdrop -->
     <div class="movie-backdrop" id="movieBackdrop"></div>
 
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg" id="mainNav">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <svg width="30" height="30" viewBox="0 0 90 90" fill="none">
-                    <path d="M30, 10 L60, 45 L30, 80" stroke="#0065FF" stroke-width="8" stroke-linecap="round"/>
-                    <path d="M10, 20 L40, 45 L10, 70" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-opacity="0.5"/>
-                </svg>
-                <span class="logo-text">CineApp</span>
+            <a class="navbar-brand" href="index.html">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-ticket-alt me-2 text-primary"></i>
+                    <span class="logo-text">CineApp</span>
+                </div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <i class="fas fa-bars"></i>
+                <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
+                <ul class="navbar-nav ms-auto me-4">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+                        <a class="nav-link" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Movies</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Theaters</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">My Tickets</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link active" href="allmovies.html">Movies</a>
                     </li>
                 </ul>
                 <div class="d-flex align-items-center">
-                    <div class="notification-btn">
-                        <i class="far fa-bell"></i>
-                        <div class="notification-badge">2</div>
+                    <a href="cart.html" class="btn btn-sm rounded-circle bg-light me-3 position-relative notification-btn">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger notification-badge">
+                            2
+                        </span>
+                    </a>
+                    <!-- Login/Signup buttons (shown when logged out) -->
+                    <a href="login.html" class="btn btn-sm btn-outline-primary me-2 login-btn">Login</a>
+                    <a href="signup.html" class="btn btn-sm btn-primary signup-btn">Sign Up</a>
+                    
+                    <!-- Profile dropdown (shown when logged in) -->
+                    <div class="dropdown profile-menu" style="display: none;">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="rounded-circle overflow-hidden profile-circle">
+                                <img src="https://ui-avatars.com/api/?name=John+Doe&background=0065ff&color=fff" class="img-fluid" alt="Profile">
+                            </div>
+                            <span class="ms-2 d-none d-sm-inline user-name">John</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-ticket-alt me-2"></i> My Tickets</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i> Watchlist</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item logout-btn" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
                     </div>
-                    <div class="profile-circle">A</div>
                 </div>
             </div>
         </div>
@@ -1385,7 +994,7 @@
                                 <button class="btn-trailer" data-bs-toggle="modal" data-bs-target="#trailerModal">
                                     <i class="fas fa-play"></i> Watch Trailer
                                 </button>
-                                <button class="btn-ticket">
+                                <button class="btn-ticket" id="getTicketsBtn">
                                     <i class="fas fa-ticket-alt"></i> Get Tickets
                                 </button>
                             </div>
@@ -1585,25 +1194,25 @@
                             <div class="summary-info">
                                 <div class="summary-info-item">
                                     <div class="info-label">Date</div>
-                                    <div class="info-value">
+                                    <div class="info-value" id="summaryDate">
                                         <i class="far fa-calendar-alt"></i> 16 Apr 2025
                                     </div>
                                 </div>
                                 <div class="summary-info-item">
                                     <div class="info-label">Showtime</div>
-                                    <div class="info-value">
+                                    <div class="info-value" id="summaryTime">
                                         <i class="far fa-clock"></i> 14:40
                                     </div>
                                 </div>
                                 <div class="summary-info-item">
                                     <div class="info-label">Format</div>
-                                    <div class="info-value">
+                                    <div class="info-value" id="summaryFormat">
                                         <i class="fas fa-film"></i> 2D Standard
                                     </div>
                                 </div>
                                 <div class="summary-info-item">
                                     <div class="info-label">Price</div>
-                                    <div class="info-value">
+                                    <div class="info-value" id="summaryPrice">
                                         <i class="fas fa-tag"></i> Rs 1,000
                                     </div>
                                 </div>
@@ -1637,10 +1246,10 @@
                         </div>
 
                         <div class="summary-total">
-                            Total: <span class="text-end float-end">Rs 1,000.00</span>
+                            Total: <span class="text-end float-end" id="totalPrice">Rs 1,000.00</span>
                         </div>
 
-                        <a href="#" class="btn-checkout">
+                        <a href="seat-selection.html" class="btn-checkout" id="continueButton">
                             <i class="fas fa-arrow-right"></i> Continue to Seat Selection
                         </a>
                     </div>
@@ -1674,68 +1283,103 @@
     <footer>
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                    <div class="footer-logo">
-                        <svg width="30" height="30" viewBox="0 0 90 90" fill="none">
-                            <path d="M30, 10 L60, 45 L30, 80" stroke="#0065FF" stroke-width="8" stroke-linecap="round"/>
-                            <path d="M10, 20 L40, 45 L10, 70" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-opacity="0.5"/>
-                        </svg>
-                        <span class="footer-logo-text">CineApp</span>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <div class="mb-4">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none footer-logo">
+                            <i class="fas fa-ticket-alt me-2 text-primary"></i>
+                            <span class="footer-logo-text">CineApp</span>
+                        </a>
                     </div>
-                    <p class="footer-about">The ultimate destination for movie lovers. Book tickets, explore showtimes, and enjoy an immersive cinema experience.</p>
+                    <p class="footer-about mb-4">The easiest way to book movie tickets. Browse showtimes, select your seats, and experience the magic of cinema - all in one place.</p>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                    <h4 class="footer-heading">Quick Links</h4>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="footer-heading">Quick Links</h5>
                     <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Now Showing</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Coming Soon</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Theaters</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Special Events</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Movies</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Cinemas</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Offers & Promos</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Gift Cards</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Coming Soon</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Movie News</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                    <h4 class="footer-heading">Support</h4>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="footer-heading">Support</h5>
                     <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> My Account</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Help Center</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> FAQs</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Refund Policy</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
                         <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
                     </ul>
                 </div>
+                
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="footer-heading">Features</h5>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Rewards Program</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Partner Program</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Corporate Bookings</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Premium Access</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Student Discounts</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Movie Events</a></li>
+                    </ul>
+                </div>
+                
                 <div class="col-lg-3 col-md-6">
-                    <h4 class="footer-heading">Download Our App</h4>
+                    <h5 class="footer-heading">Download Our App</h5>
                     <p class="text-muted mb-3">Get the ultimate cinema experience on your mobile</p>
                     <div class="download-app">
                         <a href="#" class="app-btn">
-                            <i class="fab fa-apple"></i>
+                            <i class="fab fa-google-play"></i>
                             <div>
-                                <span class="app-btn-text">Download on the</span>
-                                <span class="app-btn-name">App Store</span>
+                                <span class="app-btn-text">GET IT ON</span>
+                                <span class="app-btn-name">Google Play</span>
                             </div>
                         </a>
                         <a href="#" class="app-btn">
-                            <i class="fab fa-google-play"></i>
+                            <i class="fab fa-apple"></i>
                             <div>
-                                <span class="app-btn-text">Get it on</span>
-                                <span class="app-btn-name">Google Play</span>
+                                <span class="app-btn-text">DOWNLOAD ON THE</span>
+                                <span class="app-btn-name">App Store</span>
                             </div>
                         </a>
                     </div>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p class="copyright">© 2025 CineApp. All rights reserved.</p>
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <p class="copyright">&copy; 2025 CineApp. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="d-inline-flex">
+                            <img src="https://via.placeholder.com/40x25?text=Visa" alt="Payment Method" class="me-2">
+                            <img src="https://via.placeholder.com/40x25?text=MC" alt="Payment Method" class="me-2">
+                            <img src="https://via.placeholder.com/40x25?text=Amex" alt="Payment Method" class="me-2">
+                            <img src="https://via.placeholder.com/40x25?text=PayPal" alt="Payment Method">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
+
+    <!-- Back to top button -->
+    <a href="#" class="back-to-top btn btn-primary rounded-circle" style="position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; z-index: 999;">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
     <!-- Notification container -->
     <div class="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
@@ -1747,26 +1391,46 @@
     <script>
         AOS.init();
 
-        // Update cart count display
-        function updateCartCount() {
-            const cartBadge = document.querySelector('.notification-badge');
-            if (cartBadge) {
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
-                const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-                
-                cartBadge.textContent = totalItems;
-                cartBadge.style.display = totalItems > 0 ? 'block' : 'none';
-            }
-        }
-
         // Initialize cart count on page load
         document.addEventListener('DOMContentLoaded', function() {
             updateCartCount();
             
-            // Preloader
-            const preloader = document.getElementById('preloader');
-            preloader.style.opacity = '0';
-            setTimeout(() => preloader.style.display = 'none', 500);
+            // Add click event to continueButton
+            const continueButton = document.getElementById('continueButton');
+            if (continueButton) {
+                continueButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Create booking details
+                    const movieTitle = document.querySelector('.movie-title')?.textContent || 'Nelum Kuluna';
+                    const moviePosterElem = document.querySelector('#moviePoster img');
+                    const movieImage = moviePosterElem ? moviePosterElem.src : 'images/movie1.jpg';
+                    const dateText = document.querySelector('#summaryDate')?.textContent || '16 Apr 2025';
+                    const timeText = document.querySelector('#summaryTime')?.textContent || '14:40';
+                    const formatText = document.querySelector('#summaryFormat')?.textContent || '2D Standard';
+                    const theaterText = document.querySelector('.theatre-name')?.textContent.trim() || 'Malabe Theater Hall';
+                    const priceText = document.querySelector('#summaryPrice')?.textContent || 'Rs 1,000';
+                    const price = parseFloat(priceText.replace(/[^0-9.]/g, '')) || 1000;
+                    
+                    // Save booking info for seat selection page
+                    const bookingInfo = {
+                        movieId: 1,
+                        title: movieTitle,
+                        date: dateText,
+                        time: timeText,
+                        format: formatText,
+                        theater: theaterText,
+                        price: price,
+                        image: movieImage
+                    };
+                    
+                    // Store booking details in localStorage
+                    localStorage.setItem('selectedBooking', JSON.stringify(bookingInfo));
+                    
+                    // Navigate to seat selection page
+                    window.location.href = 'seat-selection.html';
+                });
+            }
         });
 
         // Navbar Scroll Effect
@@ -1817,92 +1481,7 @@
             });
         }
 
-        // Get checkout button and connect it to the cart
-        const checkoutButton = document.querySelector('.btn-checkout');
-        if (checkoutButton) {
-            checkoutButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Get movie information
-                const movieTitle = document.querySelector('.movie-title').textContent;
-                const moviePoster = document.querySelector('#moviePoster img')?.src || 
-                                   'https://source.unsplash.com/random/400x600/?movie,poster,drama';
-                
-                // Get selected seats
-                const selectedSeats = document.querySelectorAll('.seat.selected');
-                if (selectedSeats.length === 0) {
-                    showNotification('Please select at least one seat', 'error');
-                    return;
-                }
-                
-                // Get selected date, time, format
-                const activeDate = document.querySelector('.date-item.active');
-                const activeTime = document.querySelector('.time-slot.active');
-                const activeFormat = document.querySelector('.theatre-tab.active');
-                
-                // Format date string
-                const dateText = activeDate ? 
-                    `${activeDate.querySelector('.date-day').textContent}, ${activeDate.querySelector('.date-month').textContent} ${activeDate.querySelector('.date-num').textContent}, 2024` : 
-                    'Tuesday, Mar 16, 2024';
-                
-                const timeText = activeTime ? 
-                    activeTime.querySelector('.time-value').textContent : 
-                    '7:30 PM';
-                    
-                const formatText = activeFormat ? 
-                    activeFormat.textContent.trim() : 
-                    '2D';
-                
-                // Calculate price based on format
-                let price = 1000; // Default price
-                if (formatText.includes('3D')) price = 1500;
-                if (formatText.includes('IMAX')) price = 2000;
-                if (formatText.includes('Dolby')) price = 2000;
-                
-                // Collect all seat IDs
-                const seatIds = [];
-                const seatMap = document.getElementById('seatMap');
-                const seats = seatMap.querySelectorAll('.seat.selected');
-                
-                seats.forEach((seat, index) => {
-                    const row = String.fromCharCode(65 + Math.floor(index / 8));
-                    const num = (index % 8) + 1;
-                    seatIds.push(`${row}${num}`);
-                });
-                
-                // Create movie data object for cart
-                const movieData = {
-                    id: Math.floor(Math.random() * 1000), // Random ID for demo
-                    title: movieTitle,
-                    date: dateText,
-                    time: timeText,
-                    format: formatText,
-                    theater: 'Malabe Theater Hall', // From the page
-                    seats: seatIds,
-                    quantity: seatIds.length,
-                    price: price,
-                    image: moviePoster
-                };
-                
-                // Add to cart using cart.js function
-                if (typeof window.addToCart === 'function') {
-                    window.addToCart(movieData);
-                    showNotification('Added to cart successfully!', 'success');
-                    
-                    // Update cart count
-                    updateCartCount();
-                    
-                    // Navigate to cart after a delay
-                    setTimeout(() => {
-                        window.location.href = 'cart.html';
-                    }, 1500);
-                } else {
-                    console.error('Cart functionality not available');
-                }
-            });
-        }
-
-        // Custom notification function to match cart.js pattern
+        // Custom notification function 
         function showNotification(message, type) {
             // Check if notification container exists, if not create it
             let notificationContainer = document.querySelector('.notification-container');
@@ -1921,7 +1500,25 @@
             
             // Create notification element
             const notification = document.createElement('div');
-            notification.className = `alert alert-${type === 'success' ? 'success' : 'danger'} notification`;
+            
+            let bgColor, iconClass;
+            switch(type) {
+                case 'success':
+                    bgColor = 'success';
+                    iconClass = 'check-circle';
+                    break;
+                case 'error':
+                    bgColor = 'danger';
+                    iconClass = 'exclamation-circle';
+                    break;
+                case 'info':
+                default:
+                    bgColor = 'info';
+                    iconClass = 'info-circle';
+                    break;
+            }
+            
+            notification.className = `alert alert-${bgColor} notification`;
             notification.style.cssText = `
                 margin-bottom: 10px;
                 min-width: 300px;
@@ -1930,7 +1527,7 @@
             `;
             notification.innerHTML = `
                 <div class="d-flex align-items-center">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                    <i class="fas fa-${iconClass} me-2"></i>
                     <span>${message}</span>
                 </div>
             `;
@@ -1946,6 +1543,101 @@
                 }, 300);
             }, 3000);
         }
+
+        // Update cart count display
+        function updateCartCount() {
+            const cartBadge = document.querySelector('.notification-badge');
+            if (cartBadge) {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+                
+                cartBadge.textContent = totalItems;
+                cartBadge.style.display = totalItems > 0 ? 'block' : 'none';
+            }
+        }
+
+        // Back to top button functionality
+        const backToTop = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.style.opacity = '1';
+                backToTop.style.pointerEvents = 'auto';
+            } else {
+                backToTop.style.opacity = '0';
+                backToTop.style.pointerEvents = 'none';
+            }
+        });
+        
+        // Initialize back to top button
+        backToTop.style.opacity = '0';
+        backToTop.style.transition = 'opacity 0.3s, transform 0.3s';
+        backToTop.style.pointerEvents = 'none';
+        
+        // Add animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slide-in {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes slide-out {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+
+            .btn-checkout {
+                transition: all 0.3s ease;
+                overflow: hidden;
+                position: relative;
+                z-index: 1;
+            }
+
+            .btn-checkout:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to right, rgba(255,255,255,0.13) 0%, rgba(255,255,255,0.13) 77%, rgba(255,255,255,0.5) 92%, rgba(255,255,255,0.3) 100%);
+                z-index: -2;
+            }
+
+            .btn-checkout:before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0%;
+                height: 100%;
+                background: linear-gradient(to right, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.1) 77%, rgba(255,255,255,0.25) 92%, rgba(255,255,255,0.1) 100%);
+                transition: all 0.3s;
+                z-index: -1;
+            }
+
+            .btn-checkout:hover:before {
+                width: 100%;
+            }
+
+            .movie-card, .cinema-card, .date-item, .time-slot, .theatre-tab {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                will-change: transform;
+            }
+
+            .date-item:hover, .time-slot:hover, .theatre-tab:hover {
+                transform: translateY(-5px);
+            }
+
+            .movie-info-container, .seat-preview, .summary-card {
+                transition: all 0.3s ease;
+            }
+
+            .movie-info-container:hover, .seat-preview:hover, .summary-card:hover {
+                box-shadow: 0 15px 30px rgba(0, 101, 255, 0.15);
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>

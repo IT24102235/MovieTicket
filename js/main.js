@@ -64,8 +64,13 @@ const UserSession = {
     }
 };
 
-// Global notification system
-function showNotification(message, type = 'success', duration = 3000) {
+/**
+ * CineApp - Main JavaScript File
+ * Provides global functionality used across multiple pages
+ */
+
+// Show notification helper function
+function showNotification(message, type = 'info') {
     // Check if notification container exists, if not create it
     let notificationContainer = document.querySelector('.notification-container');
     
@@ -83,7 +88,30 @@ function showNotification(message, type = 'success', duration = 3000) {
     
     // Create notification element
     const notification = document.createElement('div');
-    notification.className = `alert alert-${type} notification`;
+    
+    let bgColor, iconClass;
+    switch(type) {
+        case 'success':
+            bgColor = 'success';
+            iconClass = 'check-circle';
+            break;
+        case 'error':
+        case 'danger':
+            bgColor = 'danger';
+            iconClass = 'exclamation-circle';
+            break;
+        case 'warning':
+            bgColor = 'warning';
+            iconClass = 'exclamation-triangle';
+            break;
+        case 'info':
+        default:
+            bgColor = 'info';
+            iconClass = 'info-circle';
+            break;
+    }
+    
+    notification.className = `alert alert-${bgColor} notification`;
     notification.style.cssText = `
         margin-bottom: 10px;
         min-width: 300px;
@@ -92,7 +120,7 @@ function showNotification(message, type = 'success', duration = 3000) {
     `;
     notification.innerHTML = `
         <div class="d-flex align-items-center">
-            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+            <i class="fas fa-${iconClass} me-2"></i>
             <span>${message}</span>
         </div>
     `;
@@ -106,30 +134,201 @@ function showNotification(message, type = 'success', duration = 3000) {
         setTimeout(() => {
             notification.remove();
         }, 300);
-    }, duration);
+    }, 3000);
 }
 
-// Add CSS animations for notifications
-function addNotificationStyles() {
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes slide-in {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
+// Update cart count in the navbar
+function updateCartCount() {
+    const cartBadge = document.querySelector('.notification-badge, .cart-count');
+    if (cartBadge) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
         
-        @keyframes slide-out {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
-        }
-    `;
-    document.head.appendChild(style);
+        cartBadge.textContent = totalItems;
+        cartBadge.style.display = totalItems > 0 ? 'block' : 'none';
+    }
 }
+
+// Format currency
+function formatCurrency(amount) {
+    return `Rs ${parseFloat(amount).toFixed(2)}`;
+}
+
+// Format date
+function formatDate(dateString) {
+    try {
+        const date = new Date(dateString);
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    } catch (e) {
+        return dateString;
+    }
+}
+
+// Initialize back to top button
+function initBackToTop() {
+    const backToTop = document.querySelector('.back-to-top');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.style.opacity = '1';
+                backToTop.style.pointerEvents = 'auto';
+            } else {
+                backToTop.style.opacity = '0';
+                backToTop.style.pointerEvents = 'none';
+            }
+        });
+        
+        backToTop.style.opacity = '0';
+        backToTop.style.transition = 'opacity 0.3s, transform 0.3s';
+        backToTop.style.pointerEvents = 'none';
+    }
+}
+
+// Create an observer for animation on scroll
+function initScrollAnimations() {
+    const animateElements = document.querySelectorAll('.fade-in, .slide-up, .slide-right, .slide-left, .zoom-in');
+    
+    if (animateElements.length > 0) {
+        const observerOptions = {
+            threshold: 0.2
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+        
+        animateElements.forEach(element => {
+            observer.observe(element);
+        });
+    }
+}
+
+// Add animation keyframes if not already present
+function addAnimationKeyframes() {
+    if (!document.getElementById('animation-keyframes')) {
+        const style = document.createElement('style');
+        style.id = 'animation-keyframes';
+        style.textContent = `
+            @keyframes slide-in {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            
+            @keyframes slide-out {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            
+            @keyframes fade-in {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            
+            @keyframes zoom-in {
+                from { transform: scale(0.8); opacity: 0; }
+                to { transform: scale(1); opacity: 1; }
+            }
+            
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+                40% { transform: translateY(-20px); }
+                60% { transform: translateY(-10px); }
+            }
+            
+            .fade-in {
+                opacity: 0;
+                transition: opacity 0.8s ease, transform 0.8s ease;
+            }
+            
+            .slide-right {
+                opacity: 0;
+                transform: translateX(-50px);
+                transition: opacity 0.8s ease, transform 0.8s ease;
+            }
+            
+            .slide-left {
+                opacity: 0;
+                transform: translateX(50px);
+                transition: opacity 0.8s ease, transform 0.8s ease;
+            }
+            
+            .slide-up {
+                opacity: 0;
+                transform: translateY(50px);
+                transition: opacity 0.8s ease, transform 0.8s ease;
+            }
+            
+            .zoom-in {
+                opacity: 0;
+                transform: scale(0.8);
+                transition: opacity 0.8s ease, transform 0.8s ease;
+            }
+            
+            .fade-in.active, .slide-right.active, .slide-left.active, .slide-up.active, .zoom-in.active {
+                opacity: 1;
+                transform: translate(0) scale(1);
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+// Initialize all common functionality
+document.addEventListener('DOMContentLoaded', function() {
+    updateCartCount();
+    initBackToTop();
+    initScrollAnimations();
+    addAnimationKeyframes();
+    
+    // Handle preloader if it exists
+    const preloader = document.getElementById('preloader');
+    if (preloader) {
+        setTimeout(() => {
+            preloader.style.opacity = '0';
+            setTimeout(() => preloader.style.display = 'none', 500);
+        }, 500);
+    }
+    
+    // Initialize navbar scroll effect
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
+    
+    // Global event delegation for common interactive elements
+    document.body.addEventListener('click', function(e) {
+        // Back to top functionality
+        if (e.target.closest('.back-to-top')) {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Export functions for use in other scripts
+window.showNotification = showNotification;
+window.updateCartCount = updateCartCount;
+window.formatCurrency = formatCurrency;
+window.formatDate = formatDate;
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Add notification styles
-    addNotificationStyles();
+    addAnimationKeyframes();
     
     // Update UI based on login status
     UserSession.updateUI();
@@ -146,4 +345,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Make functions globally available
 window.UserSession = UserSession;
-window.showNotification = showNotification;

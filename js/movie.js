@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const timeSlots = document.querySelectorAll('.time-slot');
     const trailerModal = document.getElementById('trailerModal');
     const trailerPlaceholder = document.getElementById('trailerPlaceholder');
+    const continueButton = document.getElementById('continueButton');
     
     // Selected booking info
     const bookingInfo = {
@@ -58,14 +59,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Date navigation
-    if (typeof dateList !== 'undefined' && datePrev && dateNext) {
-        datePrev.addEventListener('click', () => {
-            dateList.scrollBy({ left: -100, behavior: 'smooth' });
-        });
-        
-        dateNext.addEventListener('click', () => {
-            dateList.scrollBy({ left: 100, behavior: 'smooth' });
-        });
+    if (datePrev && dateNext) {
+        const dateList = document.getElementById('dateList');
+        if (dateList) {
+            datePrev.addEventListener('click', () => {
+                dateList.scrollBy({ left: -100, behavior: 'smooth' });
+            });
+            
+            dateNext.addEventListener('click', () => {
+                dateList.scrollBy({ left: 100, behavior: 'smooth' });
+            });
+        }
     }
     
     // Theatre tabs
@@ -130,10 +134,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Checkout button
-    const checkoutButton = document.querySelector('.btn-checkout');
-    if (checkoutButton) {
-        checkoutButton.addEventListener('click', function(e) {
-            e.preventDefault();
+    if (continueButton) {
+        continueButton.addEventListener('click', function(e) {
+            // If the button is an anchor tag (<a>), prevent default navigation
+            if (this.tagName.toLowerCase() === 'a') {
+                e.preventDefault();
+            }
             
             // Get movie information
             const movieTitle = document.querySelector('.movie-title')?.textContent || bookingInfo.movieTitle;
@@ -141,8 +147,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const movieImage = moviePosterElem ? moviePosterElem.src : 
                 'https://source.unsplash.com/random/400x600/?movie,poster,drama';
             
-            // Format date string for display
-            const dateText = formatDate(bookingInfo.date);
+            // Format date display
+            const dateText = document.querySelector('#summaryDate .info-value')?.textContent || 
+                             document.querySelector('#summaryDate')?.textContent || 
+                             formatDate(bookingInfo.date);
             
             // Save booking info to localStorage for seat selection page
             const selectedBooking = {
@@ -168,19 +176,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update booking summary
     function updateBookingSummary() {
         if (summaryDate) {
-            summaryDate.textContent = formatDate(bookingInfo.date);
+            summaryDate.innerHTML = `<i class="far fa-calendar-alt"></i> ${formatDate(bookingInfo.date)}`;
         }
         
         if (summaryTime) {
-            summaryTime.textContent = bookingInfo.time;
+            summaryTime.innerHTML = `<i class="far fa-clock"></i> ${bookingInfo.time}`;
         }
         
         if (summaryFormat) {
-            summaryFormat.textContent = bookingInfo.format;
+            summaryFormat.innerHTML = `<i class="fas fa-film"></i> ${bookingInfo.format}`;
         }
         
         if (summaryPrice) {
-            summaryPrice.textContent = `Rs ${bookingInfo.price.toFixed(2)}`;
+            summaryPrice.innerHTML = `<i class="fas fa-tag"></i> Rs ${bookingInfo.price.toFixed(2)}`;
         }
         
         // Update total
@@ -195,8 +203,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function formatDate(dateString) {
         try {
             const date = new Date(dateString);
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            return date.toLocaleDateString('en-US', options);
+            const day = date.getDate();
+            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const month = monthNames[date.getMonth()];
+            const year = date.getFullYear();
+            return `${day} ${month} ${year}`;
         } catch (e) {
             return dateString;
         }
