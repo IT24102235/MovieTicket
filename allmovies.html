@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineApp - Browse Movies</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <style>
+        :root {
+            --primary-color: #ff3366;
+            --secondary-color: #1a1a2e;
+            --accent-color: #4361ee;
+            --light-bg: #f8f9fa;
+            --dark-bg: #16213e;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            padding: 12px 0;
+            z-index: 1000;
+        }
+        
+        .nav-link {
+            color: #333;
+            font-weight: 500;
+            margin: 0 12px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -3px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-color);
+        }
+        
+        /* Header Styles */
+        .page-header {
+            background: linear-gradient(to right, var(--secondary-color), var(--dark-bg));
+            color: white;
+            padding: 60px 0 100px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: -40px;
+        }
+        
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://source.unsplash.com/random/1920x600/?cinema');
+            background-size: cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .header-search {
+            max-width: 600px;
+            margin: 30px auto 0;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: 50px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            padding-right: 50px;
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            border: none;
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Filter Bar */
+        .filter-bar {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px 25px;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        
+        .filter-select {
+            width: 100%;
+            padding: 8px 15px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            color: #495057;
+            background-color: #f8f9fa;
+            transition: all 0.3s;
+        }
+        
+        .filter-select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 51, 102, 0.25);
+        }
+        
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .filter-tag {
+            padding: 5px 15px;
+            background-color: #e9ecef;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: #495057;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .filter-tag:hover {
+            background-color: #dee2e6;
+            cursor: pointer;
+        }
+        
+        .filter-tag.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .filter-tag i {
+            margin-right: 5px;
+            font-size: 0.75rem;
+        }
+        
+        /* Section Styles */
+        .section-title-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding-bottom: 15px;
+        }
+        
+        .section-title {
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-subtitle {
+            color: #6c757d;
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+        
+        .section-badge {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            border-radius: 30px;
+            margin-left: 10px;
+            vertical-align: middle;
+            position: relative;
+            top: -3px;
+        }
+        
+        .section-action {
+            font-weight: 500;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-action i {
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+        
+        .section-action:hover i {
+            transform: translateX(3px);
+        }
+        
+        /* Movie Card Styles */
+        .movie-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            margin-bottom: 30px;
+            background-color: white;
+            position: relative;
+            height: 100%;
+        }
+        
+        .movie-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .movie-poster {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 2/3;
+        }
+        
+        .movie-poster img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .movie-card:hover .movie-poster img {
+            transform: scale(1.05);
+        }
+        
+        .movie-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.9) 100%);
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            transition: opacity 0.3s;
+        }
+        
+        .movie-card:hover .movie-overlay {
+            opacity: 1;
+        }
+        
+        .movie-meta-overlay {
+            display: flex;
+            justify-content: space-between;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 51, 102, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .movie-card:hover .play-icon {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .play-icon:hover {
+            background-color: var(--primary-color);
+            transform: translate(-50%, -50%) scale(1.1) !important;
+        }
+        
+        .movie-badges {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .movie-badge {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+        
+        .movie-badge.premium {
+            background-color: rgba(255, 193, 7, 0.8);
+            color: #212529;
+        }
+        
+        .movie-badge.new {
+            background-color: rgba(255, 51, 102, 0.8);
+        }
+        
+        .bookmark-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        
+        .movie-card:hover .bookmark-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .bookmark-btn:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+        
+        .movie-info {
+            padding: 20px;
+        }
+        
+        .movie-title {
+            font-weight: 600;
+            font-size: 1.15rem;
+            margin-bottom: 10px;
+            color: #333;
+            transition: all 0.3s;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 2.8rem;
+        }
+        
+        .movie-card:hover .movie-title {
+            color: var(--primary-color);
+        }
+        
+        .movie-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .movie-rating {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .movie-rating i {
+            color: #ffc107;
+            margin-right: 5px;
+        }
+        
+        .movie-year {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        .movie-genres {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+        
+        .movie-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .age-rating {
+            width: 30px;
+            height: 30px;
+            background-color: #ffc107;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .btn-book {
+            flex-grow: 1;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .btn-book:hover {
+            background-color: #e6275a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
+        }
+        
+        .btn-trailer {
+            width: 40px;
+            height: 40px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .btn-trailer:hover {
+            background-color: #141428;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 26, 46, 0.3);
+        }
+
+        /* Featured Movie */
+        .featured-movie {
+            background-color: #1a1a2e;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .featured-backdrop {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .featured-movie:hover .featured-backdrop {
+            transform: scale(1.02);
+        }
+        
+        .featured-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white;
+        }
+        
+        .featured-badge {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 5px 15px;
+            border-radius: 30px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .featured-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .featured-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .featured-rating, .featured-duration, .featured-quality {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        .featured-rating i, .featured-duration i, .featured-quality i {
+            margin-right: 5px;
+        }
+        
+        .featured-rating i {
+            color: #ffc107;
+        }
+        
+        .featured-text {
+            max-width: 600px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .btn-featured {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .btn-featured:hover {
+            background-color: #e6275a;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 51, 102, 0.3);
+        }
+        
+        .btn-featured i {
+            margin-left: 8px;
+        }
+        
+        /* Stats Counter Section */
+        .stats-counter {
+            padding: 60px 0;
+            background-color: var(--secondary-color);
+            color: white;
+            margin: 60px 0;
+            position: relative;
+        }
+        
+        .stats-counter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://source.unsplash.com/random/1920x600/?cinema,dark');
+            background-size: cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .counter-box {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .counter-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .counter-label {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        
+        .counter-text {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Testimony Section */
+        .testimony-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .testimony-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .testimony-quote {
+            font-size: 3rem;
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            opacity: 0.1;
+            color: var(--primary-color);
+        }
+        
+        .testimony-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: #495057;
+        }
+        
+        .testimony-user {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimony-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .testimony-name {
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .testimony-role {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        
+        /* Pagination */
+        .pagination-container {
+            margin: 40px 0;
+        }
+        
+        .pagination {
+            justify-content: center;
+        }
+        
+        .page-item {
+            margin: 0 5px;
+        }
+        
+        .page-link {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            border: none;
+            color: #495057;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .page-link:hover {
+            background-color: #e9ecef;
+            color: var(--primary-color);
+        }
+        
+        .page-item.active .page-link {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 80px 0 20px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+        }
+        
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+        
+        .footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 25px;
+            max-width: 300px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-links a i {
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .social-links {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 51, 102, 0.3);
+        }
+        
+        .app-badge {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        
+        .app-badge:hover {
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .featured-title {
+                font-size: 2rem;
+            }
+            
+            .featured-content {
+                padding: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .filter-bar {
+                padding: 15px;
+            }
+            
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .featured-backdrop {
+                height: 300px;
+            }
+            
+            .featured-content {
+                padding: 20px;
+            }
+            
+            .featured-title {
+                font-size: 1.8rem;
+            }
+            
+            .counter-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Custom scroll bar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(136, 136, 136, 0.5);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(85, 85, 85, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-ticket-alt me-2 text-danger"></i>
+                    <span class="fw-bold">CineApp</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="allmovies.html">Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cinemas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Offers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">News</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a href="#" class="btn btn-sm rounded-circle bg-light me-3 position-relative">
+                        <i class="far fa-bell"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            3
+                        </span>
+                    </a>
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="rounded-circle overflow-hidden" style="width: 35px; height: 35px;">
+                                <img src="https://randomuser.me/api/portraits/men/47.jpg" class="img-fluid" alt="Profile">
+                            </div>
+                            <span class="ms-2 d-none d-sm-inline">Alex</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-ticket-alt me-2"></i> My Tickets</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i> Watchlist</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="page-header">
+        <div class="container header-content">
+            <h1 class="page-title text-center" data-aos="fade-up">Browse All Movies</h1>
+            <p class="text-center mb-0" data-aos="fade-up" data-aos-delay="100">
+                Discover the latest movies and book your tickets online
+            </p>
+            <div class="header-search" data-aos="fade-up" data-aos-delay="200">
+                <input type="text" class="search-input" placeholder="Search for movies, actors, directors...">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+        <!-- Filter Bar -->
+        <div class="filter-bar" data-aos="fade-up">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="filter-label">Genre</div>
+                    <select class="filter-select">
+                        <option value="">All Genres</option>
+                        <option value="action">Action</option>
+                        <option value="comedy">Comedy</option>
+                        <option value="drama">Drama</option>
+                        <option value="horror">Horror</option>
+                        <option value="sci-fi">Science Fiction</option>
+                        <option value="romance">Romance</option>
+                        <option value="thriller">Thriller</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <div class="filter-label">Language</div>
+                    <select class="filter-select">
+                        <option value="">All Languages</option>
+                        <option value="english">English</option>
+                        <option value="sinhala">Sinhala</option>
+                        <option value="tamil">Tamil</option>
+                        <option value="hindi">Hindi</option>
+                        <option value="korean">Korean</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <div class="filter-label">Format</div>
+                    <select class="filter-select">
+                        <option value="">All Formats</option>
+                        <option value="2d">2D</option>
+                        <option value="3d">3D</option>
+                        <option value="imax">IMAX</option>
+                        <option value="4dx">4DX</option>
+                        <option value="dolby">Dolby Atmos</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <div class="filter-label">Sort By</div>
+                    <select class="filter-select">
+                        <option value="popular">Popularity</option>
+                        <option value="newest">Newest First</option>
+                        <option value="rating">Highest Rating</option>
+                        <option value="az">A-Z</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-tags">
+                <div class="filter-tag active"><i class="fas fa-film"></i> Now Showing</div>
+                <div class="filter-tag"><i class="fas fa-calendar-alt"></i> Coming Soon</div>
+                <div class="filter-tag"><i class="fas fa-star"></i> Top Rated</div>
+                <div class="filter-tag"><i class="fas fa-heart"></i> Most Popular</div>
+                <div class="filter-tag"><i class="fas fa-trophy"></i> Award Winners</div>
+            </div>
+        </div>
+
+        <!-- Featured Movie -->
+        <section class="featured-movie" data-aos="fade-up">
+            <img src="https://source.unsplash.com/random/1200x600/?movie,cinematic,dark" class="featured-backdrop" alt="Featured Movie">
+            <div class="featured-content">
+                <div class="featured-badge">Featured</div>
+                <h2 class="featured-title">Dune: Part Two</h2>
+                <div class="featured-info">
+                    <div class="featured-rating">
+                        <i class="fas fa-star"></i> 8.9/10 IMDb
+                    </div>
+                    <div class="featured-duration">
+                        <i class="far fa-clock"></i> 166 minutes
+                    </div>
+                    <div class="featured-quality">
+                        <i class="fas fa-film"></i> IMAX Available
+                    </div>
+                </div>
+                <p class="featured-text">
+                    The saga continues as Paul Atreides joins forces with the Fremen to take revenge against the conspirators who destroyed his family, all while trying to prevent a terrible future that only he can foresee.
+                </p>
+                <button class="btn-featured">Book Tickets <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </section>
+
+        <!-- Now Showing Section -->
+        <section data-aos="fade-up" data-aos-delay="100">
+            <div class="section-title-container">
+                <div>
+                    <h2 class="section-title">Now Showing <span class="section-badge">12</span></h2>
+                    <p class="section-subtitle">Movies currently playing in theaters</p>
+                </div>
+                <a href="#" class="section-action">View All <i class="fas fa-chevron-right"></i></a>
+            </div>
+            
+            <div class="row">
+                <!-- Movie Card 1 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://source.unsplash.com/random/400x600/?movie,poster,1" alt="The Matrix: Resurrections">
+                            <div class="movie-overlay">
+                                <div class="movie-meta-overlay">
+                                    <span><i class="far fa-clock"></i> 148 min</span>
+                                    <span><i class="fas fa-star"></i> 4.0</span>
+                                </div>
+                                <button class="btn btn-sm btn-light">View Details</button>
+                            </div>
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="movie-badges">
+                                <div class="movie-badge">IMDb 6.8</div>
+                            </div>
+                            <button class="bookmark-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">The Matrix: Resurrections</h3>
+                            <div class="movie-meta">
+                                <div class="movie-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.0</span>
+                                </div>
+                                <div class="movie-year">2021</div>
+                            </div>
+                            <div class="movie-genres">Action, Sci-Fi, Adventure</div>
+                            <div class="movie-actions">
+                                <div class="age-rating">13</div>
+                                <button class="btn-book">Book Now</button>
+                                <button class="btn-trailer">
+                                    <i class="fas fa-film"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Movie Card 2 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://source.unsplash.com/random/400x600/?movie,poster,2" alt="Dune">
+                            <div class="movie-overlay">
+                                <div class="movie-meta-overlay">
+                                    <span><i class="far fa-clock"></i> 155 min</span>
+                                    <span><i class="fas fa-star"></i> 4.5</span>
+                                </div>
+                                <button class="btn btn-sm btn-light">View Details</button>
+                            </div>
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="movie-badges">
+                                <div class="movie-badge premium">IMAX</div>
+                                <div class="movie-badge">IMDb 8.5</div>
+                            </div>
+                            <button class="bookmark-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Dune</h3>
+                            <div class="movie-meta">
+                                <div class="movie-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.5</span>
+                                </div>
+                                <div class="movie-year">2021</div>
+                            </div>
+                            <div class="movie-genres">Sci-Fi, Adventure, Drama</div>
+                            <div class="movie-actions">
+                                <div class="age-rating">13</div>
+                                <button class="btn-book">Book Now</button>
+                                <button class="btn-trailer">
+                                    <i class="fas fa-film"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Movie Card 3 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://source.unsplash.com/random/400x600/?movie,poster,3" alt="Eternals">
+                            <div class="movie-overlay">
+                                <div class="movie-meta-overlay">
+                                    <span><i class="far fa-clock"></i> 157 min</span>
+                                    <span><i class="fas fa-star"></i> 3.0</span>
+                                </div>
+                                <button class="btn btn-sm btn-light">View Details</button>
+                            </div>
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="movie-badges">
+                                <div class="movie-badge">IMDb 6.3</div>
+                            </div>
+                            <button class="bookmark-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Eternals</h3>
+                            <div class="movie-meta">
+                                <div class="movie-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>3.0</span>
+                                </div>
+                                <div class="movie-year">2021</div>
+                            </div>
+                            <div class="movie-genres">Action, Adventure, Fantasy</div>
+                            <div class="movie-actions">
+                                <div class="age-rating">13</div>
+                                <button class="btn-book">Book Now</button>
+                                <button class="btn-trailer">
+                                    <i class="fas fa-film"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Movie Card 4 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://source.unsplash.com/random/400x600/?movie,poster,4" alt="No Time to Die">
+                            <div class="movie-overlay">
+                                <div class="movie-meta-overlay">
+                                    <span><i class="far fa-clock"></i> 163 min</span>
+                                    <span><i class="fas fa-star"></i> 5.0</span>
+                                </div>
+                                <button class="btn btn-sm btn-light">View Details</button>
+                            </div>
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="movie-badges">
+                                <div class="movie-badge premium">Dolby</div>
+                                <div class="movie-badge">IMDb 7.3</div>
+                            </div>
+                            <button class="bookmark-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">No Time to Die</h3>
+                            <div class="movie-meta">
+                                <div class="movie-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>5.0</span>
+                                </div>
+                                <div class="movie-year">2021</div>
+                            </div>
+                            <div class="movie-genres">Action, Adventure, Thriller</div>
+                            <div class="movie-actions">
+                                <div class="age-rating">13</div>
+                                <button class="btn-book">Book Now</button>
+                                <button class="btn-trailer">
+                                    <i class="fas fa-film"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <!-- Movie Card 5 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://source.unsplash.com/random/400x600/?movie,poster,5" alt="Spider-Man: No Way Home">
+                            <div class="movie-overlay">
+                                <div class="movie-meta-overlay">
+                                    <span><i class="far fa-clock"></i> 148 min</span>
+                                    <span><i class="fas fa-star"></i> 4.8</span>
+                                </div>
+                                <button class="btn btn-sm btn-light">View Details</button>
+                            </div>
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="movie-badges">
+                                <div class="movie-badge premium">4DX</div>
+                                <div class="movie-badge">IMDb 8.3</div>
+                                <div class="movie-badge new">New</div>
+                            </div>
+                            <button class="bookmark-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Spider-Man: No Way Home</h3>
+                            <div class="movie-meta">
+                                <div class="movie-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.8</span>
+                                </div>
+                                <div class="movie-year">2021</div>
+                            </div>
+                            <div class="movie-genres">Action, Adventure, Fantasy</div>
+                            <div class="movie-actions">
+                                <div class="age-rating">13</div>
+                                <button class="btn-book">Book Now</button>
+                                <button class="btn-trailer">
+                                    <i class="fas fa-film"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Movie Card 6 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://source.unsplash.com/random/400x600/?movie,poster,6" alt="The Batman">
+                            <div class="movie-overlay">
+                                <div class="movie-meta-overlay">
+                                    <span><i class="far fa-clock"></i> 176 min</span>
+                                    <span><i class="fas fa-star"></i> 4.7</span>
+                                </div>
+                                <button class="btn btn-sm btn-light">View Details</button>
+                            </div>
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="movie-badges">
+                                <div class="movie-badge premium">IMAX</div>
+                                <div class="movie-badge">IMDb 8.1</div>
+                                <div class="movie-badge new">New</div>
+                            </div>
+                            <button class="bookmark-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">The Batman</h3>
+                            <div class="movie-meta">
+                                <div class="movie-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.7</span>
+                                </div>
+                                <div class="movie-year">2022</div>
+                            </div>
+                            <div class="movie-genres">Action, Crime, Drama</div>
+                            <div class="movie-actions">
+                                <div class="age-rating">16</div>
+                                <button class="btn-book">Book Now</button>
+                                <button class="btn-trailer">
+                                    <i class="fas fa-film"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Movie Card 7 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://source.unsplash.com/random/400x600/?movie,poster,7" alt="Encanto">
+                            <div class="movie-overlay">
+                                <div class="movie-meta-overlay">
+                                    <span><i class="far fa-clock"></i> 102 min</span>
+                                    <span><i class="fas fa-star"></i> 4.2</span>
+                                </div>
+                                <button class="btn btn-sm btn-light">View Details</button>
+                            </div>
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="movie-badges">
+                                <div class="movie-badge">IMDb 7.3</div>
+                            </div>
+                            <button class="bookmark-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Encanto</h3>
+                            <div class="movie-meta">
+                                <div class="movie-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>4.2</span>
+                                </div>
+                                <div class="movie-year">2021</div>
+                            </div>
+                            <div class="movie-genres">Animation, Comedy, Family</div>
+                            <div class="movie-actions">
+                                <div class="age-rating">7</div>
+                                <button class="btn-book">Book Now</button>
+                                <button class="btn-trailer">
+                                    <i class="fas fa-film"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Movie Card 8 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://source.unsplash.com/random/400x600/?movie,poster,8" alt="Venom: Let There Be Carnage">
+                            <div class="movie-overlay">
+                                <div class="movie-meta-overlay">
+                                    <span><i class="far fa-clock"></i> 97 min</span>
+                                    <span><i class="fas fa-star"></i> 3.9</span>
+                                </div>
+                                <button class="btn btn-sm btn-light">View Details</button>
+                            </div>
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="movie-badges">
+                                <div class="movie-badge">IMDb 6.0</div>
+                            </div>
+                            <button class="bookmark-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Venom: Let There Be Carnage</h3>
+                            <div class="movie-meta">
+                                <div class="movie-rating">
+                                    <i class="fas fa-star"></i>
+                                    <span>3.9</span>
+                                </div>
+                                <div class="movie-year">2021</div>
+                            </div>
+                            <div class="movie-genres">Action, Sci-Fi, Thriller</div>
+                            <div class="movie-actions">
+                                <div class="age-rating">13</div>
+                                <button class="btn-book">Book Now</button>
+                                <button class="btn-trailer">
+                                    <i class="fas fa-film"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Counter Section -->
+        <section class="stats-counter" data-aos="fade-up">
+            <div class="container">
+                <div class="row g-4 text-center">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="counter-box">
+                            <div class="counter-number" data-counter="500">500+</div>
+                            <h5 class="counter-label mb-1">Theaters Nationwide</h5>
+                            <p class="counter-text mb-0">Connected to our booking platform</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="counter-box">
+                            <div class="counter-number" data-counter="2.5">2.5M+</div>
+                            <h5 class="counter-label mb-1">Monthly Users</h5>
+                            <p class="counter-text mb-0">Trust us for their movie experiences</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="counter-box">
+                            <div class="counter-number" data-counter="10">10M+</div>
+                            <h5 class="counter-label mb-1">Tickets Sold</h5>
+                            <p class="counter-text mb-0">Through our platform in 2023</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="counter-box">
+                            <div class="counter-number" data-counter="4.8">4.8</div>
+                            <h5 class="counter-label mb-1">Customer Rating</h5>
+                            <p class="counter-text mb-0">Based on 50,000+ reviews</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Coming Soon Section -->
+        <section data-aos="fade-up">
+            <div class="section-title-container">
+                <div>
+                    <h2 class="section-title">Coming Soon <span class="section-badge">8</span></h2>
+                    <p class="section-subtitle">Upcoming releases to get excited about</p>
+                </div>
+                <a href="#" class="section-action">View All <i class="fas fa-chevron-right"></i></a>
+            </div>
+            
+            <div class="row">
+                <!-- Movie Card 9 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://source.unsplash.com/random/400x600/?movie,poster,9" alt="Guardians of the Galaxy Vol. 3">
+                            <div class="movie-overlay">
+                                <div class="movie-meta-overlay">
+                                    <span><i class="far fa-clock"></i> 145 min</span>
+                                    <span><i class="fas fa-calendar-alt"></i> May 5</span>
+                                </div>
+                                <button class="btn btn-sm btn-light">View Details</button>
+                            </div>
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="movie-badges">
+                                <div class="movie-badge premium">Coming Soon</div>
+                            </div>
+                            <button class="bookmark-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Guardians of the Galaxy Vol. 3</h3>
+                            <div class="movie-meta">
+                                <div class="movie-rating">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>May 5</span>
+                                </div>
+                                <div class="movie-year">2023</div>
+                            </div>
+                            <div class="movie-genres">Action, Adventure, Comedy</div>
+                            <div class="movie-actions">
+                                <div class="age-rating">13</div>
+                                <button class="btn-book">Notify Me</button>
+                                <button class="btn-trailer">
+                                    <i class="fas fa-film"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Movie Card 10 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://source.unsplash.com/random/400x600/?movie,poster,10" alt="Mission: Impossible 7">
+                            <div class="movie-overlay">
+                                <div class="movie-meta-overlay">
+                                    <span><i class="far fa-clock"></i> est. 150 min</span>
+                                    <span><i class="fas fa-calendar-alt"></i> Jul 14</span>
+                                </div>
+                                <button class="btn btn-sm btn-light">View Details</button>
+                            </div>
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="movie-badges">
+                                <div class="movie-badge premium">Coming Soon</div>
+                            </div>
+                            <button class="bookmark-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Mission: Impossible – Dead Reckoning</h3>
+                            <div class="movie-meta">
+                                <div class="movie-rating">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Jul 14</span>
+                                </div>
+                                <div class="movie-year">2023</div>
+                            </div>
+                            <div class="movie-genres">Action, Adventure, Thriller</div>
+                            <div class="movie-actions">
+                                <div class="age-rating">13</div>
+                                <button class="btn-book">Notify Me</button>
+                                <button class="btn-trailer">
+                                    <i class="fas fa-film"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Movie Card 11 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://source.unsplash.com/random/400x600/?movie,poster,11" alt="The Flash">
+                            <div class="movie-overlay">
+                                <div class="movie-meta-overlay">
+                                    <span><i class="far fa-clock"></i> est. 135 min</span>
+                                    <span><i class="fas fa-calendar-alt"></i> Jun 16</span>
+                                </div>
+                                <button class="btn btn-sm btn-light">View Details</button>
+                            </div>
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="movie-badges">
+                                <div class="movie-badge premium">Coming Soon</div>
+                            </div>
+                            <button class="bookmark-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">The Flash</h3>
+                            <div class="movie-meta">
+                                <div class="movie-rating">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Jun 16</span>
+                                </div>
+                                <div class="movie-year">2023</div>
+                            </div>
+                            <div class="movie-genres">Action, Adventure, Sci-Fi</div>
+                            <div class="movie-actions">
+                                <div class="age-rating">13</div>
+                                <button class="btn-book">Notify Me</button>
+                                <button class="btn-trailer">
+                                    <i class="fas fa-film"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Movie Card 12 -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                    <div class="movie-card">
+                        <div class="movie-poster">
+                            <img src="https://source.unsplash.com/random/400x600/?movie,poster,12" alt="Avatar: The Way of Water">
+                            <div class="movie-overlay">
+                                <div class="movie-meta-overlay">
+                                    <span><i class="far fa-clock"></i> est. 190 min</span>
+                                    <span><i class="fas fa-calendar-alt"></i> Dec 16</span>
+                                </div>
+                                <button class="btn btn-sm btn-light">View Details</button>
+                            </div>
+                            <div class="play-icon">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <div class="movie-badges">
+                                <div class="movie-badge premium">Coming Soon</div>
+                            </div>
+                            <button class="bookmark-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                        </div>
+                        <div class="movie-info">
+                            <h3 class="movie-title">Avatar: The Way of Water</h3>
+                            <div class="movie-meta">
+                                <div class="movie-rating">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Dec 16</span>
+                                </div>
+                                <div class="movie-year">2023</div>
+                            </div>
+                            <div class="movie-genres">Action, Adventure, Fantasy</div>
+                            <div class="movie-actions">
+                                <div class="age-rating">13</div>
+                                <button class="btn-book">Notify Me</button>
+                                <button class="btn-trailer">
+                                    <i class="fas fa-film"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h3 class="footer-title">About CineApp</h3>
+                    <p class="footer-text">
+                        CineApp is your ultimate destination for discovering movies, booking tickets, and staying updated with the latest cinema news.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h3 class="footer-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Movies</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Cinemas</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> Offers</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> News</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h3 class="footer-title">Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-envelope"></i> support@cineapp.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +1 800 123 4567</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Movie St, Hollywood, CA</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h3 class="footer-title">Download App</h3>
+                    <a href="#" class="app-badge">
+                        <img src="https://via.placeholder.com/150x50?text=Google+Play" alt="Google Play">
+                    </a>
+                    <a href="#" class="app-badge">
+                        <img src="https://via.placeholder.com/150x50?text=App+Store" alt="App Store">
+                    </a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 CineApp. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>

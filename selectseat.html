@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineApp - Select Your Seats</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --dark: #111827;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --gray-light: #e5e7eb;
+            --warning: #fbbf24;
+            --danger: #ef4444;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition-fast: 0.15s ease;
+            --transition: 0.3s ease;
+            --radius-sm: 0.375rem;
+            --radius: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: var(--light);
+            min-height: 100vh;
+        }
+        
+        /* Navbar */
+        .navbar {
+            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .navbar-brand img {
+            height: 32px;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #fff;
+        }
+        
+        .nav-link:hover::after, 
+        .nav-link.active::after {
+            width: 80%;
+            left: 10%;
+        }
+        
+        .nav-link.active {
+            color: #fff;
+        }
+        
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        /* Movie Details */
+        .movie-details {
+            display: flex;
+            margin-bottom: 2.5rem;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+        }
+        
+        .movie-poster {
+            width: 140px;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .movie-info {
+            padding: 1.5rem;
+            flex: 1;
+        }
+        
+        .movie-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .movie-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+        
+        .movie-meta-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .movie-meta-item i {
+            margin-right: 6px;
+            color: var(--primary);
+        }
+        
+        .movie-time {
+            display: inline-block;
+            background: rgba(79, 70, 229, 0.2);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: var(--radius);
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+        
+        /* Seat selection */
+        .seat-selection {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .seat-legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: var(--radius-sm);
+            margin-right: 8px;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .legend-available {
+            background: rgba(249, 250, 251, 0.1);
+            border: 1px solid rgba(249, 250, 251, 0.2);
+        }
+        
+        .legend-selected {
+            background: var(--primary);
+        }
+        
+        .legend-occupied {
+            background: rgba(107, 114, 128, 0.3);
+            border: 1px solid rgba(107, 114, 128, 0.2);
+        }
+        
+        .legend-vip {
+            background: rgba(251, 191, 36, 0.3);
+            border: 1px solid rgba(251, 191, 36, 0.5);
+        }
+        
+        .screen-container {
+            position: relative;
+            padding-bottom: 50px;
+            margin-bottom: 3rem;
+        }
+        
+        .screen {
+            height: 60px;
+            background: linear-gradient(to bottom, rgba(99, 102, 241, 0.1), rgba(99, 102, 241, 0));
+            border-top: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .screen::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 10px;
+            background: var(--primary);
+            border-radius: var(--radius) var(--radius) 0 0;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.7);
+        }
+        
+        .screen-text {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .seat-map {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .seat-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .row-name {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .seat {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px 6px 0 0;
+            background: rgba(249, 250, 251, 0.1);
+            border: 1px solid rgba(249, 250, 251, 0.2);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .seat::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 0 0 3px 3px;
+        }
+        
+        .seat:hover {
+            transform: translateY(-5px);
+            background: rgba(249, 250, 251, 0.2);
+        }
+        
+        .seat.selected {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(99, 102, 241, 0.4);
+        }
+        
+        .seat.occupied {
+            background: rgba(107, 114, 128, 0.3);
+            border-color: rgba(107, 114, 128, 0.2);
+            cursor: not-allowed;
+        }
+        
+        .seat.vip {
+            background: rgba(251, 191, 36, 0.3);
+            border-color: rgba(251, 191, 36, 0.5);
+        }
+        
+        .seat.vip.selected {
+            background: var(--warning);
+            border-color: var(--warning);
+            box-shadow: 0 5px 10px rgba(251, 191, 36, 0.4);
+        }
+        
+        .seat-spacer {
+            width: 32px;
+            height: 32px;
+            visibility: hidden;
+        }
+        
+        /* Booking summary */
+        .booking-summary {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .summary-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .summary-label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .summary-value {
+            font-weight: 500;
+        }
+        
+        .selected-seats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        
+        .seat-tag {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            padding: 3px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .seat-tag.vip {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--warning);
+        }
+        
+        .total-section {
+            border-top: 1px solid var(--glass-border);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn-back {
+            flex: 1;
+            background: rgba(249, 250, 251, 0.1);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 12px;
+            border-radius: var(--radius);
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            text-align: center;
+        }
+        
+        .btn-back:hover {
+            background: rgba(249, 250, 251, 0.2);
+        }
+        
+        .btn-continue {
+            flex: 2;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: all var(--transition-fast);
+            text-align: center;
+        }
+        
+        .btn-continue:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        }
+        
+        /* Notification badge */
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background: var(--danger);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+            }
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip:hover::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 12px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 1;
+        }
+        
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 767.98px) {
+            .movie-details {
+                flex-direction: column;
+            }
+            
+            .movie-poster {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+            
+            .seat-row {
+                gap: 6px;
+            }
+            
+            .seat {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <svg width="120" height="30" viewBox="0 0 120 30" fill="none">
+                    <path d="M0 6C0 2.68629 2.68629 0 6 0H18C21.3137 0 24 2.68629 24 6V24C24 27.3137 21.3137 30 18 30H6C2.68629 30 0 27.3137 0 24V6Z" fill="#6366F1"/>
+                    <path d="M15 10L10 15H15L9 21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M35.144 22.384C33.776 22.384 32.624 22.104 31.688 21.544C30.768 20.968 30.064 20.184 29.576 19.192C29.104 18.2 28.868 17.076 28.868 15.82C28.868 14.548 29.104 13.424 29.576 12.448C30.064 11.456 30.768 10.68 31.688 10.12C32.624 9.544 33.776 9.256 35.144 9.256C36.512 9.256 37.656 9.544 38.576 10.12C39.512 10.68 40.216 11.456 40.688 12.448C41.176 13.424 41.42 14.548 41.42 15.82C41.42 17.076 41.176 18.2 40.688 19.192C40.216 20.184 39.512 20.968 38.576 21.544C37.656 22.104 36.512 22.384 35.144 22.384ZM35.144 19.936C36.128 19.936 36.876 19.608 37.388 18.952C37.9 18.28 38.156 17.236 38.156 15.82C38.156 14.404 37.9 13.368 37.388 12.712C36.876 12.04 36.128 11.704 35.144 11.704C34.16 11.704 33.412 12.04 32.9 12.712C32.388 13.368 32.132 14.404 32.132 15.82C32.132 17.236 32.388 18.28 32.9 18.952C33.412 19.608 34.16 19.936 35.144 19.936Z" fill="white"/>
+                    <path d="M43.3385 22V9.64H46.3625V11.92H46.4825C46.6825 11.12 47.0185 10.52 47.4905 10.12C47.9625 9.72 48.5145 9.52 49.1465 9.52C49.3145 9.52 49.4865 9.536 49.6625 9.568C49.8385 9.6 49.9985 9.64 50.1425 9.688V12.52C49.9825 12.456 49.7745 12.4 49.5185 12.352C49.2625 12.304 49.0225 12.28 48.7985 12.28C48.3425 12.28 47.9345 12.376 47.5745 12.568C47.2305 12.744 46.9585 13 46.7585 13.336C46.5585 13.672 46.4585 14.056 46.4585 14.488V22H43.3385Z" fill="white"/>
+                    <path d="M56.5545 22.384C55.2025 22.384 54.0505 22.112 53.0985 21.568C52.1465 21.008 51.4185 20.232 50.9145 19.24C50.4105 18.232 50.1585 17.076 50.1585 15.772C50.1585 14.516 50.4025 13.384 50.8905 12.376C51.3785 11.368 52.0665 10.576 52.9545 10C53.8425 9.424 54.8825 9.136 56.0745 9.136C56.9305 9.136 57.7145 9.288 58.4265 9.592C59.1385 9.896 59.7505 10.344 60.2625 10.936C60.7745 11.512 61.1665 12.232 61.4385 13.096C61.7105 13.944 61.8465 14.92 61.8465 16.024V16.936H51.7625V14.944H58.8465C58.8465 14.384 58.7425 13.888 58.5345 13.456C58.3265 13.024 58.0265 12.688 57.6345 12.448C57.2585 12.192 56.8145 12.064 56.3025 12.064C55.7585 12.064 55.2785 12.208 54.8625 12.496C54.4625 12.768 54.1545 13.136 53.9385 13.6C53.7225 14.048 53.6105 14.544 53.6025 15.088V16.192C53.6025 16.896 53.7185 17.504 53.9505 18.016C54.1985 18.512 54.5425 18.896 54.9825 19.168C55.4225 19.44 55.9425 19.576 56.5425 19.576C56.9425 19.576 57.3025 19.52 57.6225 19.408C57.9425 19.296 58.2145 19.128 58.4385 18.904C58.6625 18.68 58.8265 18.408 58.9305 18.088L61.7865 18.352C61.6425 19.12 61.3185 19.792 60.8145 20.368C60.3265 20.928 59.6905 21.368 58.9065 21.688C58.1225 22.152 57.4185 22.384 56.5545 22.384Z" fill="white"/>
+                    <path d="M69.2943 22.384C68.1503 22.384 67.1423 22.096 66.2703 21.52C65.3983 20.944 64.7063 20.152 64.1943 19.144C63.6983 18.136 63.4503 16.968 63.4503 15.64C63.4503 14.312 63.7063 13.144 64.2183 12.136C64.7303 11.128 65.4303 10.336 66.3183 9.76C67.2063 9.184 68.2143 8.896 69.3423 8.896C70.2463 8.896 70.9823 9.056 71.5503 9.376C72.1343 9.68 72.5983 10.048 72.9423 10.48C73.2863 10.912 73.5503 11.32 73.7342 11.704H73.8543V4.96H77.0703V22H73.9503V19.504H73.7342C73.5343 19.904 73.2623 20.32 72.9183 20.752C72.5743 21.168 72.1023 21.52 71.5023 21.808C70.9183 22.192 70.1823 22.384 69.2943 22.384ZM70.2863 19.6C70.9343 19.6 71.4783 19.432 71.9183 19.096C72.3743 18.744 72.7183 18.264 72.9503 17.656C73.1823 17.048 73.2983 16.344 73.2983 15.544C73.2983 14.744 73.1823 14.048 72.9503 13.456C72.7183 12.848 72.3743 12.376 71.9183 12.04C71.4783 11.704 70.9343 11.536 70.2863 11.536C69.6223 11.536 69.0703 11.712 68.6303 12.064C68.1903 12.4 67.8543 12.872 67.6223 13.48C67.3903 14.088 67.2743 14.776 67.2743 15.544C67.2743 16.312 67.3903 17.008 67.6223 17.632C67.8703 18.24 68.2063 18.72 68.6303 19.072C69.0703 19.424 69.6223 19.6 70.2863 19.6Z" fill="white"/>
+                    <path d="M86.7541 22.384C85.4021 22.384 84.2501 22.112 83.2981 21.568C82.3461 21.008 81.6181 20.232 81.1141 19.24C80.6101 18.232 80.3581 17.076 80.3581 15.772C80.3581 14.516 80.6021 13.384 81.0901 12.376C81.5781 11.368 82.2661 10.576 83.1541 10C84.0421 9.424 85.0821 9.136 86.2741 9.136C87.1301 9.136 87.9141 9.288 88.6261 9.592C89.3381 9.896 89.9501 10.344 90.4621 10.936C90.9741 11.512 91.3661 12.232 91.6381 13.096C91.9101 13.944 92.0461 14.92 92.0461 16.024V16.936H81.9621V14.944H89.0461C89.0461 14.384 88.9421 13.888 88.7341 13.456C88.5261 13.024 88.2261 12.688 87.8341 12.448C87.4581 12.192 87.0141 12.064 86.5021 12.064C85.9581 12.064 85.4781 12.208 85.0621 12.496C84.6621 12.768 84.3541 13.136 84.1381 13.6C83.9221 14.048 83.8101 14.544 83.8021 15.088V16.192C83.8021 16.896 83.9181 17.504 84.1501 18.016C84.3981 18.512 84.7421 18.896 85.1821 19.168C85.6221 19.44 86.1421 19.576 86.7421 19.576C87.1421 19.576 87.5021 19.52 87.8221 19.408C88.1421 19.296 88.4141 19.128 88.6381 18.904C88.8621 18.68 89.0261 18.408 89.1301 18.088L91.9861 18.352C91.8421 19.12 91.5181 19.792 91.0141 20.368C90.5261 20.928 89.8901 21.368 89.1061 21.688C88.3221 22.152 87.6181 22.384 86.7541 22.384Z" fill="white"/>
+                    <path d="M100.227 22.384C99.0065 22.384 97.9345 22.112 97.0105 21.568C96.0865 21.008 95.3745 20.232 94.8745 19.24C94.3905 18.248 94.1505 17.12 94.1505 15.856C94.1505 14.576 94.4025 13.44 94.9025 12.448C95.4025 11.456 96.1185 10.68 97.0505 10.12C97.9825 9.544 99.0586 9.256 100.287 9.256C101.319 9.256 102.231 9.464 103.023 9.88C103.831 10.28 104.471 10.856 104.943 11.608C105.415 12.344 105.671 13.224 105.711 14.248H102.735C102.639 13.544 102.383 12.984 101.967 12.568C101.567 12.136 101.023 11.92 100.335 11.92C99.7825 11.92 99.3025 12.064 98.8945 12.352C98.5025 12.624 98.1985 13.032 97.9985 13.576C97.7985 14.12 97.6985 14.784 97.6985 15.568C97.6985 16.368 97.7985 17.048 97.9985 17.608C98.1985 18.152 98.5025 18.568 98.9025 18.856C99.3025 19.128 99.7825 19.264 100.335 19.264C100.783 19.264 101.183 19.176 101.535 19C101.887 18.824 102.175 18.576 102.399 18.256C102.639 17.936 102.799 17.56 102.879 17.128H105.855C105.807 18.136 105.551 19.016 105.087 19.768C104.639 20.504 104.023 21.08 103.239 21.496C102.455 22.088 101.451 22.384 100.227 22.384Z" fill="white"/>
+                    <path d="M107.856 22V9.64H110.976V22H107.856ZM109.428 7.792C108.9 7.792 108.444 7.624 108.06 7.288C107.692 6.936 107.508 6.512 107.508 6.016C107.508 5.52 107.692 5.104 108.06 4.768C108.444 4.416 108.9 4.24 109.428 4.24C109.956 4.24 110.404 4.416 110.772 4.768C111.156 5.104 111.348 5.52 111.348 6.016C111.348 6.512 111.156 6.936 110.772 7.288C110.404 7.624 109.956 7.792 109.428 7.792Z" fill="white"/>
+                    <path d="M117.635 22.384C116.492 22.384 115.483 22.096 114.611 21.52C113.739 20.944 113.047 20.152 112.535 19.144C112.039 18.136 111.791 16.968 111.791 15.64C111.791 14.312 112.047 13.144 112.559 12.136C113.071 11.128 113.771 10.336 114.659 9.76C115.547 9.184 116.555 8.896 117.683 8.896C118.587 8.896 119.323 9.056 119.891 9.376C120.475 9.68 120.939 10.048 121.283 10.48C121.627 10.912 121.891 11.32 122.075 11.704H122.195V4.96H125.411V22H122.291V19.504H122.075C121.875 19.904 121.603 20.32 121.259 20.752C120.915 21.168 120.443 21.52 119.843 21.808C119.259 22.192 118.523 22.384 117.635 22.384ZM118.627 19.6C119.275 19.6 119.819 19.432 120.259 19.096C120.715 18.744 121.059 18.264 121.291 17.656C121.523 17.048 121.639 16.344 121.639 15.544C121.639 14.744 121.523 14.048 121.291 13.456C121.059 12.848 120.715 12.376 120.259 12.04C119.819 11.704 119.275 11.536 118.627 11.536C117.963 11.536 117.411 11.712 116.971 12.064C116.531 12.4 116.195 12.872 115.963 13.48C115.731 14.088 115.615 14.776 115.615 15.544C115.615 16.312 115.731 17.008 115.963 17.632C116.211 18.24 116.547 18.72 116.971 19.072C117.411 19.424 117.963 19.6 118.627 19.6Z" fill="white"/>
+                </svg>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Cinemas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Offers</a>
+                    </li>
+                </ul>
+                
+                <div class="d-flex align-items-center">
+                    <div class="position-relative me-4">
+                        <i class="fas fa-bell fs-5"></i>
+                        <div class="notification-badge">2</div>
+                    </div>
+                    <div class="user-avatar">M</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Progress Steps -->
+        <div class="mb-4 fade-in">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                            <i class="fas fa-calendar-alt text-white"></i>
+                        </div>
+                        <span class="mt-2 text-white">Date & Time</span>
+                    </div>
+                    <div class="bg-primary" style="height: 2px; width: 50px;"></div>
+                </div>
+                
+                <div class="d-flex align-items-center">
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                            <i class="fas fa-couch text-white"></i>
+                        </div>
+                        <span class="mt-2 text-white">Seats</span>
+                    </div>
+                    <div class="bg-gray-light" style="height: 2px; width: 50px;"></div>
+                </div>
+                
+                <div class="d-flex align-items-center">
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="rounded-circle bg-gray-light d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                            <i class="fas fa-popcorn text-gray"></i>
+                        </div>
+                        <span class="mt-2 text-gray">Snacks</span>
+                    </div>
+                    <div class="bg-gray-light" style="height: 2px; width: 50px;"></div>
+                </div>
+                
+                <div class="d-flex flex-column align-items-center">
+                    <div class="rounded-circle bg-gray-light d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                        <i class="fas fa-credit-card text-gray"></i>
+                    </div>
+                    <span class="mt-2 text-gray">Payment</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movie Details -->
+        <div class="movie-details fade-in" style="animation-delay: 0.2s;">
+            <img src="https://source.unsplash.com/random/800x1200/?movie,poster" alt="Movie Poster" class="movie-poster">
+            <div class="movie-info">
+                <h1 class="movie-title">Dune: Part Two</h1>
+                <div class="movie-meta">
+                    <div class="movie-meta-item">
+                        <i class="fas fa-star"></i>
+                        <span>9.2/10 IMDb</span>
+                    </div>
+                    <div class="movie-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>166 mins</span>
+                    </div>
+                    <div class="movie-meta-item">
+                        <i class="fas fa-film"></i>
+                        <span>Sci-Fi, Adventure</span>
+                    </div>
+                </div>
+                <div class="movie-time">Sunday, April 7 • 7:30 PM • IMAX</div>
+            </div>
+        </div>
+        
+        <!-- Seat Selection -->
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="seat-selection fade-in" style="animation-delay: 0.4s;">
+                    <div class="seat-legend">
+                        <div class="legend-item">
+                            <div class="legend-color legend-available"></div>
+                            <span>Available</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color legend-selected"></div>
+                            <span>Selected</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color legend-occupied"></div>
+                            <span>Occupied</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color legend-vip"></div>
+                            <span>VIP ($25)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="screen-container">
+                        <div class="screen"></div>
+                        <div class="screen-text">Screen</div>
+                    </div>
+                    
+                    <div class="seat-map">
+                        <!-- Row A -->
+                        <div class="seat-row">
+                            <div class="row-name">A</div>
+                            <div class="seat vip" data-seat="A1" data-price="25"></div>
+                            <div class="seat vip" data-seat="A2" data-price="25"></div>
+                            <div class="seat vip" data-seat="A3" data-price="25"></div>
+                            <div class="seat vip" data-seat="A4" data-price="25"></div>
+                            <div class="seat vip" data-seat="A5" data-price="25"></div>
+                            <div class="seat vip" data-seat="A6" data-price="25"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat vip" data-seat="A7" data-price="25"></div>
+                            <div class="seat vip" data-seat="A8" data-price="25"></div>
+                            <div class="seat vip occupied" data-seat="A9" data-price="25"></div>
+                            <div class="seat vip occupied" data-seat="A10" data-price="25"></div>
+                            <div class="seat vip" data-seat="A11" data-price="25"></div>
+                            <div class="seat vip" data-seat="A12" data-price="25"></div>
+                            <div class="row-name">A</div>
+                        </div>
+                        
+                        <!-- Row B -->
+                        <div class="seat-row">
+                            <div class="row-name">B</div>
+                            <div class="seat vip" data-seat="B1" data-price="25"></div>
+                            <div class="seat vip" data-seat="B2" data-price="25"></div>
+                            <div class="seat vip" data-seat="B3" data-price="25"></div>
+                            <div class="seat vip occupied" data-seat="B4" data-price="25"></div>
+                            <div class="seat vip occupied" data-seat="B5" data-price="25"></div>
+                            <div class="seat vip" data-seat="B6" data-price="25"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat vip" data-seat="B7" data-price="25"></div>
+                            <div class="seat vip" data-seat="B8" data-price="25"></div>
+                            <div class="seat vip" data-seat="B9" data-price="25"></div>
+                            <div class="seat vip" data-seat="B10" data-price="25"></div>
+                            <div class="seat vip" data-seat="B11" data-price="25"></div>
+                            <div class="seat vip" data-seat="B12" data-price="25"></div>
+                            <div class="row-name">B</div>
+                        </div>
+                        
+                        <!-- Row C -->
+                        <div class="seat-row">
+                            <div class="row-name">C</div>
+                            <div class="seat" data-seat="C1" data-price="18"></div>
+                            <div class="seat" data-seat="C2" data-price="18"></div>
+                            <div class="seat" data-seat="C3" data-price="18"></div>
+                            <div class="seat" data-seat="C4" data-price="18"></div>
+                            <div class="seat" data-seat="C5" data-price="18"></div>
+                            <div class="seat" data-seat="C6" data-price="18"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat" data-seat="C7" data-price="18"></div>
+                            <div class="seat" data-seat="C8" data-price="18"></div>
+                            <div class="seat occupied" data-seat="C9" data-price="18"></div>
+                            <div class="seat occupied" data-seat="C10" data-price="18"></div>
+                            <div class="seat" data-seat="C11" data-price="18"></div>
+                            <div class="seat" data-seat="C12" data-price="18"></div>
+                            <div class="row-name">C</div>
+                        </div>
+                        
+                        <!-- Row D -->
+                        <div class="seat-row">
+                            <div class="row-name">D</div>
+                            <div class="seat" data-seat="D1" data-price="18"></div>
+                            <div class="seat" data-seat="D2" data-price="18"></div>
+                            <div class="seat occupied" data-seat="D3" data-price="18"></div>
+                            <div class="seat occupied" data-seat="D4" data-price="18"></div>
+                            <div class="seat" data-seat="D5" data-price="18"></div>
+                            <div class="seat" data-seat="D6" data-price="18"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat" data-seat="D7" data-price="18"></div>
+                            <div class="seat" data-seat="D8" data-price="18"></div>
+                            <div class="seat" data-seat="D9" data-price="18"></div>
+                            <div class="seat" data-seat="D10" data-price="18"></div>
+                            <div class="seat" data-seat="D11" data-price="18"></div>
+                            <div class="seat" data-seat="D12" data-price="18"></div>
+                            <div class="row-name">D</div>
+                        </div>
+                        
+                        <!-- Row E -->
+                        <div class="seat-row">
+                            <div class="row-name">E</div>
+                            <div class="seat" data-seat="E1" data-price="18"></div>
+                            <div class="seat" data-seat="E2" data-price="18"></div>
+                            <div class="seat" data-seat="E3" data-price="18"></div>
+                            <div class="seat" data-seat="E4" data-price="18"></div>
+                            <div class="seat" data-seat="E5" data-price="18"></div>
+                            <div class="seat" data-seat="E6" data-price="18"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat" data-seat="E7" data-price="18"></div>
+                            <div class="seat" data-seat="E8" data-price="18"></div>
+                            <div class="seat" data-seat="E9" data-price="18"></div>
+                            <div class="seat" data-seat="E10" data-price="18"></div>
+                            <div class="seat" data-seat="E11" data-price="18"></div>
+                            <div class="seat" data-seat="E12" data-price="18"></div>
+                            <div class="row-name">E</div>
+                        </div>
+                        
+                        <!-- Row F -->
+                        <div class="seat-row">
+                            <div class="row-name">F</div>
+                            <div class="seat" data-seat="F1" data-price="18"></div>
+                            <div class="seat" data-seat="F2" data-price="18"></div>
+                            <div class="seat" data-seat="F3" data-price="18"></div>
+                            <div class="seat" data-seat="F4" data-price="18"></div>
+                            <div class="seat occupied" data-seat="F5" data-price="18"></div>
+                            <div class="seat occupied" data-seat="F6" data-price="18"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat occupied" data-seat="F7" data-price="18"></div>
+                            <div class="seat occupied" data-seat="F8" data-price="18"></div>
+                            <div class="seat" data-seat="F9" data-price="18"></div>
+                            <div class="seat" data-seat="F10" data-price="18"></div>
+                            <div class="seat" data-seat="F11" data-price="18"></div>
+                            <div class="seat" data-seat="F12" data-price="18"></div>
+                            <div class="row-name">F</div>
+                        </div>
+                        
+                        <!-- Row G -->
+                        <div class="seat-row">
+                            <div class="row-name">G</div>
+                            <div class="seat" data-seat="G1" data-price="15"></div>
+                            <div class="seat" data-seat="G2" data-price="15"></div>
+                            <div class="seat" data-seat="G3" data-price="15"></div>
+                            <div class="seat" data-seat="G4" data-price="15"></div>
+                            <div class="seat" data-seat="G5" data-price="15"></div>
+                            <div class="seat" data-seat="G6" data-price="15"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat" data-seat="G7" data-price="15"></div>
+                            <div class="seat" data-seat="G8" data-price="15"></div>
+                            <div class="seat" data-seat="G9" data-price="15"></div>
+                            <div class="seat" data-seat="G10" data-price="15"></div>
+                            <div class="seat" data-seat="G11" data-price="15"></div>
+                            <div class="seat" data-seat="G12" data-price="15"></div>
+                            <div class="row-name">G</div>
+                        </div>
+                        
+                        <!-- Row H -->
+                        <div class="seat-row">
+                            <div class="row-name">H</div>
+                            <div class="seat" data-seat="H1" data-price="15"></div>
+                            <div class="seat" data-seat="H2" data-price="15"></div>
+                            <div class="seat" data-seat="H3" data-price="15"></div>
+                            <div class="seat" data-seat="H4" data-price="15"></div>
+                            <div class="seat" data-seat="H5" data-price="15"></div>
+                            <div class="seat" data-seat="H6" data-price="15"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat-spacer"></div>
+                            <div class="seat" data-seat="H7" data-price="15"></div>
+                            <div class="seat" data-seat="H8" data-price="15"></div>
+                            <div class="seat" data-seat="H9" data-price="15"></div>
+                            <div class="seat" data-seat="H10" data-price="15"></div>
+                            <div class="seat" data-seat="H11" data-price="15"></div>
+                            <div class="seat" data-seat="H12" data-price="15"></div>
+                            <div class="row-name">H</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Booking Summary -->
+            <div class="col-lg-4 mb-4">
+                <div class="booking-summary fade-in" style="animation-delay: 0.6s;">
+                    <h3 class="summary-title">Booking Summary</h3>
+                    
+                    <div class="summary-item">
+                        <div class="summary-label">Movie</div>
+                        <div class="summary-value">Dune: Part Two</div>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <div class="summary-label">Cinema</div>
+                        <div class="summary-value">Regal IMAX Cinema</div>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <div class="summary-label">Date & Time</div>
+                        <div class="summary-value">Sun, Apr 7 • 7:30 PM</div>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <div class="summary-label">Tickets</div>
+                        <div class="summary-value" id="ticket-count">0</div>
+                    </div>
+                    
+                    <div class="summary-item">
+                        <div class="summary-label">Selected Seats</div>
+                        <div class="selected-seats" id="selected-seats">
+                            <span class="text-muted">No seats selected</span>
+                        </div>
+                    </div>
+                    
+                    <div class="total-section">
+                        <div class="total-row">
+                            <div>Total</div>
+                            <div id="total-price">$0.00</div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <a href="#" class="btn-back">Back</a>
+                        <a href="#" class="btn-continue" id="continue-btn">Continue</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const seats = document.querySelectorAll('.seat:not(.occupied)');
+            const selectedSeatsElement = document.getElementById('selected-seats');
+            const ticketCountElement = document.getElementById('ticket-count');
+            const totalPriceElement = document.getElementById('total-price');
+            const continueBtn = document.getElementById('continue-btn');
+            
+            let selectedSeats = [];
+            let totalPrice = 0;
+            
+            // Add seat click event listeners
+            seats.forEach(seat => {
+                seat.addEventListener('click', function() {
+                    // Toggle seat selection
+                    this.classList.toggle('selected');
+                    
+                    const seatId = this.getAttribute('data-seat');
+                    const price = parseInt(this.getAttribute('data-price'));
+                    const isVip = this.classList.contains('vip');
+                    
+                    if (this.classList.contains('selected')) {
+                        // Add seat to selection
+                        selectedSeats.push({
+                            id: seatId,
+                            price: price,
+                            vip: isVip
+                        });
+                        
+                        // Add selection animation
+                        this.style.animation = 'pulse 2s';
+                        setTimeout(() => {
+                            this.style.animation = '';
+                        }, 2000);
+                    } else {
+                        // Remove seat from selection
+                        selectedSeats = selectedSeats.filter(seat => seat.id !== seatId);
+                    }
+                    
+                    // Update the summary
+                    updateSummary();
+                });
+            });
+            
+            // Update summary details
+            function updateSummary() {
+                // Update seat count
+                ticketCountElement.textContent = selectedSeats.length;
+                
+                // Calculate total price
+                totalPrice = selectedSeats.reduce((total, seat) => total + seat.price, 0);
+                totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+                
+                // Update selected seats display
+                if (selectedSeats.length > 0) {
+                    selectedSeatsElement.innerHTML = '';
+                    selectedSeats.forEach(seat => {
+                        const seatTag = document.createElement('div');
+                        seatTag.classList.add('seat-tag');
+                        if (seat.vip) {
+                            seatTag.classList.add('vip');
+                        }
+                        seatTag.textContent = seat.id;
+                        selectedSeatsElement.appendChild(seatTag);
+                    });
+                } else {
+                    selectedSeatsElement.innerHTML = '<span class="text-muted">No seats selected</span>';
+                }
+                
+                // Enable/disable continue button
+                if (selectedSeats.length > 0) {
+                    continueBtn.classList.add('active');
+                    continueBtn.style.opacity = 1;
+                    continueBtn.style.pointerEvents = 'auto';
+                } else {
+                    continueBtn.classList.remove('active');
+                    continueBtn.style.opacity = 0.6;
+                    continueBtn.style.pointerEvents = 'none';
+                }
+            }
+            
+            // Initial setup
+            updateSummary();
+            
+            // Continue button click event
+            continueBtn.addEventListener('click', function(e) {
+                if (selectedSeats.length === 0) {
+                    e.preventDefault();
+                    alert('Please select at least one seat to continue.');
+                } else {
+                    // Store selected seats in local storage
+                    localStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+                    localStorage.setItem('totalPrice', totalPrice.toFixed(2));
+                }
+            });
+            
+            // Screen glow effect
+            const screen = document.querySelector('.screen');
+            setInterval(() => {
+                screen.classList.toggle('pulse');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
