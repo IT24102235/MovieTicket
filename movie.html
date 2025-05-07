@@ -1737,13 +1737,33 @@
         </div>
     </footer>
 
+    <!-- Notification container -->
+    <div class="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/movie.js"></script>
     <script>
         AOS.init();
 
-        // Preloader
-        window.addEventListener('load', () => {
+        // Update cart count display
+        function updateCartCount() {
+            const cartBadge = document.querySelector('.notification-badge');
+            if (cartBadge) {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+                
+                cartBadge.textContent = totalItems;
+                cartBadge.style.display = totalItems > 0 ? 'block' : 'none';
+            }
+        }
+
+        // Initialize cart count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            
+            // Preloader
             const preloader = document.getElementById('preloader');
             preloader.style.opacity = '0';
             setTimeout(() => preloader.style.display = 'none', 500);
@@ -1759,43 +1779,173 @@
             }
         });
 
-        // Date Slider Controls
-        const dateList = document.getElementById('dateList');
-        const datePrev = document.getElementById('datePrev');
-        const dateNext = document.getElementById('dateNext');
-
-        datePrev.addEventListener('click', () => {
-            dateList.scrollBy({ left: -100, behavior: 'smooth' });
-        });
-
-        dateNext.addEventListener('click', () => {
-            dateList.scrollBy({ left: 100, behavior: 'smooth' });
-        });
-
-        // Theatre Tabs
-        const theatreTabs = document.querySelectorAll('.theatre-tab');
-        const theatreContents = document.querySelectorAll('.theatre-content');
-        const tabIndicator = document.querySelector('.theatre-tab-indicator');
-
-        theatreTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                theatreTabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-
-                const target = tab.dataset.target;
-                theatreContents.forEach(content => {
-                    content.classList.remove('active');
-                    if (content.id === target) {
-                        content.classList.add('active');
-                    }
-                });
-
-                const tabRect = tab.getBoundingClientRect();
-                const tabsRect = tab.parentElement.getBoundingClientRect();
-                tabIndicator.style.left = `${tabRect.left - tabsRect.left}px`;
-                tabIndicator.style.width = `${tabRect.width}px`;
+        // Movie trailers integration with modals
+        const trailerModal = document.getElementById('trailerModal');
+        if (trailerModal) {
+            trailerModal.addEventListener('show.bs.modal', function() {
+                const trailerPlaceholder = document.getElementById('trailerPlaceholder');
+                if (trailerPlaceholder) {
+                    // Replace placeholder with actual YouTube embed
+                    setTimeout(() => {
+                        trailerPlaceholder.innerHTML = `
+                            <iframe 
+                                width="100%" 
+                                height="100%" 
+                                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
+                                title="Movie Trailer" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                            ></iframe>
+                        `;
+                    }, 1000); // Simulated loading time
+                }
             });
-        });
+            
+            trailerModal.addEventListener('hidden.bs.modal', function() {
+                const trailerPlaceholder = document.getElementById('trailerPlaceholder');
+                if (trailerPlaceholder) {
+                    // Reset placeholder
+                    trailerPlaceholder.innerHTML = `
+                        <div class="w-100 h-100 d-flex align-items-center justify-content-center bg-dark">
+                            <div class="spinner-border text-light" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        // Get checkout button and connect it to the cart
+        const checkoutButton = document.querySelector('.btn-checkout');
+        if (checkoutButton) {
+            checkoutButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Get movie information
+                const movieTitle = document.querySelector('.movie-title').textContent;
+                const moviePoster = document.querySelector('#moviePoster img')?.src || 
+                                   'https://source.unsplash.com/random/400x600/?movie,poster,drama';
+                
+                // Get selected seats
+                const selectedSeats = document.querySelectorAll('.seat.selected');
+                if (selectedSeats.length === 0) {
+                    showNotification('Please select at least one seat', 'error');
+                    return;
+                }
+                
+                // Get selected date, time, format
+                const activeDate = document.querySelector('.date-item.active');
+                const activeTime = document.querySelector('.time-slot.active');
+                const activeFormat = document.querySelector('.theatre-tab.active');
+                
+                // Format date string
+                const dateText = activeDate ? 
+                    `${activeDate.querySelector('.date-day').textContent}, ${activeDate.querySelector('.date-month').textContent} ${activeDate.querySelector('.date-num').textContent}, 2024` : 
+                    'Tuesday, Mar 16, 2024';
+                
+                const timeText = activeTime ? 
+                    activeTime.querySelector('.time-value').textContent : 
+                    '7:30 PM';
+                    
+                const formatText = activeFormat ? 
+                    activeFormat.textContent.trim() : 
+                    '2D';
+                
+                // Calculate price based on format
+                let price = 1000; // Default price
+                if (formatText.includes('3D')) price = 1500;
+                if (formatText.includes('IMAX')) price = 2000;
+                if (formatText.includes('Dolby')) price = 2000;
+                
+                // Collect all seat IDs
+                const seatIds = [];
+                const seatMap = document.getElementById('seatMap');
+                const seats = seatMap.querySelectorAll('.seat.selected');
+                
+                seats.forEach((seat, index) => {
+                    const row = String.fromCharCode(65 + Math.floor(index / 8));
+                    const num = (index % 8) + 1;
+                    seatIds.push(`${row}${num}`);
+                });
+                
+                // Create movie data object for cart
+                const movieData = {
+                    id: Math.floor(Math.random() * 1000), // Random ID for demo
+                    title: movieTitle,
+                    date: dateText,
+                    time: timeText,
+                    format: formatText,
+                    theater: 'Malabe Theater Hall', // From the page
+                    seats: seatIds,
+                    quantity: seatIds.length,
+                    price: price,
+                    image: moviePoster
+                };
+                
+                // Add to cart using cart.js function
+                if (typeof window.addToCart === 'function') {
+                    window.addToCart(movieData);
+                    showNotification('Added to cart successfully!', 'success');
+                    
+                    // Update cart count
+                    updateCartCount();
+                    
+                    // Navigate to cart after a delay
+                    setTimeout(() => {
+                        window.location.href = 'cart.html';
+                    }, 1500);
+                } else {
+                    console.error('Cart functionality not available');
+                }
+            });
+        }
+
+        // Custom notification function to match cart.js pattern
+        function showNotification(message, type) {
+            // Check if notification container exists, if not create it
+            let notificationContainer = document.querySelector('.notification-container');
+            
+            if (!notificationContainer) {
+                notificationContainer = document.createElement('div');
+                notificationContainer.className = 'notification-container';
+                notificationContainer.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    z-index: 9999;
+                `;
+                document.body.appendChild(notificationContainer);
+            }
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'success' ? 'success' : 'danger'} notification`;
+            notification.style.cssText = `
+                margin-bottom: 10px;
+                min-width: 300px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                animation: slide-in 0.3s forwards;
+            `;
+            notification.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            // Add to container
+            notificationContainer.appendChild(notification);
+            
+            // Remove after delay
+            setTimeout(() => {
+                notification.style.animation = 'slide-out 0.3s forwards';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
     </script>
 </body>
 </html>

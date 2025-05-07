@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineApp - Order Confirmation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0065ff;
+            --primary-dark: #0048b3;
+            --primary-light: #4d94ff;
+            --secondary-color: #0a1124;
+            --accent-color: #00c3ff;
+            --light-bg: #f8faff;
+            --dark-bg: #050914;
+            --card-bg: rgba(255, 255, 255, 0.98);
+            --shadow-sm: 0 5px 15px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.12);
+            --shadow-blue: 0 8px 20px rgba(0, 101, 255, 0.2);
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(at 30% 20%, rgba(0, 101, 255, 0.05) 0px, transparent 50%),
+                radial-gradient(at 80% 70%, rgba(0, 195, 255, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+        
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            padding: 12px 0;
+            z-index: 1000;
+        }
+        
+        .page-container {
+            padding: 100px 0 60px;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .confirmation-container {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            animation: fade-in-up 0.6s ease-out;
+        }
+        
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background-color: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+        }
+        
+        .success-icon i {
+            font-size: 50px;
+            color: #4caf50;
+        }
+        
+        .confirmation-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .confirmation-message {
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+        
+        .order-details {
+            background-color: var(--light-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .order-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .order-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .order-item-image {
+            width: 80px;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 20px;
+        }
+        
+        .order-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .order-item-details h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .order-item-details p {
+            margin-bottom: 3px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .order-summary {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .summary-row.total {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .action-buttons .btn {
+            padding: 12px 25px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .action-buttons .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-blue);
+        }
+        
+        .action-buttons .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 101, 255, 0.3);
+        }
+        
+        .action-buttons .btn-outline-secondary:hover {
+            transform: translateY(-3px);
+        }
+        
+        .share-options {
+            margin-top: 40px;
+        }
+        
+        .share-options p {
+            margin-bottom: 15px;
+            color: #6c757d;
+        }
+        
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .social-button {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .social-button:hover {
+            transform: translateY(-5px);
+        }
+        
+        .social-button.facebook {
+            background-color: #3b5998;
+        }
+        
+        .social-button.twitter {
+            background-color: #1da1f2;
+        }
+        
+        .social-button.whatsapp {
+            background-color: #25d366;
+        }
+        
+        .social-button.email {
+            background-color: #ea4335;
+        }
+        
+        .qr-container {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px dashed rgba(0, 0, 0, 0.1);
+        }
+        
+        .qr-title {
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .qr-code {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .download-ticket {
+            margin-top: 20px;
+            color: var(--primary-color);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .download-ticket:hover {
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .download-ticket i {
+            margin-right: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .confirmation-container {
+                padding: 30px 20px;
+            }
+            
+            .confirmation-title {
+                font-size: 1.8rem;
+            }
+            
+            .order-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .order-item-image {
+                margin-right: 0;
+                margin-bottom: 15px;
+                width: 100%;
+                height: 200px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-ticket-alt me-2 text-primary"></i>
+                    <span class="fw-bold">CineApp</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto me-4">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="allmovies.html">Movies</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a href="cart.html" class="btn btn-sm rounded-circle bg-light me-3 position-relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">
+                            0
+                        </span>
+                    </a>
+                    <!-- Login/Signup buttons (shown when logged out) -->
+                    <a href="login.html" class="btn btn-sm btn-outline-primary me-2 login-btn">Login</a>
+                    <a href="signup.html" class="btn btn-sm btn-primary signup-btn">Sign Up</a>
+                    
+                    <!-- Profile dropdown (shown when logged in) -->
+                    <div class="dropdown profile-menu" style="display: none;">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="rounded-circle overflow-hidden" style="width: 35px; height: 35px;">
+                                <img src="https://ui-avatars.com/api/?name=John+Doe&background=0065ff&color=fff" class="img-fluid" alt="Profile">
+                            </div>
+                            <span class="ms-2 d-none d-sm-inline user-name">John</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-ticket-alt me-2"></i> My Tickets</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i> Watchlist</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item logout-btn" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="page-container">
+        <div class="confirmation-container">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            
+            <h1 class="confirmation-title">Order Confirmed!</h1>
+            <p class="confirmation-message">Thank you for your purchase. Your tickets have been booked successfully.</p>
+            
+            <div class="order-details">
+                <div class="order-number">
+                    Order #CF-389452 <span class="float-end text-success"><i class="fas fa-check-circle"></i> Paid</span>
+                </div>
+                
+                <div id="orderItems">
+                    <!-- Order items will be populated dynamically -->
+                </div>
+                
+                <div class="order-summary">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="subtotal">Rs 0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Booking Fee</span>
+                        <span id="bookingFee">Rs 0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Discount</span>
+                        <span id="discount" class="text-success">- Rs 0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="total">Rs 0.00</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="qr-container">
+                <h4 class="qr-title">Scan this QR code at the cinema</h4>
+                <div class="qr-code">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=CF-389452" alt="QR Code" class="img-fluid">
+                </div>
+                <a href="#" class="download-ticket">
+                    <i class="fas fa-download"></i> Download Ticket
+                </a>
+            </div>
+            
+            <div class="action-buttons">
+                <a href="index.html" class="btn btn-primary">
+                    <i class="fas fa-home me-2"></i> Return to Home
+                </a>
+                <a href="#" class="btn btn-outline-secondary">
+                    <i class="fas fa-ticket-alt me-2"></i> My Tickets
+                </a>
+            </div>
+            
+            <div class="share-options">
+                <p>Share your movie plans with friends</p>
+                <div class="social-buttons">
+                    <a href="#" class="social-button facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-button twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-button whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="social-button email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get order details from localStorage or URL parameters
+            const orderDetails = JSON.parse(localStorage.getItem('orderDetails')) || {
+                items: [
+                    {
+                        id: 1,
+                        title: "Dune: Part Two",
+                        date: "Tuesday, March 15, 2024",
+                        time: "7:30 PM",
+                        format: "IMAX 2D",
+                        theater: "CineWorld Colombo City Centre",
+                        seats: ["G14", "G15"],
+                        quantity: 2,
+                        price: 1500,
+                        image: "https://source.unsplash.com/random/400x600/?movie,poster,1"
+                    }
+                ],
+                subtotal: 3000,
+                bookingFee: 300,
+                discount: 0,
+                total: 3300
+            };
+            
+            // Display order details
+            displayOrderDetails(orderDetails);
+            
+            // Clear cart after successful order
+            localStorage.removeItem('cart');
+            
+            // Update cart count
+            const cartCountBadge = document.querySelector('.cart-count');
+            if (cartCountBadge) {
+                cartCountBadge.textContent = '0';
+                cartCountBadge.classList.add('d-none');
+            }
+        });
+        
+        function displayOrderDetails(orderDetails) {
+            const orderItemsContainer = document.getElementById('orderItems');
+            
+            // Clear container
+            orderItemsContainer.innerHTML = '';
+            
+            // Add items
+            orderDetails.items.forEach(item => {
+                const orderItemElement = document.createElement('div');
+                orderItemElement.className = 'order-item';
+                
+                orderItemElement.innerHTML = `
+                    <div class="order-item-image">
+                        <img src="${item.image}" alt="${item.title}">
+                    </div>
+                    <div class="order-item-details">
+                        <h4>${item.title}</h4>
+                        <p><strong>Date & Time:</strong> ${item.date}, ${item.time}</p>
+                        <p><strong>Cinema:</strong> ${item.theater}</p>
+                        <p><strong>Format:</strong> ${item.format}</p>
+                        <p><strong>Seats:</strong> ${item.seats.join(', ')}</p>
+                    </div>
+                `;
+                
+                orderItemsContainer.appendChild(orderItemElement);
+            });
+            
+            // Update summary
+            document.getElementById('subtotal').textContent = `Rs ${orderDetails.subtotal.toFixed(2)}`;
+            document.getElementById('bookingFee').textContent = `Rs ${orderDetails.bookingFee.toFixed(2)}`;
+            document.getElementById('discount').textContent = `- Rs ${orderDetails.discount.toFixed(2)}`;
+            document.getElementById('total').textContent = `Rs ${orderDetails.total.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
