@@ -100,83 +100,51 @@
         <!-- Main Content -->
         <div class="main-content">
             <!-- Top Navbar -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar">
+            <nav class="navbar navbar-expand navbar-light topbar">
                 <div class="container-fluid">
                     <!-- Sidebar Toggle -->
-                    <button id="sidebarToggle" class="btn d-md-none">
+                    <button id="sidebarToggle" class="btn btn-icon btn-sm">
                         <i class="fas fa-bars"></i>
                     </button>
                     
+                    <!-- Search Form -->
+                    <div class="ms-4 me-auto flex-grow-1">
+                        <div class="input-group">
+                            <span class="input-group-text border-end-0 bg-white">
+                                <i class="fas fa-search text-muted"></i>
+                            </span>
+                            <input type="text" class="form-control border-start-0" placeholder="Search dashboard...">
+                        </div>
+                    </div>
+                    
                     <ul class="navbar-nav ms-auto">
+                        <!-- Settings -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-cog"></i>
+                            </a>
+                        </li>
+                        
                         <!-- Notifications -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link position-relative" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <li class="nav-item">
+                            <a class="nav-link position-relative" href="#">
                                 <i class="fas fa-bell"></i>
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     3
                                 </span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="notificationsDropdown">
-                                <h6 class="dropdown-header">Notifications</h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="me-3">
-                                        <div class="bg-primary text-white rounded-circle p-2">
-                                            <i class="fas fa-ticket-alt"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-muted">Just now</div>
-                                        <span>New ticket order #123456</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="me-3">
-                                        <div class="bg-success text-white rounded-circle p-2">
-                                            <i class="fas fa-user"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-muted">30 minutes ago</div>
-                                        <span>New user registration</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="me-3">
-                                        <div class="bg-warning text-white rounded-circle p-2">
-                                            <i class="fas fa-exclamation-triangle"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-muted">2 hours ago</div>
-                                        <span>Low stock alert: Popcorn</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-muted" href="#">Show All Notifications</a>
-                            </div>
                         </li>
                         
-                        <!-- User Information -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="me-2 d-none d-lg-inline text-gray-600">Admin User</span>
-                                <div class="rounded-circle overflow-hidden" style="width: 35px; height: 35px;">
-                                    <img src="https://ui-avatars.com/api/?name=Admin+User&background=4361ee&color=fff" class="img-fluid" alt="Admin">
+                        <!-- User Profile -->
+                        <li class="nav-item ms-2">
+                            <div class="d-flex align-items-center">
+                                <div class="d-none d-md-block me-3 text-end">
+                                    <div class="fw-medium">Admin User</div>
+                                    <div class="small text-muted">Administrator</div>
                                 </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../index.html">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>
-                                    Logout
-                                </a>
+                                <div class="avatar-sm bg-primary rounded-circle text-white d-flex align-items-center justify-content-center">
+                                    <span>AU</span>
+                                </div>
                             </div>
                         </li>
                     </ul>

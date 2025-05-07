@@ -123,6 +123,9 @@ function initUI() {
     tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
+
+    // Initialize tooltips for the grid view buttons
+    initializeGridViewButtons();
 }
 
 // Load food items data and populate the table
@@ -156,6 +159,9 @@ function loadFoodItems() {
             setupRowEventListeners();
         }, 1000); // Simulate network delay
     }
+
+    // Also update the grid view with items
+    updateFoodItemsGrid();
 }
 
 // Create a table row for a food item
@@ -290,6 +296,9 @@ function setupEventListeners() {
             foodModal.show();
         });
     }
+
+    // Also set up grid view buttons
+    setupGridViewEventListeners();
 }
 
 // Set up event listeners for table rows
@@ -525,6 +534,9 @@ function saveFoodItem() {
         const foodModal = bootstrap.Modal.getInstance(document.getElementById('foodModal'));
         foodModal.hide();
         
+        // Update the grid view
+        updateFoodItemsGrid();
+        
         // Reset button state
         saveButton.disabled = false;
         saveButton.innerHTML = originalText;
@@ -547,6 +559,9 @@ function addFoodItem(foodData) {
     
     // Reload food items table
     loadFoodItems();
+    
+    // Reload food items grid
+    updateFoodItemsGrid();
     
     // Show success message
     showAlert(`"${foodData.name}" has been added successfully.`, 'success');
@@ -572,6 +587,9 @@ function updateFoodItem(foodId, foodData) {
         // Reload food items table
         loadFoodItems();
         
+        // Reload food items grid
+        updateFoodItemsGrid();
+        
         // Show success message
         showAlert(`"${foodData.name}" has been updated successfully.`, 'success');
     }
@@ -595,6 +613,9 @@ function deleteFoodItem() {
             
             // Reload food items table
             loadFoodItems();
+            
+            // Reload food items grid
+            updateFoodItemsGrid();
             
             // Hide modal
             const deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteFoodModal'));
@@ -627,5 +648,166 @@ function showAlert(message, type = 'success') {
                 alertContainer.removeChild(alert);
             }, 300);
         }, 5000);
+    }
+}
+
+// Initialize grid view buttons with tooltips and event handlers
+function initializeGridViewButtons() {
+    const viewBtns = document.querySelectorAll('#foodGrid .view-food-btn');
+    const editBtns = document.querySelectorAll('#foodGrid .edit-food-btn');
+    const deleteBtns = document.querySelectorAll('#foodGrid .delete-food-btn');
+    
+    viewBtns.forEach(btn => {
+        new bootstrap.Tooltip(btn);
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const cardElement = this.closest('.card');
+            const foodName = cardElement.querySelector('.card-title').textContent;
+            const foodItem = sampleFoodItems.find(item => item.name === foodName);
+            if (foodItem) {
+                viewFoodItem(foodItem.id);
+            }
+        });
+    });
+    
+    editBtns.forEach(btn => {
+        new bootstrap.Tooltip(btn);
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const cardElement = this.closest('.card');
+            const foodName = cardElement.querySelector('.card-title').textContent;
+            const foodItem = sampleFoodItems.find(item => item.name === foodName);
+            if (foodItem) {
+                prepareEditModal(foodItem.id);
+            }
+        });
+    });
+    
+    deleteBtns.forEach(btn => {
+        new bootstrap.Tooltip(btn);
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const cardElement = this.closest('.card');
+            const foodName = cardElement.querySelector('.card-title').textContent;
+            const foodItem = sampleFoodItems.find(item => item.name === foodName);
+            if (foodItem) {
+                document.getElementById('deleteFoodTitle').textContent = foodItem.name;
+                document.getElementById('deleteFoodId').value = foodItem.id;
+                const deleteModal = new bootstrap.Modal(document.getElementById('deleteFoodModal'));
+                deleteModal.show();
+            }
+        });
+    });
+}
+
+// Update food items in the grid view based on data
+function updateFoodItemsGrid() {
+    const foodGrid = document.getElementById('foodGrid');
+    if (!foodGrid) return;
+    
+    // Clear existing items except the "Add New Item" card
+    const addNewCard = foodGrid.querySelector('.border-dashed');
+    foodGrid.innerHTML = '';
+    
+    if (sampleFoodItems.length === 0) {
+        const emptyState = document.getElementById('emptyFoodState');
+        if (emptyState) emptyState.classList.remove('d-none');
+        return;
+    }
+    
+    // Add food items to grid
+    sampleFoodItems.forEach(item => {
+        const foodCard = createFoodItemCard(item);
+        foodGrid.appendChild(foodCard);
+    });
+    
+    // Add the "Add New Item" card back
+    if (addNewCard) {
+        foodGrid.appendChild(addNewCard);
+    }
+    
+    // Set up event listeners for the newly created cards
+    initializeGridViewButtons();
+}
+
+// Create a card element for a food item
+function createFoodItemCard(item) {
+    // Format status badge
+    let statusBadge;
+    if (item.stockStatus === 'in-stock') {
+        statusBadge = '<span class="position-absolute top-0 end-0 m-3 badge bg-success rounded-pill">In Stock</span>';
+    } else if (item.stockStatus === 'low-stock') {
+        statusBadge = '<span class="position-absolute top-0 end-0 m-3 badge bg-warning rounded-pill">Low Stock</span>';
+    } else {
+        statusBadge = '<span class="position-absolute top-0 end-0 m-3 badge bg-danger rounded-pill">Out of Stock</span>';
+    }
+    
+    // Format category badge
+    let categoryBadge;
+    switch (item.category) {
+        case 'popcorn':
+            categoryBadge = '<span class="badge bg-primary-subtle text-primary">Popcorn</span>';
+            break;
+        case 'drinks':
+            categoryBadge = '<span class="badge bg-info-subtle text-info">Drinks</span>';
+            break;
+        case 'snacks':
+            categoryBadge = '<span class="badge bg-warning-subtle text-warning">Snacks</span>';
+            break;
+        case 'combos':
+            categoryBadge = '<span class="badge bg-success-subtle text-success">Combos</span>';
+            break;
+        default:
+            categoryBadge = '<span class="badge bg-secondary-subtle text-secondary">Other</span>';
+    }
+    
+    const col = document.createElement('div');
+    col.className = 'col-xl-3 col-md-4 col-sm-6 mb-4';
+    col.innerHTML = `
+        <div class="card h-100 shadow-sm border-0 rounded-4" data-id="${item.id}">
+            <div class="position-relative">
+                <img src="${item.image}" class="card-img-top rounded-top-4" alt="${item.name}">
+                ${statusBadge}
+            </div>
+            <div class="card-body p-4">
+                <div class="mb-2">
+                    ${categoryBadge}
+                </div>
+                <h5 class="card-title fw-bold mb-1">${item.name}</h5>
+                <p class="card-text text-muted mb-3">${item.description.substring(0, 60)}${item.description.length > 60 ? '...' : ''}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0 text-primary">$${item.price.toFixed(2)}</h5>
+                    <span class="badge ${item.quantity <= 25 ? 'bg-warning text-dark' : 'bg-light text-dark'}">Qty: ${item.quantity}</span>
+                </div>
+            </div>
+            <div class="card-footer bg-white border-0 p-3 pt-0">
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-icon btn-sm btn-info view-food-btn" data-bs-toggle="tooltip" title="View">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-icon btn-sm btn-primary edit-food-btn" data-bs-toggle="tooltip" title="Edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-icon btn-sm btn-danger delete-food-btn" data-bs-toggle="tooltip" title="Delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    return col;
+}
+
+// Set up event listeners for grid view buttons
+function setupGridViewEventListeners() {
+    // Add new item card (the dashed card)
+    const addNewCard = document.querySelector('.card.border-dashed');
+    if (addNewCard) {
+        addNewCard.addEventListener('click', function() {
+            resetFoodForm();
+            const foodModal = new bootstrap.Modal(document.getElementById('foodModal'));
+            foodModal.show();
+        });
     }
 }
