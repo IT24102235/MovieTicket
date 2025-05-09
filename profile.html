@@ -278,9 +278,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="allmovies.html">Movies</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="shop.html">Food & Beverages</a>
-                    </li>
                 </ul>
                 <div class="d-flex align-items-center">
                     <a href="cart.html" class="btn btn-sm rounded-circle bg-light me-3 position-relative">
@@ -337,14 +334,8 @@
                             <a href="#" class="profile-menu-item" data-tab="tickets-orders">
                                 <i class="fas fa-ticket-alt"></i> My Tickets & Orders
                             </a>
-                            <a href="#" class="profile-menu-item" data-tab="account-settings">
-                                <i class="fas fa-cog"></i> Account Settings
-                            </a>
                             <a href="#" class="profile-menu-item" data-tab="password-security">
                                 <i class="fas fa-lock"></i> Password & Security
-                            </a>
-                            <a href="#" class="profile-menu-item" data-tab="preferences">
-                                <i class="fas fa-sliders-h"></i> Preferences
                             </a>
                         </div>
                     </div>
@@ -549,101 +540,6 @@
                             </div>
                         </div>
                         
-                        <!-- Account Settings Tab -->
-                        <div class="profile-tab" id="account-settings">
-                            <h3 class="profile-section-title">
-                                <i class="fas fa-cog me-2 text-primary"></i> Account Settings
-                            </h3>
-                            
-                            <div id="accountSettingsAlert" class="alert d-none" role="alert"></div>
-                            
-                            <form id="accountSettingsForm">
-                                <div class="mb-4">
-                                    <label class="form-label">Language Preference</label>
-                                    <select class="form-select">
-                                        <option selected>English</option>
-                                        <option>Spanish</option>
-                                        <option>French</option>
-                                        <option>German</option>
-                                        <option>Japanese</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <label class="form-label">Currency</label>
-                                    <select class="form-select">
-                                        <option selected>USD ($)</option>
-                                        <option>EUR (€)</option>
-                                        <option>GBP (£)</option>
-                                        <option>JPY (¥)</option>
-                                        <option>CAD (C$)</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <label class="form-label">Time Format</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="timeFormat" id="timeFormat12" checked>
-                                        <label class="form-check-label" for="timeFormat12">
-                                            12-hour (e.g., 7:30 PM)
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="timeFormat" id="timeFormat24">
-                                        <label class="form-check-label" for="timeFormat24">
-                                            24-hour (e.g., 19:30)
-                                        </label>
-                                    </div>
-                                </div>
-                                
-                                <h5 class="mb-3 mt-4">Notification Settings</h5>
-                                
-                                <div class="notification-setting">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="emailNotif" checked>
-                                        <label class="form-check-label" for="emailNotif">
-                                            <strong>Email Notifications</strong>
-                                        </label>
-                                    </div>
-                                    <p class="text-muted small mt-1">Receive ticket confirmations, reminders, and special offers via email.</p>
-                                </div>
-                                
-                                <div class="notification-setting">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="pushNotif" checked>
-                                        <label class="form-check-label" for="pushNotif">
-                                            <strong>Push Notifications</strong>
-                                        </label>
-                                    </div>
-                                    <p class="text-muted small mt-1">Receive alerts on your device about upcoming movies and showtime changes.</p>
-                                </div>
-                                
-                                <div class="notification-setting">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="smsNotif">
-                                        <label class="form-check-label" for="smsNotif">
-                                            <strong>SMS Notifications</strong>
-                                        </label>
-                                    </div>
-                                    <p class="text-muted small mt-1">Receive text messages about your bookings and important updates.</p>
-                                </div>
-                                
-                                <div class="notification-setting">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" id="marketingNotif" checked>
-                                        <label class="form-check-label" for="marketingNotif">
-                                            <strong>Marketing Communications</strong>
-                                        </label>
-                                    </div>
-                                    <p class="text-muted small mt-1">Receive updates about promotions, special events, and movie recommendations.</p>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary mt-3">
-                                    <i class="fas fa-save me-2"></i> Save Settings
-                                </button>
-                            </form>
-                        </div>
-                        
                         <!-- Password & Security Tab -->
                         <div class="profile-tab" id="password-security">
                             <h3 class="profile-section-title">
@@ -679,180 +575,7 @@
                                 </button>
                             </form>
                             
-                            <hr class="my-4">
-                            
-                            <h5 class="mb-3">Two-Factor Authentication</h5>
-                            
-                            <div class="form-check form-switch mb-4">
-                                <input class="form-check-input" type="checkbox" id="twoFactorAuth">
-                                <label class="form-check-label" for="twoFactorAuth">
-                                    <strong>Enable Two-Factor Authentication</strong>
-                                </label>
-                                <p class="text-muted small mt-1">Add an extra layer of security to your account by requiring a verification code along with your password during login.</p>
-                            </div>
-                            
-                            <h5 class="mb-3 mt-4">Connected Devices</h5>
-                            
-                            <div class="list-group mb-4">
-                                <div class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <p class="mb-0"><i class="fas fa-laptop me-2"></i> <strong>MacBook Pro</strong></p>
-                                        <small class="text-muted">Last active: Today at 10:30 AM</small>
-                                    </div>
-                                    <span class="badge bg-success">Current</span>
-                                </div>
-                                <div class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <p class="mb-0"><i class="fas fa-mobile-alt me-2"></i> <strong>iPhone 13</strong></p>
-                                        <small class="text-muted">Last active: Yesterday at 8:15 PM</small>
-                                    </div>
-                                    <button class="btn btn-sm btn-outline-danger">Sign Out</button>
-                                </div>
-                                <div class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <p class="mb-0"><i class="fas fa-tablet-alt me-2"></i> <strong>iPad Pro</strong></p>
-                                        <small class="text-muted">Last active: March 8, 2024</small>
-                                    </div>
-                                    <button class="btn btn-sm btn-outline-danger">Sign Out</button>
-                                </div>
-                            </div>
-                            
-                            <button class="btn btn-outline-danger">
-                                <i class="fas fa-power-off me-2"></i> Sign Out From All Devices
-                            </button>
                         </div>
-                        
-                        <!-- Preferences Tab -->
-                        <div class="profile-tab" id="preferences">
-                            <h3 class="profile-section-title">
-                                <i class="fas fa-sliders-h me-2 text-primary"></i> Preferences
-                            </h3>
-                            
-                            <div id="preferencesAlert" class="alert d-none" role="alert"></div>
-                            
-                            <form id="preferencesForm">
-                                <h5 class="mb-3">Movie Preferences</h5>
-                                
-                                <div class="mb-3">
-                                    <label class="form-label">Favorite Genres</label>
-                                    <div class="row">
-                                        <div class="col-md-4 col-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="genre1" checked>
-                                                <label class="form-check-label" for="genre1">Action</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="genre2" checked>
-                                                <label class="form-check-label" for="genre2">Adventure</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="genre3">
-                                                <label class="form-check-label" for="genre3">Comedy</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="genre4" checked>
-                                                <label class="form-check-label" for="genre4">Drama</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="genre5">
-                                                <label class="form-check-label" for="genre5">Horror</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="genre6" checked>
-                                                <label class="form-check-label" for="genre6">Sci-Fi</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <label class="form-label">Preferred Movie Formats</label>
-                                    <div class="row">
-                                        <div class="col-md-4 col-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="format1" checked>
-                                                <label class="form-check-label" for="format1">Standard</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="format2" checked>
-                                                <label class="form-check-label" for="format2">IMAX</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="format3" checked>
-                                                <label class="form-check-label" for="format3">3D</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="format4">
-                                                <label class="form-check-label" for="format4">4DX</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-6 mb-2">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="format5">
-                                                <label class="form-check-label" for="format5">Dolby Atmos</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <h5 class="mb-3">Theater Preferences</h5>
-                                
-                                <div class="mb-3">
-                                    <label class="form-label">Favorite Theaters</label>
-                                    <select class="form-select mb-2" multiple size="3">
-                                        <option selected>CineWorld Plaza</option>
-                                        <option selected>Silver Screen Theaters</option>
-                                        <option>Star Cineplex</option>
-                                        <option>Regal Cinemas Downtown</option>
-                                        <option>AMC Metropolis 16</option>
-                                    </select>
-                                    <small class="text-muted">Hold Ctrl (or Cmd) to select multiple theaters</small>
-                                </div>
-                                
-                                <div class="mb-4">
-                                    <label class="form-label">Preferred Seating Area</label>
-                                    <select class="form-select">
-                                        <option>Front</option>
-                                        <option selected>Middle</option>
-                                        <option>Back</option>
-                                    </select>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save me-2"></i> Save Preferences
-                                </button>
-                            </form>
-                            
-                            <hr class="my-4">
-                            
-                            <h5 class="mb-3 text-danger">Danger Zone</h5>
-                            <p>Want to leave us? You can delete your account and all associated data. This action cannot be undone.</p>
-                            
-                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
-                                <i class="fas fa-trash-alt me-2"></i> Delete Account
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     
     <!-- Delete Account Modal -->
     <div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-hidden="true">
@@ -889,23 +612,7 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="mt-5">
-        <div class="container">
-            <div class="copyright">
-                <div class="row align-items-center">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; 2025 CineApp. All Rights Reserved.
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <a href="#" class="text-muted me-3">Privacy Policy</a>
-                        <a href="#" class="text-muted me-3">Terms of Service</a>
-                        <a href="#" class="text-muted">Help Center</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+
 
     <!-- Notification container -->
     <div class="notification-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>

@@ -32,12 +32,7 @@
                     </li>
                 </ul>
                 <div class="d-flex align-items-center">
-                    <a href="cart.html" class="btn btn-sm rounded-circle bg-light me-3 position-relative">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">
-                            3
-                        </span>
-                    </a>
+                    <!-- Cart button removed from checkout page -->
                     <div class="dropdown">
                         <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="rounded-circle overflow-hidden" style="width: 35px; height: 35px;">
@@ -88,218 +83,78 @@
                         <div class="checkout-section">
                             <div class="section-header">
                                 <h2 class="section-title">
-                                    <i class="fas fa-credit-card me-2"></i> Payment Method
+                                    <i class="fas fa-credit-card me-2"></i> Payment 
                                 </h2>
                             </div>
                             
                             <div class="payment-options">
-                                <div class="payment-option-tabs">
-                                    <ul class="nav nav-tabs" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link active" id="card-tab" data-bs-toggle="tab" data-bs-target="#card-pane" type="button" role="tab">
-                                                <i class="fas fa-credit-card"></i> Credit/Debit Card
-                                            </button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="banking-tab" data-bs-toggle="tab" data-bs-target="#banking-pane" type="button" role="tab">
-                                                <i class="fas fa-university"></i> Internet Banking
-                                            </button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="mobile-tab" data-bs-toggle="tab" data-bs-target="#mobile-pane" type="button" role="tab">
-                                                <i class="fas fa-mobile-alt"></i> Mobile Payment
-                                            </button>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <!-- Credit Card Option -->
-                                        <div class="tab-pane fade show active" id="card-pane" role="tabpanel">
-                                            <div class="saved-cards">
-                                                <h5 class="mb-3">Saved Cards</h5>
-                                                
-                                                <div class="saved-card-option">
-                                                    <input type="radio" name="savedCard" id="card1" class="saved-card-radio">
-                                                    <label for="card1" class="saved-card-label">
-                                                        <i class="fab fa-cc-visa saved-card-icon"></i>
-                                                        <div class="saved-card-details">
-                                                            <div class="saved-card-name">Visa ending in 4242</div>
-                                                            <div class="saved-card-exp">Expires 12/25</div>
-                                                        </div>
-                                                        <span class="saved-card-badge">Default</span>
-                                                    </label>
+                                <div class="card-payment-content">
+                                    <div class="saved-cards">
+                                        <h5 class="mb-3">Saved Cards</h5>
+                                        
+                                        <div class="saved-card-option">
+                                            <input type="radio" name="savedCard" id="card1" class="saved-card-radio">
+                                            <label for="card1" class="saved-card-label">
+                                                <i class="fab fa-cc-visa saved-card-icon"></i>
+                                                <div class="saved-card-details">
+                                                    <div class="saved-card-name">Visa ending in 4242</div>
+                                                    <div class="saved-card-exp">Expires 12/25</div>
                                                 </div>
-                                                
-                                                <div class="saved-card-option">
-                                                    <input type="radio" name="savedCard" id="card2" class="saved-card-radio">
-                                                    <label for="card2" class="saved-card-label">
-                                                        <i class="fab fa-cc-mastercard saved-card-icon"></i>
-                                                        <div class="saved-card-details">
-                                                            <div class="saved-card-name">Mastercard ending in 5678</div>
-                                                            <div class="saved-card-exp">Expires 08/24</div>
-                                                        </div>
-                                                    </label>
+                                                <span class="saved-card-badge">Default</span>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="saved-card-option">
+                                            <input type="radio" name="savedCard" id="card2" class="saved-card-radio">
+                                            <label for="card2" class="saved-card-label">
+                                                <i class="fab fa-cc-mastercard saved-card-icon"></i>
+                                                <div class="saved-card-details">
+                                                    <div class="saved-card-name">Mastercard ending in 5678</div>
+                                                    <div class="saved-card-exp">Expires 08/24</div>
                                                 </div>
-                                            </div>
-                                            
-                                            <div class="divider">
-                                                <span>OR PAY WITH A NEW CARD</span>
-                                            </div>
-                                            
-                                            <div class="row">
-                                                <div class="col-md-12 mb-3">
-                                                    <label for="cardNumber" class="form-label">Card Number</label>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" id="cardNumber" placeholder="0000 0000 0000 0000">
-                                                        <span class="input-group-text card-types">
-                                                            <i class="fab fa-cc-visa me-1"></i>
-                                                            <i class="fab fa-cc-mastercard me-1"></i>
-                                                            <i class="fab fa-cc-amex me-1"></i>
-                                                            <i class="fab fa-cc-discover"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="col-md-6 mb-3">
-                                                    <label for="cardName" class="form-label">Cardholder Name</label>
-                                                    <input type="text" class="form-control" id="cardName" placeholder="Name on card">
-                                                </div>
-                                                
-                                                <div class="col-md-3 mb-3">
-                                                    <label for="expDate" class="form-label">Expiry Date</label>
-                                                    <input type="text" class="form-control" id="expDate" placeholder="MM/YY">
-                                                </div>
-                                                
-                                                <div class="col-md-3 mb-3">
-                                                    <label for="cvv" class="form-label">CVV</label>
-                                                    <input type="text" class="form-control" id="cvv" placeholder="CVV">
-                                                </div>
-                                                
-                                                <div class="col-md-12 mb-3">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" id="saveCard">
-                                                        <label class="form-check-label" for="saveCard">
-                                                            Save card for future payments
-                                                        </label>
-                                                    </div>
-                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="divider">
+                                        <span>OR PAY WITH A NEW CARD</span>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="cardNumber" class="form-label">Card Number</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="cardNumber" placeholder="0000 0000 0000 0000">
+                                                <span class="input-group-text card-types">
+                                                    <i class="fab fa-cc-visa me-1"></i>
+                                                    <i class="fab fa-cc-mastercard me-1"></i>
+                                                    <i class="fab fa-cc-amex me-1"></i>
+                                                    <i class="fab fa-cc-discover"></i>
+                                                </span>
                                             </div>
                                         </div>
                                         
-                                        <!-- Internet Banking Option -->
-                                        <div class="tab-pane fade" id="banking-pane" role="tabpanel">
-                                            <h5 class="mb-4">Select Your Bank</h5>
-                                            
-                                            <div class="row">
-                                                <div class="col-md-3 col-6 mb-4">
-                                                    <div class="bank-option">
-                                                        <input type="radio" name="bankOption" id="bank1" class="bank-radio">
-                                                        <label for="bank1" class="bank-label">
-                                                            <div class="bank-logo">
-                                                                <img src="https://via.placeholder.com/80x50?text=BOC" alt="Bank of Ceylon" class="img-fluid">
-                                                            </div>
-                                                            <div class="bank-name">Bank of Ceylon</div>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="col-md-3 col-6 mb-4">
-                                                    <div class="bank-option">
-                                                        <input type="radio" name="bankOption" id="bank2" class="bank-radio">
-                                                        <label for="bank2" class="bank-label">
-                                                            <div class="bank-logo">
-                                                                <img src="https://via.placeholder.com/80x50?text=NSB" alt="NSB" class="img-fluid">
-                                                            </div>
-                                                            <div class="bank-name">NSB</div>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="col-md-3 col-6 mb-4">
-                                                    <div class="bank-option">
-                                                        <input type="radio" name="bankOption" id="bank3" class="bank-radio">
-                                                        <label for="bank3" class="bank-label">
-                                                            <div class="bank-logo">
-                                                                <img src="https://via.placeholder.com/80x50?text=HNB" alt="HNB" class="img-fluid">
-                                                            </div>
-                                                            <div class="bank-name">HNB</div>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="col-md-3 col-6 mb-4">
-                                                    <div class="bank-option">
-                                                        <input type="radio" name="bankOption" id="bank4" class="bank-radio">
-                                                        <label for="bank4" class="bank-label">
-                                                            <div class="bank-logo">
-                                                                <img src="https://via.placeholder.com/80x50?text=Peoples+Bank" alt="Peoples Bank" class="img-fluid">
-                                                            </div>
-                                                            <div class="bank-name">Peoples Bank</div>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="alert alert-info bank-note">
-                                                <i class="fas fa-info-circle me-2"></i> You will be redirected to your bank's secure website to complete the payment.
-                                            </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cardName" class="form-label">Cardholder Name</label>
+                                            <input type="text" class="form-control" id="cardName" placeholder="Name on card">
                                         </div>
                                         
-                                        <!-- Mobile Payment Option -->
-                                        <div class="tab-pane fade" id="mobile-pane" role="tabpanel">
-                                            <h5 class="mb-4">Select Mobile Payment Method</h5>
-                                            
-                                            <div class="row">
-                                                <div class="col-md-4 col-6 mb-4">
-                                                    <div class="mobile-option">
-                                                        <input type="radio" name="mobileOption" id="mobile1" class="mobile-radio">
-                                                        <label for="mobile1" class="mobile-label">
-                                                            <div class="mobile-logo">
-                                                                <img src="https://via.placeholder.com/80x50?text=FriMi" alt="FriMi" class="img-fluid">
-                                                            </div>
-                                                            <div class="mobile-name">FriMi</div>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="col-md-4 col-6 mb-4">
-                                                    <div class="mobile-option">
-                                                        <input type="radio" name="mobileOption" id="mobile2" class="mobile-radio">
-                                                        <label for="mobile2" class="mobile-label">
-                                                            <div class="mobile-logo">
-                                                                <img src="https://via.placeholder.com/80x50?text=SDB+iMobile" alt="SDB iMobile" class="img-fluid">
-                                                            </div>
-                                                            <div class="mobile-name">SDB iMobile</div>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div class="col-md-4 col-6 mb-4">
-                                                    <div class="mobile-option">
-                                                        <input type="radio" name="mobileOption" id="mobile3" class="mobile-radio">
-                                                        <label for="mobile3" class="mobile-label">
-                                                            <div class="mobile-logo">
-                                                                <img src="https://via.placeholder.com/80x50?text=mCash" alt="mCash" class="img-fluid">
-                                                            </div>
-                                                            <div class="mobile-name">mCash</div>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="mobile-form">
-                                                <div class="row">
-                                                    <div class="col-md-6 mb-3">
-                                                        <label for="mobileNumber" class="form-label">Mobile Number</label>
-                                                        <div class="input-group">
-                                                            <span class="input-group-text">+94</span>
-                                                            <input type="text" class="form-control" id="mobileNumber" placeholder="7X XXX XXXX">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="alert alert-info mobile-note">
-                                                <i class="fas fa-info-circle me-2"></i> You will receive an OTP or payment request on your mobile to complete the transaction.
+                                        <div class="col-md-3 mb-3">
+                                            <label for="expDate" class="form-label">Expiry Date</label>
+                                            <input type="text" class="form-control" id="expDate" placeholder="MM/YY">
+                                        </div>
+                                        
+                                        <div class="col-md-3 mb-3">
+                                            <label for="cvv" class="form-label">CVV</label>
+                                            <input type="text" class="form-control" id="cvv" placeholder="CVV">
+                                        </div>
+                                        
+                                        <div class="col-md-12 mb-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="saveCard">
+                                                <label class="form-check-label" for="saveCard">
+                                                    Save card for future payments
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
