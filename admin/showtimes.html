@@ -39,58 +39,10 @@
                             <span>Movies</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a href="food.html" class="sidebar-link">
-                            <i class="fas fa-utensils sidebar-icon"></i>
-                            <span>Food & Beverages</span>
-                        </a>
-                    </li>
                     <li class="sidebar-item active">
                         <a href="showtimes.html" class="sidebar-link">
                             <i class="fas fa-calendar-alt sidebar-icon"></i>
                             <span>Showtimes</span>
-                        </a>
-                    </li>
-                </ul>
-                
-                <div class="menu-category">User Management</div>
-                <ul class="list-unstyled">
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-users sidebar-icon"></i>
-                            <span>Customers</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-user-shield sidebar-icon"></i>
-                            <span>Admins</span>
-                        </a>
-                    </li>
-                </ul>
-                
-                <div class="menu-category">Orders & Reports</div>
-                <ul class="list-unstyled">
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-receipt sidebar-icon"></i>
-                            <span>Orders</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-chart-bar sidebar-icon"></i>
-                            <span>Reports</span>
-                        </a>
-                    </li>
-                </ul>
-                
-                <div class="menu-category">System</div>
-                <ul class="list-unstyled">
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-cog sidebar-icon"></i>
-                            <span>Settings</span>
                         </a>
                     </li>
                 </ul>
@@ -122,16 +74,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <i class="fas fa-cog"></i>
-                            </a>
-                        </li>
-                        
-                        <!-- Notifications -->
-                        <li class="nav-item">
-                            <a class="nav-link position-relative" href="#">
-                                <i class="fas fa-bell"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    3
-                                </span>
                             </a>
                         </li>
                         
@@ -184,24 +126,6 @@
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="searchShowtime" placeholder="Search">
                                         <label for="searchShowtime"><i class="fas fa-search me-2"></i>Search Showtimes</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-floating">
-                                        <select class="form-select" id="filterMovie">
-                                            <option value="all">All Movies</option>
-                                            <!-- Movies will be loaded dynamically -->
-                                        </select>
-                                        <label for="filterMovie">Movie</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-floating">
-                                        <select class="form-select" id="filterTheater">
-                                            <option value="all">All Theaters</option>
-                                            <!-- Theaters will be loaded dynamically -->
-                                        </select>
-                                        <label for="filterTheater">Theater</label>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -276,45 +200,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="card-footer bg-white border-0">
-                            <nav aria-label="Showtimes pagination">
-                                <ul class="pagination justify-content-center mb-0">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                                            <i class="fas fa-chevron-left"></i>
-                                        </a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">
-                                            <i class="fas fa-chevron-right"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
                     </div>
-                    
-                    <!-- Upcoming Showtimes Calendar -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 fw-bold text-primary">Upcoming Showtimes Calendar</h6>
-                        </div>
-                        <div class="card-body">
-                            <div id="showtimesCalendar" style="height: 400px;">
-                                <!-- Calendar will be displayed here -->
-                                <div class="text-center text-muted py-5">
-                                    <i class="fas fa-calendar-alt fa-4x mb-3"></i>
-                                    <h5>Calendar View Coming Soon</h5>
-                                    <p>This feature is under development and will be available in a future update.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             
             <!-- Footer -->
             <footer class="footer">
@@ -357,16 +243,6 @@
                         </div>
                         
                         <div class="row mb-3">
-                            <div class="col-md-12">
-                                <label for="theater" class="form-label">Select Theater <span class="text-danger">*</span></label>
-                                <select class="form-select" id="theater" required>
-                                    <option value="">-- Select Theater --</option>
-                                    <!-- Theaters will be loaded dynamically -->
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="date" class="form-label">Date <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" id="date" required>
@@ -389,18 +265,6 @@
                                 <label for="seats" class="form-label">Available Seats <span class="text-danger">*</span></label>
                                 <input type="number" class="form-control" id="seats" min="1" required>
                             </div>
-                        </div>
-                        
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="specialShowtime">
-                            <label class="form-check-label" for="specialShowtime">
-                                Mark as Special Showtime (e.g., Premiere, IMAX Special)
-                            </label>
-                        </div>
-                        
-                        <div class="mb-3" id="specialShowtimeDetails" style="display: none;">
-                            <label for="specialDetails" class="form-label">Special Showtime Details</label>
-                            <textarea class="form-control" id="specialDetails" rows="2" placeholder="Enter details about this special showtime"></textarea>
                         </div>
                     </form>
                 </div>
@@ -533,8 +397,8 @@
             { id: 1, movieId: 1, theaterId: 3, date: "2024-06-15", time: "18:30", price: 12.99, availableSeats: 120, isSpecial: false, specialDetails: "" },
             { id: 2, movieId: 2, theaterId: 1, date: "2024-06-15", time: "20:00", price: 9.99, availableSeats: 80, isSpecial: false, specialDetails: "" },
             { id: 3, movieId: 3, theaterId: 2, date: "2024-06-16", time: "15:45", price: 8.99, availableSeats: 100, isSpecial: false, specialDetails: "" },
-            { id: 4, movieId: 5, theaterId: 3, date: "2024-06-17", time: "19:30", price: 14.99, availableSeats: 180, isSpecial: true, specialDetails: "Special IMAX Premiere with Exclusive Content" },
-            { id: 5, movieId: 4, theaterId: 4, date: "2024-06-18", time: "21:00", price: 16.99, availableSeats: 60, isSpecial: true, specialDetails: "VIP Showing with Complimentary Refreshments" }
+            { id: 4, movieId: 5, theaterId: 3, date: "2024-06-17", time: "19:30", price: 14.99, availableSeats: 180, isSpecial: false, specialDetails: "" },
+            { id: 5, movieId: 4, theaterId: 4, date: "2024-06-18", time: "21:00", price: 16.99, availableSeats: 60, isSpecial: false, specialDetails: "" }
         ];
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -557,16 +421,6 @@
             tooltipTriggerList.map(function (tooltipTriggerEl) {
                 return new bootstrap.Tooltip(tooltipTriggerEl);
             });
-            
-            // Special showtime checkbox toggle
-            const specialShowtimeCheckbox = document.getElementById('specialShowtime');
-            const specialDetailsDiv = document.getElementById('specialShowtimeDetails');
-            
-            if (specialShowtimeCheckbox && specialDetailsDiv) {
-                specialShowtimeCheckbox.addEventListener('change', function() {
-                    specialDetailsDiv.style.display = this.checked ? 'block' : 'none';
-                });
-            }
             
             // Toggle sidebar
             const sidebarToggle = document.getElementById('sidebarToggle');
@@ -1003,15 +857,6 @@
                 document.getElementById('price').value = showtime.price;
                 document.getElementById('seats').value = showtime.availableSeats;
                 
-                // Special showtime details
-                const specialShowtimeCheckbox = document.getElementById('specialShowtime');
-                const specialDetailsDiv = document.getElementById('specialShowtimeDetails');
-                const specialDetailsInput = document.getElementById('specialDetails');
-                
-                specialShowtimeCheckbox.checked = showtime.isSpecial;
-                specialDetailsDiv.style.display = showtime.isSpecial ? 'block' : 'none';
-                specialDetailsInput.value = showtime.specialDetails || '';
-                
                 // Set modal title
                 document.getElementById('showtimeModalTitle').textContent = 'Edit Showtime';
                 
@@ -1040,7 +885,6 @@
         function resetShowtimeForm() {
             document.getElementById('showtimeForm').reset();
             document.getElementById('showtimeId').value = '';
-            document.getElementById('specialShowtimeDetails').style.display = 'none';
             document.getElementById('showtimeModalTitle').textContent = 'Add New Showtime';
         }
         
@@ -1054,8 +898,6 @@
             const time = document.getElementById('time').value;
             const price = parseFloat(document.getElementById('price').value);
             const availableSeats = parseInt(document.getElementById('seats').value);
-            const isSpecial = document.getElementById('specialShowtime').checked;
-            const specialDetails = document.getElementById('specialDetails').value;
             
             // Validate form
             if (!movieId || !theaterId || !date || !time || !price || !availableSeats) {
@@ -1070,9 +912,7 @@
                 date,
                 time,
                 price,
-                availableSeats,
-                isSpecial,
-                specialDetails
+                availableSeats
             };
             
             // Simulate loading state

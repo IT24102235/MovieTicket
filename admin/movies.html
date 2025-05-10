@@ -41,67 +41,12 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="food.html" class="sidebar-link">
-                            <i class="fas fa-utensils sidebar-icon"></i>
-                            <span>Food & Beverages</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-building sidebar-icon"></i>
-                            <span>Theaters</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
+                        <a href="showtimes.html" class="sidebar-link">
                             <i class="fas fa-calendar-alt sidebar-icon"></i>
                             <span>Showtimes</span>
                         </a>
                     </li>
                 </ul>
-                
-                <div class="menu-category">User Management</div>
-                <ul class="list-unstyled">
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-users sidebar-icon"></i>
-                            <span>Customers</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-user-shield sidebar-icon"></i>
-                            <span>Admins</span>
-                        </a>
-                    </li>
-                </ul>
-                
-                <div class="menu-category">Orders & Reports</div>
-                <ul class="list-unstyled">
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-receipt sidebar-icon"></i>
-                            <span>Orders</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-chart-bar sidebar-icon"></i>
-                            <span>Reports</span>
-                        </a>
-                    </li>
-                </ul>
-                
-                <div class="menu-category">System</div>
-                <ul class="list-unstyled">
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link">
-                            <i class="fas fa-cog sidebar-icon"></i>
-                            <span>Settings</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </nav>
         
         <!-- Main Content -->
@@ -130,18 +75,7 @@
                             <a class="nav-link" href="#">
                                 <i class="fas fa-cog"></i>
                             </a>
-                        </li>
-                        
-                        <!-- Notifications -->
-                        <li class="nav-item">
-                            <a class="nav-link position-relative" href="#">
-                                <i class="fas fa-bell"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    3
-                                </span>
-                            </a>
-                        </li>
-                        
+                        </li>                        
                         <!-- User Profile -->
                         <li class="nav-item ms-2">
                             <div class="d-flex align-items-center">
@@ -182,27 +116,6 @@
                                         <input type="text" class="form-control" placeholder="Search movies..." id="searchMovies">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <select class="form-select" id="filterStatus">
-                                        <option value="all">All Status</option>
-                                        <option value="now-showing">Now Showing</option>
-                                        <option value="coming-soon">Coming Soon</option>
-                                        <option value="archived">Archived</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <select class="form-select" id="filterGenre">
-                                        <option value="all">All Genres</option>
-                                        <option value="action">Action</option>
-                                        <option value="comedy">Comedy</option>
-                                        <option value="drama">Drama</option>
-                                        <option value="horror">Horror</option>
-                                        <option value="sci-fi">Sci-Fi</option>
-                                        <option value="romance">Romance</option>
-                                        <option value="animation">Animation</option>
-                                        <option value="thriller">Thriller</option>
-                                    </select>
-                                </div>
                                 <div class="col-md-2">
                                     <button type="button" class="btn btn-outline-primary w-100" id="resetFilters">
                                         <i class="fas fa-redo-alt me-1"></i> Reset
@@ -216,16 +129,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
                             <h6 class="m-0 font-weight-bold text-primary">All Movies</h6>
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-download me-1"></i> Export
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="exportDropdown">
-                                    <li><a class="dropdown-item" href="#"><i class="fas fa-file-csv me-2"></i> CSV</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="fas fa-file-excel me-2"></i> Excel</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="fas fa-file-pdf me-2"></i> PDF</a></li>
-                                </ul>
-                            </div>
+                            <!-- Export dropdown removed -->
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -271,22 +175,7 @@
                             </div>
                         </div>
                         
-                        <!-- Pagination -->
-                        <div class="card-footer">
-                            <nav>
-                                <ul class="pagination justify-content-center mb-0">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+                        <!-- Card footer with pagination removed -->
                     </div>
                 </div>
             </div>
@@ -340,36 +229,6 @@
                                         <label for="duration" class="form-label">Duration (minutes) <span class="text-danger">*</span></label>
                                         <input type="number" class="form-control" id="duration" min="1" required>
                                     </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="rating" class="form-label">Rating</label>
-                                        <input type="number" class="form-control" id="rating" min="0" max="5" step="0.1">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
-                                        <select class="form-select" id="status" required>
-                                            <option value="">Select Status</option>
-                                            <option value="now-showing">Now Showing</option>
-                                            <option value="coming-soon">Coming Soon</option>
-                                            <option value="archived">Archived</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="genres" class="form-label">Genres <span class="text-danger">*</span></label>
-                                    <select class="form-select" id="genres" multiple required>
-                                        <option value="action">Action</option>
-                                        <option value="adventure">Adventure</option>
-                                        <option value="comedy">Comedy</option>
-                                        <option value="drama">Drama</option>
-                                        <option value="fantasy">Fantasy</option>
-                                        <option value="horror">Horror</option>
-                                        <option value="sci-fi">Sci-Fi</option>
-                                        <option value="romance">Romance</option>
-                                        <option value="animation">Animation</option>
-                                        <option value="thriller">Thriller</option>
-                                        <option value="biography">Biography</option>
-                                    </select>
                                 </div>
                                 
                                 <div class="mb-3">
