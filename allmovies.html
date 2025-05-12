@@ -274,35 +274,6 @@
             transform: translate(-50%, -50%) scale(1.1) !important;
         }
         
-        .movie-badges {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        .movie-badge {
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: white;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-        }
-        
-        .movie-badge.premium {
-            background-color: rgba(255, 193, 7, 0.8);
-            color: #212529;
-        }
-        
-        .movie-badge.new {
-            background-color: rgba(0, 101, 255, 0.8);
-        }
-        
         .bookmark-btn {
             position: absolute;
             top: 15px;
@@ -334,20 +305,21 @@
         }
         
         .movie-info {
-            padding: 20px;
+            padding: 12px; /* Reduced from 20px */
         }
         
         .movie-title {
             font-weight: 600;
             font-size: 1.15rem;
-            margin-bottom: 10px;
+            margin-bottom: 5px; /* Reduced from 10px */
             color: #333;
             transition: all 0.3s;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            height: 2.8rem;
+            height: 2.4rem; /* Reduced from 2.8rem */
+            text-align: center;
         }
         
         .movie-card:hover .movie-title {
@@ -376,32 +348,15 @@
             color: #6c757d;
         }
         
-        .movie-genres {
-            font-size: 0.85rem;
-            color: #6c757d;
-            margin-bottom: 15px;
-        }
-        
         .movie-actions {
             display: flex;
             gap: 10px;
-        }
-        
-        .age-rating {
-            width: 30px;
-            height: 30px;
-            background-color: #ffc107;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: 700;
+            margin-top: 5px; /* Added small top margin */
         }
         
         .btn-book {
             flex-grow: 1;
-            padding: 8px 12px;
+            padding: 4px 16px; /* Reduced vertical padding (from 6px to 4px) and increased horizontal padding (from 12px to 16px) */
             font-size: 0.85rem;
             font-weight: 600;
             background-color: var(--primary-color);
@@ -409,6 +364,8 @@
             border: none;
             border-radius: 8px;
             transition: all 0.3s;
+            width: 100%; /* Added to ensure button takes full width available */
+            margin: 0 auto; /* Center the button */
         }
         
         .btn-book:hover {
@@ -417,25 +374,6 @@
             box-shadow: 0 5px 15px rgba(0, 101, 255, 0.3);
         }
         
-        .btn-trailer {
-            width: 40px;
-            height: 40px;
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-        
-        .btn-trailer:hover {
-            background-color: #050914;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(10, 17, 36, 0.3);
-        }
-
         /* Featured Movie */
         .featured-movie {
             background-color: var(--secondary-color);
@@ -945,7 +883,7 @@
         <section data-aos="fade-up" data-aos-delay="100">
             <div class="section-title-container">
                 <div>
-                    <h2 class="section-title">Now Showing <span class="section-badge">16</span></h2>
+                    <h2 class="section-title">Now Showing</h2>
                     <p class="section-subtitle">Movies currently playing in theaters</p>
                 </div>
             </div>
@@ -961,34 +899,15 @@
                                     <span><i class="far fa-clock"></i> 148 min</span>
                                     <span><i class="fas fa-star"></i> 4.0</span>
                                 </div>
-                                <button class="btn btn-sm btn-light">View Details</button>
+                    
                             </div>
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="movie-badges">
-                                <div class="movie-badge">IMDb 6.8</div>
-                            </div>
-                            <button class="bookmark-btn">
-                                <i class="far fa-bookmark"></i>
-                            </button>
+                            
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">The Matrix: Resurrections</h3>
-                            <div class="movie-meta">
-                                <div class="movie-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.0</span>
-                                </div>
-                                <div class="movie-year">2021</div>
-                            </div>
-                            <div class="movie-genres">Action, Sci-Fi, Adventure</div>
+                            
                             <div class="movie-actions">
-                                <div class="age-rating">13</div>
                                 <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
-                                <button class="btn-trailer">
-                                    <i class="fas fa-film"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -1004,35 +923,15 @@
                                     <span><i class="far fa-clock"></i> 155 min</span>
                                     <span><i class="fas fa-star"></i> 4.5</span>
                                 </div>
-                                <button class="btn btn-sm btn-light">View Details</button>
+                                
                             </div>
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="movie-badges">
-                                <div class="movie-badge premium">IMAX</div>
-                                <div class="movie-badge">IMDb 8.5</div>
-                            </div>
-                            <button class="bookmark-btn">
-                                <i class="far fa-bookmark"></i>
-                            </button>
+                            
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Dune</h3>
-                            <div class="movie-meta">
-                                <div class="movie-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.5</span>
-                                </div>
-                                <div class="movie-year">2021</div>
-                            </div>
-                            <div class="movie-genres">Sci-Fi, Adventure, Drama</div>
+                            
                             <div class="movie-actions">
-                                <div class="age-rating">13</div>
                                 <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
-                                <button class="btn-trailer">
-                                    <i class="fas fa-film"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -1048,34 +947,15 @@
                                     <span><i class="far fa-clock"></i> 157 min</span>
                                     <span><i class="fas fa-star"></i> 3.0</span>
                                 </div>
-                                <button class="btn btn-sm btn-light">View Details</button>
+                                
                             </div>
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="movie-badges">
-                                <div class="movie-badge">IMDb 6.3</div>
-                            </div>
-                            <button class="bookmark-btn">
-                                <i class="far fa-bookmark"></i>
-                            </button>
+                            
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Eternals</h3>
-                            <div class="movie-meta">
-                                <div class="movie-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>3.0</span>
-                                </div>
-                                <div class="movie-year">2021</div>
-                            </div>
-                            <div class="movie-genres">Action, Adventure, Fantasy</div>
+                            
                             <div class="movie-actions">
-                                <div class="age-rating">13</div>
                                 <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
-                                <button class="btn-trailer">
-                                    <i class="fas fa-film"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -1091,35 +971,15 @@
                                     <span><i class="far fa-clock"></i> 163 min</span>
                                     <span><i class="fas fa-star"></i> 5.0</span>
                                 </div>
-                                <button class="btn btn-sm btn-light">View Details</button>
+                                
                             </div>
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="movie-badges">
-                                <div class="movie-badge premium">Dolby</div>
-                                <div class="movie-badge">IMDb 7.3</div>
-                            </div>
-                            <button class="bookmark-btn">
-                                <i class="far fa-bookmark"></i>
-                            </button>
+                           
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">No Time to Die</h3>
-                            <div class="movie-meta">
-                                <div class="movie-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>5.0</span>
-                                </div>
-                                <div class="movie-year">2021</div>
-                            </div>
-                            <div class="movie-genres">Action, Adventure, Thriller</div>
+                            
                             <div class="movie-actions">
-                                <div class="age-rating">13</div>
                                 <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
-                                <button class="btn-trailer">
-                                    <i class="fas fa-film"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -1137,36 +997,15 @@
                                     <span><i class="far fa-clock"></i> 148 min</span>
                                     <span><i class="fas fa-star"></i> 4.8</span>
                                 </div>
-                                <button class="btn btn-sm btn-light">View Details</button>
+                                
                             </div>
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="movie-badges">
-                                <div class="movie-badge premium">4DX</div>
-                                <div class="movie-badge">IMDb 8.3</div>
-                                <div class="movie-badge new">New</div>
-                            </div>
-                            <button class="bookmark-btn">
-                                <i class="far fa-bookmark"></i>
-                            </button>
+                            
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Spider-Man: No Way Home</h3>
-                            <div class="movie-meta">
-                                <div class="movie-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.8</span>
-                                </div>
-                                <div class="movie-year">2021</div>
-                            </div>
-                            <div class="movie-genres">Action, Adventure, Fantasy</div>
+                           
                             <div class="movie-actions">
-                                <div class="age-rating">13</div>
                                 <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
-                                <button class="btn-trailer">
-                                    <i class="fas fa-film"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -1182,36 +1021,15 @@
                                     <span><i class="far fa-clock"></i> 176 min</span>
                                     <span><i class="fas fa-star"></i> 4.7</span>
                                 </div>
-                                <button class="btn btn-sm btn-light">View Details</button>
+                                
                             </div>
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="movie-badges">
-                                <div class="movie-badge premium">IMAX</div>
-                                <div class="movie-badge">IMDb 8.1</div>
-                                <div class="movie-badge new">New</div>
-                            </div>
-                            <button class="bookmark-btn">
-                                <i class="far fa-bookmark"></i>
-                            </button>
+                            
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">The Batman</h3>
-                            <div class="movie-meta">
-                                <div class="movie-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.7</span>
-                                </div>
-                                <div class="movie-year">2022</div>
-                            </div>
-                            <div class="movie-genres">Action, Crime, Drama</div>
+                           
                             <div class="movie-actions">
-                                <div class="age-rating">16</div>
                                 <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
-                                <button class="btn-trailer">
-                                    <i class="fas fa-film"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -1227,34 +1045,15 @@
                                     <span><i class="far fa-clock"></i> 102 min</span>
                                     <span><i class="fas fa-star"></i> 4.2</span>
                                 </div>
-                                <button class="btn btn-sm btn-light">View Details</button>
+                                
                             </div>
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="movie-badges">
-                                <div class="movie-badge">IMDb 7.3</div>
-                            </div>
-                            <button class="bookmark-btn">
-                                <i class="far fa-bookmark"></i>
-                            </button>
+                           
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Encanto</h3>
-                            <div class="movie-meta">
-                                <div class="movie-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.2</span>
-                                </div>
-                                <div class="movie-year">2021</div>
-                            </div>
-                            <div class="movie-genres">Animation, Comedy, Family</div>
+                           
                             <div class="movie-actions">
-                                <div class="age-rating">7</div>
                                 <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
-                                <button class="btn-trailer">
-                                    <i class="fas fa-film"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -1270,217 +1069,21 @@
                                     <span><i class="far fa-clock"></i> 97 min</span>
                                     <span><i class="fas fa-star"></i> 3.9</span>
                                 </div>
-                                <button class="btn btn-sm btn-light">View Details</button>
+                                
                             </div>
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="movie-badges">
-                                <div class="movie-badge">IMDb 6.0</div>
-                            </div>
-                            <button class="bookmark-btn">
-                                <i class="far fa-bookmark"></i>
-                            </button>
+                            
                         </div>
                         <div class="movie-info">
                             <h3 class="movie-title">Venom: Let There Be Carnage</h3>
-                            <div class="movie-meta">
-                                <div class="movie-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>3.9</span>
-                                </div>
-                                <div class="movie-year">2021</div>
-                            </div>
-                            <div class="movie-genres">Action, Sci-Fi, Thriller</div>
+                            
                             <div class="movie-actions">
-                                <div class="age-rating">13</div>
                                 <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
-                                <button class="btn-trailer">
-                                    <i class="fas fa-film"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Movie Card 9 -->
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="images/Guardians.jpg" alt="Guardians of the Galaxy Vol. 3">
-                            <div class="movie-overlay">
-                                <div class="movie-meta-overlay">
-                                    <span><i class="far fa-clock"></i> 145 min</span>
-                                    <span><i class="fas fa-star"></i> 4.3</span>
-                                </div>
-                                <button class="btn btn-sm btn-light">View Details</button>
-                            </div>
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="movie-badges">
-                                <div class="movie-badge">IMDb 7.8</div>
-                                <div class="movie-badge new">New</div>
-                            </div>
-                            <button class="bookmark-btn">
-                                <i class="far fa-bookmark"></i>
-                            </button>
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">Guardians of the Galaxy Vol. 3</h3>
-                            <div class="movie-meta">
-                                <div class="movie-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.3</span>
-                                </div>
-                                <div class="movie-year">2023</div>
-                            </div>
-                            <div class="movie-genres">Action, Adventure, Comedy</div>
-                            <div class="movie-actions">
-                                <div class="age-rating">13</div>
-                                <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
-                                <button class="btn-trailer">
-                                    <i class="fas fa-film"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Movie Card 10 -->
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="images/Mission.jpg" alt="Mission: Impossible 7">
-                            <div class="movie-overlay">
-                                <div class="movie-meta-overlay">
-                                    <span><i class="far fa-clock"></i> 150 min</span>
-                                    <span><i class="fas fa-star"></i> 4.1</span>
-                                </div>
-                                <button class="btn btn-sm btn-light">View Details</button>
-                            </div>
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="movie-badges">
-                                <div class="movie-badge premium">IMAX</div>
-                                <div class="movie-badge">IMDb 7.5</div>
-                            </div>
-                            <button class="bookmark-btn">
-                                <i class="far fa-bookmark"></i>
-                            </button>
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">Mission: Impossible – Dead Reckoning</h3>
-                            <div class="movie-meta">
-                                <div class="movie-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.1</span>
-                                </div>
-                                <div class="movie-year">2023</div>
-                            </div>
-                            <div class="movie-genres">Action, Adventure, Thriller</div>
-                            <div class="movie-actions">
-                                <div class="age-rating">13</div>
-                                <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
-                                <button class="btn-trailer">
-                                    <i class="fas fa-film"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Movie Card 11 -->
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="images/Flash.jpg" alt="The Flash">
-                            <div class="movie-overlay">
-                                <div class="movie-meta-overlay">
-                                    <span><i class="far fa-clock"></i> 135 min</span>
-                                    <span><i class="fas fa-star"></i> 3.8</span>
-                                </div>
-                                <button class="btn btn-sm btn-light">View Details</button>
-                            </div>
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="movie-badges">
-                                <div class="movie-badge">IMDb 6.9</div>
-                            </div>
-                            <button class="bookmark-btn">
-                                <i class="far fa-bookmark"></i>
-                            </button>
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">The Flash</h3>
-                            <div class="movie-meta">
-                                <div class="movie-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>3.8</span>
-                                </div>
-                                <div class="movie-year">2023</div>
-                            </div>
-                            <div class="movie-genres">Action, Adventure, Sci-Fi</div>
-                            <div class="movie-actions">
-                                <div class="age-rating">13</div>
-                                <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
-                                <button class="btn-trailer">
-                                    <i class="fas fa-film"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Movie Card 12 -->
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="images/Avatar.jpg" alt="Avatar: The Way of Water">
-                            <div class="movie-overlay">
-                                <div class="movie-meta-overlay">
-                                    <span><i class="far fa-clock"></i> 190 min</span>
-                                    <span><i class="fas fa-star"></i> 4.6</span>
-                                </div>
-                                <button class="btn btn-sm btn-light">View Details</button>
-                            </div>
-                            <div class="play-icon">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <div class="movie-badges">
-                                <div class="movie-badge premium">3D</div>
-                                <div class="movie-badge">IMDb 8.0</div>
-                            </div>
-                            <button class="bookmark-btn">
-                                <i class="far fa-bookmark"></i>
-                            </button>
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">Avatar: The Way of Water</h3>
-                            <div class="movie-meta">
-                                <div class="movie-rating">
-                                    <i class="fas fa-star"></i>
-                                    <span>4.6</span>
-                                </div>
-                                <div class="movie-year">2023</div>
-                            </div>
-                            <div class="movie-genres">Action, Adventure, Fantasy</div>
-                            <div class="movie-actions">
-                                <div class="age-rating">13</div>
-                                <button class="btn-book" onclick="location.href='movie.html';">Book Now</button>
-                                <button class="btn-trailer">
-                                    <i class="fas fa-film"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
+               
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1558,8 +1161,6 @@
                     const image = movieCard.querySelector('.movie-poster img').src;
                     const rating = movieCard.querySelector('.movie-rating span') ? 
                                   movieCard.querySelector('.movie-rating span').textContent : '4.0';
-                    const genres = movieCard.querySelector('.movie-genres') ? 
-                                 movieCard.querySelector('.movie-genres').textContent : 'Action, Drama';
                     
                     // Create sample movie data
                     const movieData = {

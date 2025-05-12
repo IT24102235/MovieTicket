@@ -322,67 +322,64 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-ticket-alt me-2 text-primary"></i>
-                    <span class="fw-bold">CineApp</span>
-                </div>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto me-4">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="allmovies.html">Movies</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="shop.html">Food & Beverages</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="about.html">About Us</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact Us</a>
-                    </li>
-                </ul>
-                <div class="d-flex align-items-center">
-                    <a href="cart.html" class="btn btn-sm rounded-circle bg-light me-3 position-relative">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-count">
-                            0
-                        </span>
+   <!-- Navigation Bar -->
+   <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-ticket-alt me-2 text-primary"></i>
+                <span class="fw-bold">CineApp</span>
+            </div>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto me-4">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="allmovies.html">Movies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="about.html">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact Us</a>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center">
+                <!-- Login/Signup buttons (shown when logged out) -->
+                <a href="login.html" class="btn btn-outline-primary rounded-pill px-4 py-2 me-2 login-btn">
+                    <i class="fas fa-user-circle me-1"></i> Login
+                </a>
+                <a href="signup.html" class="btn btn-primary rounded-pill px-4 py-2 signup-btn">
+                    <i class="fas fa-user-plus me-1"></i> Sign Up
+                </a>
+                
+                <!-- Profile dropdown (shown when logged in) -->
+                <div class="dropdown profile-menu" style="display: none;">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="rounded-circle overflow-hidden" style="width: 35px; height: 35px;">
+                            <img src="https://ui-avatars.com/api/?name=John+Doe&background=0065ff&color=fff" class="img-fluid" alt="Profile">
+                        </div>
+                        <span class="ms-2 d-none d-sm-inline user-name">John</span>
                     </a>
-                    <!-- Login/Signup buttons (shown when logged out) -->
-                    <a href="login.html" class="btn btn-sm btn-outline-primary me-2 login-btn">Login</a>
-                    <a href="signup.html" class="btn btn-sm btn-primary signup-btn">Sign Up</a>
-                    
-                    <!-- Profile dropdown (shown when logged in) -->
-                    <div class="dropdown profile-menu" style="display: none;">
-                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="rounded-circle overflow-hidden" style="width: 35px; height: 35px;">
-                                <img src="https://ui-avatars.com/api/?name=John+Doe&background=0065ff&color=fff" class="img-fluid" alt="Profile">
-                            </div>
-                            <span class="ms-2 d-none d-sm-inline user-name">John</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-ticket-alt me-2"></i> My Tickets</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i> Watchlist</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item logout-btn" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
-                        </ul>
-                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-ticket-alt me-2"></i> My Tickets</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i> Watchlist</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item logout-btn" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
+
+<br><br><br>
 
     <!-- Hero Section -->
     <section class="about-hero text-center">
@@ -402,9 +399,6 @@
                     <p>What started as a small startup with a handful of partner theaters has now grown into a nationwide platform serving millions of movie lovers. Our journey has been defined by innovation, perseverance, and an unwavering commitment to enhancing the cinema experience.</p>
                     <p>Today, CineApp is the preferred movie ticketing platform for over 500 theaters nationwide, offering not just tickets but a complete cinema experience—from trailers and reviews to food ordering and exclusive deals.</p>
                     <a href="#" class="btn btn-primary mt-3">Learn More About Our Journey</a>
-                </div>
-                <div class="col-lg-6">
-                    <img src="https://source.unsplash.com/random/600x400/?cinema,team" alt="Our Team" class="img-fluid rounded-4 shadow">
                 </div>
             </div>
         </div>
@@ -458,53 +452,6 @@
                                 <li><i class="fas fa-check-circle text-primary me-2"></i> Community Engagement</li>
                             </ul>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Counter Section -->
-    <section class="about-section bg-light py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                    <div class="counter-box fade-up">
-                        <div class="counter-icon">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <div class="counter-number" data-count="500">0+</div>
-                        <h5>Partner Theaters</h5>
-                    </div>
-                </div>
-                
-                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
-                    <div class="counter-box fade-up">
-                        <div class="counter-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="counter-number" data-count="2.5">0M+</div>
-                        <h5>Active Users</h5>
-                    </div>
-                </div>
-                
-                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                    <div class="counter-box fade-up">
-                        <div class="counter-icon">
-                            <i class="fas fa-ticket-alt"></i>
-                        </div>
-                        <div class="counter-number" data-count="10">0M+</div>
-                        <h5>Tickets Sold</h5>
-                    </div>
-                </div>
-                
-                <div class="col-lg-3 col-md-6">
-                    <div class="counter-box fade-up">
-                        <div class="counter-icon">
-                            <i class="fas fa-city"></i>
-                        </div>
-                        <div class="counter-number" data-count="75">0+</div>
-                        <h5>Cities Covered</h5>
                     </div>
                 </div>
             </div>
@@ -583,106 +530,43 @@
                         <p class="text-muted">Creative marketer who connects audiences with cinema experiences.</p>
                     </div>
                 </div>
+                
+                <div class="col-lg-3 col-md-6 fade-up">
+                    <div class="team-member">
+                        <div class="team-img-container">
+                            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Team Member" class="team-img">
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <h4 class="team-name">James Wilson</h4>
+                        <p class="team-role">UX Design Lead</p>
+                        <p class="text-muted">Creating intuitive and engaging user interfaces for seamless booking.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 fade-up">
+                    <div class="team-member">
+                        <div class="team-img-container">
+                            <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Team Member" class="team-img">
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <h4 class="team-name">Olivia Patel</h4>
+                        <p class="team-role">Customer Experience</p>
+                        <p class="text-muted">Ensuring every user interaction with CineApp exceeds expectations.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Our Journey Timeline -->
-    <section class="about-section bg-light">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="section-title">Our Journey</h2>
-                <p class="text-muted">From startup to becoming the nation's leading movie ticketing platform</p>
-            </div>
-            
-            <ul class="timeline">
-                <li class="fade-up">
-                    <div class="timeline-badge">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>2019 - The Beginning</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p>CineApp was founded with a mission to simplify movie ticket booking. We started with just 5 partner theaters in one city.</p>
-                        </div>
-                    </div>
-                </li>
-                
-                <li class="timeline-inverted fade-up">
-                    <div class="timeline-badge">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>2020 - Expansion Begins</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p>Despite pandemic challenges, we expanded to 20 cities and introduced our mobile app, which quickly gained 100,000+ downloads.</p>
-                        </div>
-                    </div>
-                </li>
-                
-                <li class="fade-up">
-                    <div class="timeline-badge">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>2021 - Growth & Recognition</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p>CineApp won "Best Entertainment Tech Startup" and reached 1 million users. Partnerships grew to over 200 theaters nationwide.</p>
-                        </div>
-                    </div>
-                </li>
-                
-                <li class="timeline-inverted fade-up">
-                    <div class="timeline-badge">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>2022 - New Features & Integration</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p>Launched food & beverage ordering, seat selection with VR preview, and integrated with major theater loyalty programs.</p>
-                        </div>
-                    </div>
-                </li>
-                
-                <li class="fade-up">
-                    <div class="timeline-badge">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>2023 - Nationwide Coverage</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p>Reached 500+ theater partnerships across 75 cities. Monthly active users surpassed 2.5 million with 10M+ tickets sold.</p>
-                        </div>
-                    </div>
-                </li>
-                
-                <li class="timeline-inverted fade-up">
-                    <div class="timeline-badge">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="timeline-panel">
-                        <div class="timeline-heading">
-                            <h4>2024 - Today & Beyond</h4>
-                        </div>
-                        <div class="timeline-body">
-                            <p>Continuing our mission to innovate the cinema experience with new technology, more features, and expanding internationally.</p>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </section>
-
+   
     <!-- Testimonials Section -->
     <section class="about-section">
         <div class="container">
@@ -739,18 +623,6 @@
                         <p class="text-muted">Premium Member</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="about-section bg-primary text-white text-center">
-        <div class="container">
-            <h2 class="mb-4">Ready to Experience the Best of Cinema?</h2>
-            <p class="lead mb-4">Join millions of movie lovers who are using CineApp for the ultimate cinema experience.</p>
-            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <a href="allmovies.html" class="btn btn-light btn-lg"><i class="fas fa-ticket-alt me-2"></i> Book a Movie</a>
-                <a href="contact.html" class="btn btn-outline-light btn-lg"><i class="fas fa-envelope me-2"></i> Contact Us</a>
             </div>
         </div>
     </section>

@@ -20,67 +20,60 @@ document.addEventListener('DOMContentLoaded', function() {
     // Login Form Functionality
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const rememberMe = document.getElementById('rememberMe')?.checked || false;
-            
-            // Add form validation
-            let isValid = true;
-            if (!validateEmail(email)) {
-                setInvalid(document.getElementById('email'), 'Please enter a valid email address');
-                isValid = false;
-            } else {
-                setValid(document.getElementById('email'));
-            }
-            
-            if (password.trim() === '') {
-                setInvalid(document.getElementById('password'), 'Please enter your password');
-                isValid = false;
-            } else {
-                setValid(document.getElementById('password'));
-            }
-            
-            if (isValid) {
-                // For demonstration purposes we'll simulate a successful login
-                // In a real application, you would send this data to the server for authentication
-                
-                // Simulate API call with loading state
-                const loginButton = loginForm.querySelector('button[type="submit"]');
-                const originalText = loginButton.innerHTML;
-                
-                loginButton.disabled = true;
-                loginButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Signing in...';
-                
-                setTimeout(() => {
-                    // In a real app, you would validate credentials against a backend
-                    // For demo purposes, we'll accept any credentials
+            const formData = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                console.log('Sending login request to:', `${API_BASE_URL}/api/auth/login`);
+                const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                console.log('Response status:', response.status);
+                const data = await response.json();
+                console.log('Response data:', data);
+
+                if (response.ok && data.token) {
+                    // Store the JWT token
+                    localStorage.setItem('token', data.token);
                     
-                    // Create user data
-                    const userData = {
-                        email: email,
-                        firstName: email.split('@')[0], // Extract name from email for demo
-                        lastName: '',
-                        rememberMe: rememberMe
-                    };
+                    // Store user information
+                    localStorage.setItem('userLoggedIn', 'true');
+                    localStorage.setItem('currentUser', JSON.stringify({
+                        firstName: data.firstName,
+                        lastName: data.lastName,
+                        email: data.email
+                    }));
                     
-                    // Login user
+                    // Update UI
                     if (window.UserSession) {
-                        window.UserSession.login(userData);
+                        window.UserSession.updateUI();
                     }
                     
-                    // Show success notification
-                    if (window.showNotification) {
-                        window.showNotification('Login successful! Welcome back.', 'success');
-                    }
-                    
-                    // Redirect to home page or previous page
-                    const returnUrl = new URLSearchParams(window.location.search).get('returnUrl');
-                    window.location.href = returnUrl || 'index.html';
-                    
-                }, 1500);
+                    // Redirect to home page
+                    window.location.href = 'index.html';
+                } else {
+                    const alertElement = document.getElementById('loginAlert');
+                    alertElement.textContent = data.message || 'Invalid email or password';
+                    alertElement.classList.remove('d-none');
+                    alertElement.classList.add('alert-danger');
+                }
+            } catch (error) {
+                console.error('Detailed error:', error);
+                const alertElement = document.getElementById('loginAlert');
+                alertElement.textContent = 'An error occurred during login. Please try again.';
+                alertElement.classList.remove('d-none');
+                alertElement.classList.add('alert-danger');
             }
         });
     }
@@ -104,113 +97,53 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
         
-        signupForm.addEventListener('submit', function(e) {
+        signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            const termsConditions = document.getElementById('termsConditions').checked;
-            
-            // Add form validation
-            let isValid = true;
-            
-            // Validate first name
-            if (firstName.trim() === '') {
-                setInvalid(document.getElementById('firstName'), 'Please enter your first name');
-                isValid = false;
-            } else {
-                setValid(document.getElementById('firstName'));
-            }
-            
-            // Validate last name
-            if (lastName.trim() === '') {
-                setInvalid(document.getElementById('lastName'), 'Please enter your last name');
-                isValid = false;
-            } else {
-                setValid(document.getElementById('lastName'));
-            }
-            
-            // Validate email
-            if (!validateEmail(email)) {
-                setInvalid(document.getElementById('email'), 'Please enter a valid email address');
-                isValid = false;
-            } else {
-                setValid(document.getElementById('email'));
-            }
-            
-            // Validate password
-            if (password.trim() === '') {
-                setInvalid(passwordInput, 'Please create a password');
-                isValid = false;
-            } else if (password.length < 8) {
-                setInvalid(passwordInput, 'Password must be at least 8 characters');
-                isValid = false;
-            } else {
-                setValid(passwordInput);
-            }
-            
-            // Validate password confirmation
-            if (confirmPassword !== password) {
-                setInvalid(confirmPasswordInput, 'Passwords do not match');
-                isValid = false;
-            } else {
-                setValid(confirmPasswordInput);
-            }
-            
-            // Validate terms and conditions
-            if (!termsConditions) {
-                document.getElementById('termsConditions').nextElementSibling.nextElementSibling.style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('termsConditions').nextElementSibling.nextElementSibling.style.display = 'none';
-            }
-            
-            if (isValid) {
-                // For demonstration purposes we'll simulate a successful registration
-                
-                // Simulate API call with loading state
-                const signupButton = signupForm.querySelector('button[type="submit"]');
-                const originalText = signupButton.innerHTML;
-                
-                signupButton.disabled = true;
-                signupButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creating account...';
-                
-                setTimeout(() => {
-                    // Simulate successful signup
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                console.log('Sending signup request to:', `${API_BASE_URL}/api/auth/signup`);
+                const response = await fetch(`${API_BASE_URL}/api/auth/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                console.log('Response status:', response.status);
+                const data = await response.json();
+                console.log('Response data:', data);
+
+                if (response.ok) {
+                    const alertElement = document.getElementById('signupAlert');
+                    alertElement.classList.remove('alert-danger');
+                    alertElement.classList.add('alert-success');
+                    alertElement.textContent = data.message;
+                    alertElement.classList.remove('d-none');
                     
-                    // Create user data
-                    const userData = {
-                        firstName: firstName,
-                        lastName: lastName,
-                        email: email
-                    };
-                    
-                    // Store in localStorage for demo purposes
-                    localStorage.setItem('registeredUser', JSON.stringify(userData));
-                    
-                    // Show success message
-                    const signupAlert = document.getElementById('signupAlert');
-                    signupAlert.classList.remove('d-none');
-                    signupAlert.textContent = 'Account created successfully! Redirecting to login...';
-                    
-                    // Automatically log in the user
-                    if (window.UserSession) {
-                        window.UserSession.login(userData);
-                    }
-                    
-                    // Show success notification
-                    if (window.showNotification) {
-                        window.showNotification('Account created successfully!', 'success');
-                    }
-                    
-                    // Redirect to home page
                     setTimeout(() => {
-                        window.location.href = 'index.html';
+                        window.location.href = 'login.html';
                     }, 2000);
-                }, 1500);
+                } else {
+                    const alertElement = document.getElementById('signupAlert');
+                    alertElement.textContent = data.message || 'An error occurred during signup';
+                    alertElement.classList.remove('d-none');
+                    alertElement.classList.add('alert-danger');
+                }
+            } catch (error) {
+                console.error('Detailed error:', error);
+                const alertElement = document.getElementById('signupAlert');
+                alertElement.textContent = 'An error occurred during signup. Please try again.';
+                alertElement.classList.remove('d-none');
+                alertElement.classList.add('alert-danger');
             }
         });
     }
@@ -280,3 +213,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+// Update the API base URL
+const API_BASE_URL = 'http://localhost:8081';

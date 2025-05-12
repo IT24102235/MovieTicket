@@ -1053,3 +1053,41 @@
                 margin-top: 10px;
             }
         }
+
+        /* Profile Menu Styles */
+        .profile-menu {
+            position: relative;
+        }
+
+        .profile-menu .dropdown-toggle::after {
+            display: none;
+        }
+
+        .profile-menu .dropdown-menu {
+            min-width: 200px;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+            border: none;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            border-radius: 0.5rem;
+        }
+
+        .profile-menu .dropdown-item {
+            padding: 0.5rem 1rem;
+            color: var(--text-dark);
+            transition: all 0.2s;
+        }
+
+        .profile-menu .dropdown-item:hover {
+            background-color: var(--light-bg);
+            color: var(--primary);
+        }
+
+        .profile-menu .dropdown-divider {
+            margin: 0.5rem 0;
+        }
+
+        .profile-menu .user-name {
+            font-weight: 500;
+            color: var(--text-dark);
+        }

@@ -46,13 +46,22 @@ const UserSession = {
             signupButtons.forEach(btn => btn.style.display = 'none');
             
             // Show profile menu
-            profileMenus.forEach(menu => menu.style.display = 'block');
-            
-            // Update user name
-            const user = this.getCurrentUser();
-            if (user && userNameElements) {
-                userNameElements.forEach(element => element.textContent = user.firstName || user.email);
-            }
+            profileMenus.forEach(menu => {
+                menu.style.display = 'block';
+                // Update user name in profile menu
+                const user = this.getCurrentUser();
+                if (user) {
+                    const nameElement = menu.querySelector('.user-name');
+                    if (nameElement) {
+                        nameElement.textContent = user.firstName;
+                    }
+                    // Update profile image
+                    const imgElement = menu.querySelector('img');
+                    if (imgElement) {
+                        imgElement.src = `https://ui-avatars.com/api/?name=${user.firstName}+${user.lastName}&background=0065ff&color=fff`;
+                    }
+                }
+            });
         } else {
             // Show login/signup buttons
             loginButtons.forEach(btn => btn.style.display = 'inline-block');
@@ -325,6 +334,9 @@ window.updateCartCount = updateCartCount;
 window.formatCurrency = formatCurrency;
 window.formatDate = formatDate;
 
+// Make UserSession globally available
+window.UserSession = UserSession;
+
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Add notification styles
@@ -342,6 +354,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
-// Make functions globally available
-window.UserSession = UserSession;

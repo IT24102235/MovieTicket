@@ -19,18 +19,7 @@
                     <span class="fs-4 fw-bold text-white">CineApp</span>
                 </div>
             </div>
-            
-            <div class="sidebar-menu">
-                <div class="menu-category">Main</div>
-                <ul class="list-unstyled">
-                    <li class="sidebar-item">
-                        <a href="dashboard.html" class="sidebar-link">
-                            <i class="fas fa-tachometer-alt sidebar-icon"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                </ul>
-                
+
                 <div class="menu-category">Content Management</div>
                 <ul class="list-unstyled">
                     <li class="sidebar-item">
@@ -45,10 +34,9 @@
                             <span>Showtimes</span>
                         </a>
                     </li>
-                </ul>
-            </div>
-        </nav>
-        
+                  </ul>
+           </nav>
+
         <!-- Main Content -->
         <div class="main-content">
             <!-- Top Navbar -->
@@ -58,7 +46,7 @@
                     <button id="sidebarToggle" class="btn btn-icon btn-sm">
                         <i class="fas fa-bars"></i>
                     </button>
-                    
+
                     <!-- Search Form -->
                     <div class="ms-4 me-auto flex-grow-1">
                         <div class="input-group">
@@ -68,7 +56,7 @@
                             <input type="text" class="form-control border-start-0" placeholder="Search showtimes...">
                         </div>
                     </div>
-                    
+
                     <ul class="navbar-nav ms-auto">
                         <!-- Settings -->
                         <li class="nav-item">
@@ -76,7 +64,7 @@
                                 <i class="fas fa-cog"></i>
                             </a>
                         </li>
-                        
+
                         <!-- User Profile -->
                         <li class="nav-item ms-2">
                             <div class="d-flex align-items-center">
@@ -92,7 +80,7 @@
                     </ul>
                 </div>
             </nav>
-            
+
             <!-- Page Content -->
             <div class="content-page">
                 <div class="container-fluid">
@@ -114,10 +102,10 @@
                             </button>
                         </div>
                     </div>
-                    
+
                     <!-- Alert Container -->
                     <div id="alertContainer"></div>
-                    
+
                     <!-- Filters Section -->
                     <div class="card shadow mb-4">
                         <div class="card-body p-4">
@@ -142,7 +130,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Showtimes Table -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
@@ -181,7 +169,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                             <!-- Loading State -->
                             <div id="loadingState" class="text-center py-5">
                                 <div class="spinner-border text-primary" role="status">
@@ -189,7 +177,7 @@
                                 </div>
                                 <p class="mt-2 text-muted">Loading showtimes...</p>
                             </div>
-                            
+
                             <!-- Empty State -->
                             <div id="emptyShowtimeState" class="text-center py-5 d-none">
                                 <img src="https://via.placeholder.com/150x150?text=No+Showtimes" alt="No Showtimes" class="mb-3" style="opacity: 0.7;">
@@ -201,7 +189,7 @@
                             </div>
                         </div>
                     </div>
-            
+
             <!-- Footer -->
             <footer class="footer">
                 <div class="container-fluid">
@@ -231,7 +219,7 @@
                 <div class="modal-body p-4">
                     <form id="showtimeForm">
                         <input type="hidden" id="showtimeId">
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-12">
                                 <label for="movie" class="form-label">Select Movie <span class="text-danger">*</span></label>
@@ -241,7 +229,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="date" class="form-label">Date <span class="text-danger">*</span></label>
@@ -252,7 +240,7 @@
                                 <input type="time" class="form-control" id="time" required>
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="price" class="form-label">Ticket Price <span class="text-danger">*</span></label>
@@ -290,7 +278,7 @@
                     <div class="text-center mb-4">
                         <img id="viewMoviePoster" src="https://via.placeholder.com/300x450?text=Movie+Poster" alt="Movie Poster" class="img-fluid rounded-3" style="max-height: 200px;">
                     </div>
-                    
+
                     <div class="row mb-3">
                         <div class="col-md-6 mb-2 mb-md-0">
                             <h6 class="text-muted">Movie</h6>
@@ -301,7 +289,7 @@
                             <p id="viewTheaterName" class="fw-medium">Theater Name</p>
                         </div>
                     </div>
-                    
+
                     <div class="row mb-3">
                         <div class="col-md-6 mb-2 mb-md-0">
                             <h6 class="text-muted">Date</h6>
@@ -312,7 +300,7 @@
                             <p id="viewTime" class="fw-medium">Time</p>
                         </div>
                     </div>
-                    
+
                     <div class="row mb-3">
                         <div class="col-md-6 mb-2 mb-md-0">
                             <h6 class="text-muted">Ticket Price</h6>
@@ -323,14 +311,14 @@
                             <p id="viewSeats" class="fw-medium">0</p>
                         </div>
                     </div>
-                    
+
                     <div id="viewSpecialInfo" class="mb-3 d-none">
                         <h6 class="text-muted">Special Showtime Details</h6>
                         <div class="p-3 bg-light-warning rounded-3">
                             <p id="viewSpecialDetails" class="mb-0">Special event details here.</p>
                         </div>
                     </div>
-                    
+
                     <input type="hidden" id="deleteShowtimeId">
                 </div>
                 <div class="modal-footer border-top-0">
@@ -382,7 +370,7 @@
             { id: 4, title: "Dune", poster: "https://via.placeholder.com/300x450?text=Dune" },
             { id: 5, title: "Oppenheimer", poster: "https://via.placeholder.com/300x450?text=Oppenheimer" }
         ];
-        
+
         // Sample data for theaters
         const theaters = [
             { id: 1, name: "Theater 1", capacity: 150 },
@@ -391,7 +379,7 @@
             { id: 4, name: "VIP Theater", capacity: 80 },
             { id: 5, name: "3D Theater", capacity: 100 }
         ];
-        
+
         // Sample data for showtimes
         let showtimes = [
             { id: 1, movieId: 1, theaterId: 3, date: "2024-06-15", time: "18:30", price: 12.99, availableSeats: 120, isSpecial: false, specialDetails: "" },
@@ -400,20 +388,20 @@
             { id: 4, movieId: 5, theaterId: 3, date: "2024-06-17", time: "19:30", price: 14.99, availableSeats: 180, isSpecial: false, specialDetails: "" },
             { id: 5, movieId: 4, theaterId: 4, date: "2024-06-18", time: "21:00", price: 16.99, availableSeats: 60, isSpecial: false, specialDetails: "" }
         ];
-        
+
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize UI components
             initUI();
-            
+
             // Load data
             loadMovies();
             loadTheaters();
             loadShowtimes();
-            
+
             // Set up event listeners
             setupEventListeners();
         });
-        
+
         // Initialize UI components
         function initUI() {
             // Initialize tooltips
@@ -421,12 +409,12 @@
             tooltipTriggerList.map(function (tooltipTriggerEl) {
                 return new bootstrap.Tooltip(tooltipTriggerEl);
             });
-            
+
             // Toggle sidebar
             const sidebarToggle = document.getElementById('sidebarToggle');
             const sidebar = document.getElementById('sidebar');
             const mainContent = document.querySelector('.main-content');
-            
+
             if (sidebarToggle && sidebar && mainContent) {
                 sidebarToggle.addEventListener('click', function() {
                     sidebar.classList.toggle('collapsed');
@@ -434,31 +422,31 @@
                 });
             }
         }
-        
+
         // Load movies into dropdowns
         function loadMovies() {
             const movieDropdown = document.getElementById('movie');
             const filterMovieDropdown = document.getElementById('filterMovie');
-            
+
             if (movieDropdown) {
                 // Clear existing options (except the first one)
                 while (movieDropdown.options.length > 1) {
                     movieDropdown.options.remove(1);
                 }
-                
+
                 // Add movie options
                 movies.forEach(movie => {
                     const option = new Option(movie.title, movie.id);
                     movieDropdown.add(option);
                 });
             }
-            
+
             if (filterMovieDropdown) {
                 // Clear existing options (except the first one)
                 while (filterMovieDropdown.options.length > 1) {
                     filterMovieDropdown.options.remove(1);
                 }
-                
+
                 // Add movie options for filter
                 movies.forEach(movie => {
                     const option = new Option(movie.title, movie.id);
@@ -466,31 +454,31 @@
                 });
             }
         }
-        
+
         // Load theaters into dropdowns
         function loadTheaters() {
             const theaterDropdown = document.getElementById('theater');
             const filterTheaterDropdown = document.getElementById('filterTheater');
-            
+
             if (theaterDropdown) {
                 // Clear existing options (except the first one)
                 while (theaterDropdown.options.length > 1) {
                     theaterDropdown.options.remove(1);
                 }
-                
+
                 // Add theater options
                 theaters.forEach(theater => {
                     const option = new Option(`${theater.name} (Capacity: ${theater.capacity})`, theater.id);
                     theaterDropdown.add(option);
                 });
             }
-            
+
             if (filterTheaterDropdown) {
                 // Clear existing options (except the first one)
                 while (filterTheaterDropdown.options.length > 1) {
                     filterTheaterDropdown.options.remove(1);
                 }
-                
+
                 // Add theater options for filter
                 theaters.forEach(theater => {
                     const option = new Option(theater.name, theater.id);
@@ -498,59 +486,59 @@
                 });
             }
         }
-        
+
         // Load showtimes data and populate the table
         function loadShowtimes() {
             const tableBody = document.getElementById('showtimes-list');
             const emptyState = document.getElementById('emptyShowtimeState');
             const loadingState = document.getElementById('loadingState');
             const table = document.getElementById('showtimesTable');
-            
+
             if (tableBody && emptyState && loadingState) {
                 // Simulate AJAX loading delay
                 setTimeout(() => {
                     // Hide loading state
                     loadingState.classList.add('d-none');
-                    
+
                     if (showtimes.length === 0) {
                         // Show empty state if no showtimes
                         if (table) table.classList.add('d-none');
                         emptyState.classList.remove('d-none');
                         return;
                     }
-                    
+
                     // Show table and hide empty state
                     if (table) table.classList.remove('d-none');
                     emptyState.classList.add('d-none');
-                    
+
                     // Clear existing rows
                     tableBody.innerHTML = '';
-                    
+
                     // Add showtimes to table
                     showtimes.forEach(showtime => {
                         const row = createShowtimeRow(showtime);
                         tableBody.appendChild(row);
                     });
-                    
+
                     // Set up row event listeners
                     setupRowEventListeners();
                 }, 1000); // Simulate network delay
             }
         }
-        
+
         // Create a table row for a showtime
         function createShowtimeRow(showtime) {
             const row = document.createElement('tr');
             row.setAttribute('data-id', showtime.id);
-            
+
             const movie = movies.find(m => m.id == showtime.movieId);
             const theater = theaters.find(t => t.id == showtime.theaterId);
-            
+
             if (!movie || !theater) return row;
-            
+
             // Format date and time
             const formattedDate = new Date(showtime.date).toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
-            
+
             // Create row HTML
             row.innerHTML = `
                 <td>
@@ -590,10 +578,10 @@
                     </div>
                 </td>
             `;
-            
+
             return row;
         }
-        
+
         // Format time to AM/PM
         function formatTime(time) {
             const [hours, minutes] = time.split(':');
@@ -602,7 +590,7 @@
             const hour12 = hour % 12 || 12;
             return `${hour12}:${minutes} ${ampm}`;
         }
-        
+
         // Get badge class based on available seats percentage
         function getBadgeClass(available, capacity) {
             const percentage = (available / capacity) * 100;
@@ -610,17 +598,17 @@
             if (percentage <= 50) return 'bg-warning text-dark';
             return 'bg-success';
         }
-        
+
         // Set up event listeners
         function setupEventListeners() {
             // Add new showtime button - already handled by data-bs-target
-            
+
             // Save showtime button
             const saveShowtimeBtn = document.getElementById('saveShowtimeBtn');
             if (saveShowtimeBtn) {
                 saveShowtimeBtn.addEventListener('click', saveShowtime);
             }
-            
+
             // Select all checkbox
             const selectAllCheckbox = document.getElementById('selectAllShowtimes');
             if (selectAllCheckbox) {
@@ -631,22 +619,22 @@
                     });
                 });
             }
-            
+
             // Search functionality
             const searchInput = document.getElementById('searchShowtime');
             if (searchInput) {
                 searchInput.addEventListener('input', filterShowtimes);
             }
-            
+
             // Filter functionality
             const filterMovie = document.getElementById('filterMovie');
             const filterTheater = document.getElementById('filterTheater');
             const filterDate = document.getElementById('filterDate');
-            
+
             if (filterMovie) filterMovie.addEventListener('change', filterShowtimes);
             if (filterTheater) filterTheater.addEventListener('change', filterShowtimes);
             if (filterDate) filterDate.addEventListener('change', filterShowtimes);
-            
+
             // Reset filters
             const resetFiltersBtn = document.getElementById('resetFilters');
             if (resetFiltersBtn) {
@@ -658,13 +646,13 @@
                     filterShowtimes();
                 });
             }
-            
+
             // Delete confirmation button
             const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
             if (confirmDeleteBtn) {
                 confirmDeleteBtn.addEventListener('click', deleteShowtime);
             }
-            
+
             // Edit showtime from view modal
             const editShowtimeFromViewBtn = document.getElementById('editShowtimeFromViewBtn');
             if (editShowtimeFromViewBtn) {
@@ -681,7 +669,7 @@
                     showtimeModal.show();
                 });
             }
-            
+
             // Export CSV button
             const exportCSVBtn = document.getElementById('exportCSV');
             if (exportCSVBtn) {
@@ -690,7 +678,7 @@
                     showAlert('Showtimes exported to CSV successfully.', 'success');
                 });
             }
-            
+
             // Print button
             const printShowtimesBtn = document.getElementById('printShowtimes');
             if (printShowtimesBtn) {
@@ -700,7 +688,7 @@
                 });
             }
         }
-        
+
         // Set up event listeners for table rows
         function setupRowEventListeners() {
             // View showtime button
@@ -711,7 +699,7 @@
                     viewShowtime(showtimeId);
                 });
             });
-            
+
             // Edit showtime button
             const editBtns = document.querySelectorAll('.edit-showtime-btn');
             editBtns.forEach(btn => {
@@ -720,7 +708,7 @@
                     prepareEditModal(showtimeId);
                 });
             });
-            
+
             // Delete showtime button
             const deleteBtns = document.querySelectorAll('.delete-showtime-btn');
             deleteBtns.forEach(btn => {
@@ -730,54 +718,54 @@
                 });
             });
         }
-        
+
         // Filter showtimes based on search and filter criteria
         function filterShowtimes() {
             const searchValue = document.getElementById('searchShowtime')?.value.toLowerCase() || '';
             const movieFilter = document.getElementById('filterMovie')?.value || 'all';
             const theaterFilter = document.getElementById('filterTheater')?.value || 'all';
             const dateFilter = document.getElementById('filterDate')?.value || '';
-            
+
             const rows = document.querySelectorAll('#showtimes-list tr');
             let visibleCount = 0;
-            
+
             rows.forEach(row => {
                 const showtimeId = row.getAttribute('data-id');
                 const showtime = showtimes.find(s => s.id == showtimeId);
-                
+
                 if (!showtime) return;
-                
+
                 const movie = movies.find(m => m.id == showtime.movieId);
                 const theater = theaters.find(t => t.id == showtime.theaterId);
-                
+
                 if (!movie || !theater) return;
-                
+
                 let matchesSearch = true;
                 let matchesMovie = true;
                 let matchesTheater = true;
                 let matchesDate = true;
-                
+
                 // Check search
                 if (searchValue !== '') {
-                    matchesSearch = movie.title.toLowerCase().includes(searchValue) || 
+                    matchesSearch = movie.title.toLowerCase().includes(searchValue) ||
                                    theater.name.toLowerCase().includes(searchValue);
                 }
-                
+
                 // Check movie filter
                 if (movieFilter !== 'all') {
                     matchesMovie = showtime.movieId == movieFilter;
                 }
-                
+
                 // Check theater filter
                 if (theaterFilter !== 'all') {
                     matchesTheater = showtime.theaterId == theaterFilter;
                 }
-                
+
                 // Check date filter
                 if (dateFilter !== '') {
                     matchesDate = showtime.date === dateFilter;
                 }
-                
+
                 // Show/hide row based on combined filters
                 if (matchesSearch && matchesMovie && matchesTheater && matchesDate) {
                     row.style.display = '';
@@ -786,11 +774,11 @@
                     row.style.display = 'none';
                 }
             });
-            
+
             // Show/hide empty state
             const emptyState = document.getElementById('emptyShowtimeState');
             const table = document.getElementById('showtimesTable');
-            
+
             if (visibleCount === 0) {
                 if (table) table.classList.add('d-none');
                 if (emptyState) emptyState.classList.remove('d-none');
@@ -799,23 +787,23 @@
                 if (emptyState) emptyState.classList.add('d-none');
             }
         }
-        
+
         // View showtime details
         function viewShowtime(showtimeId) {
             const showtime = showtimes.find(s => s.id == showtimeId);
-            
+
             if (showtime) {
                 const movie = movies.find(m => m.id == showtime.movieId);
                 const theater = theaters.find(t => t.id == showtime.theaterId);
-                
+
                 // Format date
-                const formattedDate = new Date(showtime.date).toLocaleDateString('en-US', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
+                const formattedDate = new Date(showtime.date).toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
                 });
-                
+
                 // Populate showtime details in view modal
                 document.getElementById('viewMoviePoster').src = movie.poster;
                 document.getElementById('viewMovieTitle').textContent = movie.title;
@@ -824,7 +812,7 @@
                 document.getElementById('viewTime').textContent = formatTime(showtime.time);
                 document.getElementById('viewPrice').textContent = `$${showtime.price.toFixed(2)}`;
                 document.getElementById('viewSeats').textContent = showtime.availableSeats;
-                
+
                 // Handle special showtime details
                 const specialInfoDiv = document.getElementById('viewSpecialInfo');
                 if (showtime.isSpecial && showtime.specialDetails) {
@@ -833,20 +821,20 @@
                 } else {
                     specialInfoDiv.classList.add('d-none');
                 }
-                
+
                 // Set showtime ID for edit/delete actions
                 document.getElementById('deleteShowtimeId').value = showtimeId;
-                
+
                 // Show modal
                 const viewModal = new bootstrap.Modal(document.getElementById('viewShowtimeModal'));
                 viewModal.show();
             }
         }
-        
+
         // Prepare edit modal with showtime data
         function prepareEditModal(showtimeId) {
             const showtime = showtimes.find(s => s.id == showtimeId);
-            
+
             if (showtime) {
                 // Set form values
                 document.getElementById('showtimeId').value = showtime.id;
@@ -856,38 +844,38 @@
                 document.getElementById('time').value = showtime.time;
                 document.getElementById('price').value = showtime.price;
                 document.getElementById('seats').value = showtime.availableSeats;
-                
+
                 // Set modal title
                 document.getElementById('showtimeModalTitle').textContent = 'Edit Showtime';
-                
+
                 // Show modal
                 const showtimeModal = new bootstrap.Modal(document.getElementById('showtimeModal'));
                 showtimeModal.show();
             }
         }
-        
+
         // Prepare delete confirmation modal
         function prepareDeleteModal(showtimeId) {
             const showtime = showtimes.find(s => s.id == showtimeId);
-            
+
             if (showtime) {
                 const movie = movies.find(m => m.id == showtime.movieId);
-                
+
                 document.getElementById('deleteShowtimeTitle').textContent = movie ? movie.title : 'this movie';
                 document.getElementById('deleteShowtimeId').value = showtimeId;
-                
+
                 const deleteModal = new bootstrap.Modal(document.getElementById('deleteShowtimeModal'));
                 deleteModal.show();
             }
         }
-        
+
         // Reset showtime form for adding new item
         function resetShowtimeForm() {
             document.getElementById('showtimeForm').reset();
             document.getElementById('showtimeId').value = '';
             document.getElementById('showtimeModalTitle').textContent = 'Add New Showtime';
         }
-        
+
         // Save showtime (add new or update existing)
         function saveShowtime() {
             // Get form values
@@ -898,13 +886,13 @@
             const time = document.getElementById('time').value;
             const price = parseFloat(document.getElementById('price').value);
             const availableSeats = parseInt(document.getElementById('seats').value);
-            
+
             // Validate form
             if (!movieId || !theaterId || !date || !time || !price || !availableSeats) {
                 showAlert('Please fill in all required fields.', 'danger');
                 return;
             }
-            
+
             // Create showtime object
             const showtimeData = {
                 movieId,
@@ -914,13 +902,13 @@
                 price,
                 availableSeats
             };
-            
+
             // Simulate loading state
             const saveButton = document.getElementById('saveShowtimeBtn');
             const originalText = saveButton.innerHTML;
             saveButton.disabled = true;
             saveButton.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Saving...';
-            
+
             setTimeout(() => {
                 if (showtimeId) {
                     // Update existing showtime
@@ -929,95 +917,95 @@
                     // Add new showtime
                     addShowtime(showtimeData);
                 }
-                
+
                 // Hide modal
                 const showtimeModal = bootstrap.Modal.getInstance(document.getElementById('showtimeModal'));
                 showtimeModal.hide();
-                
+
                 // Reset form for next use
                 resetShowtimeForm();
-                
+
                 // Reset button state
                 saveButton.disabled = false;
                 saveButton.innerHTML = originalText;
             }, 1000);
         }
-        
+
         // Add new showtime
         function addShowtime(showtimeData) {
             // In a real app, this would be an AJAX call to the server
-            
+
             // Generate new ID
             const newId = Math.max(...showtimes.map(s => s.id), 0) + 1;
-            
+
             // Add ID to showtime data
             showtimeData.id = newId;
-            
+
             // Add to showtimes array
             showtimes.push(showtimeData);
-            
+
             // Reload showtimes table
             loadShowtimes();
-            
+
             // Show success message
             const movie = movies.find(m => m.id == showtimeData.movieId);
             showAlert(`Showtime for "${movie.title}" has been added successfully.`, 'success');
         }
-        
+
         // Update existing showtime
         function updateShowtime(showtimeId, showtimeData) {
             // In a real app, this would be an AJAX call to the server
-            
+
             const index = showtimes.findIndex(s => s.id == showtimeId);
-            
+
             if (index !== -1) {
                 // Keep the ID
                 showtimeData.id = parseInt(showtimeId);
-                
+
                 // Update the showtime
                 showtimes[index] = showtimeData;
-                
+
                 // Reload showtimes table
                 loadShowtimes();
-                
+
                 // Show success message
                 const movie = movies.find(m => m.id == showtimeData.movieId);
                 showAlert(`Showtime for "${movie.title}" has been updated successfully.`, 'success');
             }
         }
-        
+
         // Delete showtime
         function deleteShowtime() {
             const showtimeId = document.getElementById('deleteShowtimeId').value;
-            
+
             if (showtimeId) {
                 const index = showtimes.findIndex(s => s.id == showtimeId);
-                
+
                 if (index !== -1) {
                     const showtime = showtimes[index];
                     const movie = movies.find(m => m.id == showtime.movieId);
                     const movieTitle = movie ? movie.title : 'Unknown Movie';
-                    
+
                     // Remove the showtime
                     showtimes.splice(index, 1);
-                    
+
                     // Reload showtimes table
                     loadShowtimes();
-                    
+
                     // Hide modal
                     const deleteModal = bootstrap.Modal.getInstance(document.getElementById('deleteShowtimeModal'));
                     deleteModal.hide();
-                    
+
                     // Show success message
                     showAlert(`Showtime for "${movieTitle}" has been deleted successfully.`, 'success');
                 }
             }
         }
-        
+
         // Show alert message
         function showAlert(message, type = 'success') {
             const alertContainer = document.getElementById('alertContainer');
-            
+
             if (alertContainer) {
                 const alert = document.createElement('div');
                 alert.className = `alert alert-${type} alert-dismissible fade show`;
@@ -1025,9 +1013,9 @@
                     ${message}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 `;
-                
+
                 alertContainer.appendChild(alert);
-                
+
                 // Auto close after 5 seconds
                 setTimeout(() => {
                     alert.classList.remove('show');
@@ -1037,7 +1025,7 @@
                 }, 5000);
             }
         }
-        
+
         // Initialize the page when the DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
             // Add showtime button - reset form when clicked

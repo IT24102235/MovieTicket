@@ -20,17 +20,6 @@
                     <span class="fs-4 fw-bold text-white">CineApp</span>
                 </div>
             </div>
-            
-            <div class="sidebar-menu">
-                <div class="menu-category">Main</div>
-                <ul class="list-unstyled">
-                    <li class="sidebar-item">
-                        <a href="dashboard.html" class="sidebar-link">
-                            <i class="fas fa-tachometer-alt sidebar-icon"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                </ul>
                 
                 <div class="menu-category">Content Management</div>
                 <ul class="list-unstyled">
@@ -144,10 +133,10 @@
                                             <th>Movie</th>
                                             <th>Release Date</th>
                                             <th>Duration</th>
-                                            <th>Genre</th>
-                                            <th>Status</th>
                                             <th>Rating</th>
                                             <th>Actions</th>
+                                        </tr>
+                                    </thead>
                                         </tr>
                                     </thead>
                                     <tbody id="moviesList">
@@ -189,34 +178,36 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="movieForm">
+                            <form id="movieForm" class="needs-validation" novalidate>
                                 <input type="hidden" id="movieId">
                                 
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <div class="image-upload-container" id="posterUpload">
+                                <div class="row g-3 mb-3">
+                                    <!-- Poster Upload Section -->
+                                    <div class="col-md-4">
+                                        <div class="image-upload-container border rounded p-2 text-center h-100 d-flex align-items-center justify-content-center" id="posterUpload" style="cursor: pointer;">
                                             <input type="file" id="posterInput" accept="image/*" style="display: none;">
-                                            <div id="posterPreviewContainer">
-                                                <i class="fas fa-upload fa-2x mb-2"></i>
+                                            <div id="posterPreviewContainer" class="py-4">
+                                                <i class="fas fa-image fa-2x mb-2 text-muted"></i>
                                                 <p class="mb-0">Upload Poster</p>
-                                                <small class="text-muted">(Recommended: 600x900px)</small>
+                                                <small class="text-muted">(600×900px)</small>
                                             </div>
-                                            <img id="posterPreview" class="image-preview d-none" alt="Poster Preview">
+                                            <img id="posterPreview" class="image-preview d-none img-fluid rounded" alt="Poster Preview">
                                         </div>
                                     </div>
                                     
+                                    <!-- Main Movie Details -->
                                     <div class="col-md-8">
                                         <div class="mb-3">
                                             <label for="title" class="form-label">Movie Title <span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="title" required>
                                         </div>
                                         
-                                        <div class="row">
-                                            <div class="col-md-6 mb-3">
+                                        <div class="row g-2">
+                                            <div class="col-md-6">
                                                 <label for="director" class="form-label">Director</label>
                                                 <input type="text" class="form-control" id="director">
                                             </div>
-                                            <div class="col-md-6 mb-3">
+                                            <div class="col-md-6">
                                                 <label for="releaseDate" class="form-label">Release Date <span class="text-danger">*</span></label>
                                                 <input type="date" class="form-control" id="releaseDate" required>
                                             </div>
@@ -224,29 +215,13 @@
                                     </div>
                                 </div>
                                 
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="duration" class="form-label">Duration (minutes) <span class="text-danger">*</span></label>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label for="duration" class="form-label">Duration (min) <span class="text-danger">*</span></label>
                                         <input type="number" class="form-control" id="duration" min="1" required>
                                     </div>
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="cast" class="form-label">Cast (Comma separated)</label>
-                                    <input type="text" class="form-control" id="cast" placeholder="e.g. Tom Hanks, Morgan Freeman, Jennifer Lawrence">
-                                </div>
-                                
-                                <div class="mb-3">
-                                    <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="description" rows="3" required></textarea>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="trailerLink" class="form-label">Trailer Link (YouTube)</label>
-                                        <input type="url" class="form-control" id="trailerLink" placeholder="https://youtube.com/watch?v=...">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
+                                    
+                                    <div class="col-md-4">
                                         <label for="price" class="form-label">Ticket Price <span class="text-danger">*</span></label>
                                         <div class="input-group">
                                             <span class="input-group-text">$</span>
@@ -255,13 +230,9 @@
                                     </div>
                                 </div>
                                 
-                                <div class="mb-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="featured">
-                                        <label class="form-check-label" for="featured">
-                                            Feature this movie on homepage
-                                        </label>
-                                    </div>
+                                <div class="mb-3 mt-3">
+                                    <label for="description" class="form-label">Description <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="description" rows="3" required></textarea>
                                 </div>
                             </form>
                         </div>
@@ -314,9 +285,6 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h4 id="viewMovieTitle" class="mb-3">Movie Title</h4>
-                                    <div class="mb-3">
-                                        <div id="viewMovieGenres"></div>
-                                    </div>
                                     <p id="viewMovieDescription" class="mb-4">Movie description will be shown here.</p>
                                     
                                     <div class="row mb-3">
@@ -335,20 +303,10 @@
                                             <h6 class="text-muted">Duration</h6>
                                             <p id="viewMovieDuration">120 min</p>
                                         </div>
-                                        <div class="col-md-6">
-                                            <h6 class="text-muted">Rating</h6>
-                                            <div id="viewMovieRating">
-                                                <i class="fas fa-star text-warning"></i>
-                                                <span>4.5</span>
-                                            </div>
-                                        </div>
                                     </div>
                                     
                                     <h6 class="text-muted">Cast</h6>
                                     <p id="viewMovieCast">Actor names will appear here</p>
-                                    
-                                    <h6 class="text-muted">Status</h6>
-                                    <div id="viewMovieStatus"><span class="badge bg-success">Now Showing</span></div>
                                     
                                     <h6 class="text-muted mt-3">Ticket Price</h6>
                                     <p id="viewMoviePrice">$12.99</p>
